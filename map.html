@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heritage Atlas Delhi — Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #F5F2EC; }
+    #map { width: 100%; height: 100vh; border-radius: 0; }
+    .legend {
+      background: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      line-height: 1.8;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .leaflet-popup-content-wrapper {
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .popup-era {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      color: #5F5E5A;
+      margin-bottom: 3px;
+    }
+    .popup-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1A1A1A;
+      margin-bottom: 2px;
+    }
+    .popup-meta {
+      font-size: 12px;
+      color: #5F5E5A;
+      margin-bottom: 8px;
+    }
+    .popup-link {
+      font-size: 12px;
+      font-weight: 500;
+      color: #C44030;
+      text-decoration: none;
+    }
+    .popup-link:hover { text-decoration: underline; }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    const map = L.map('map', {
+      center: [28.57, 77.21],
+      zoom: 11,
+      zoomControl: true,
+      scrollWheelZoom: false
+    });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '© OpenStreetMap contributors © CARTO',
+      maxZoom: 19
+    }).addTo(map);
+
+    const ERA_COLOURS = {
+      'Ancient':   '#6E9BAE',
+      'Sultanate': '#C4901A',
+      'Mughal':    '#8C7230',
+      'Colonial':  '#9E6070',
+      'Modern':    '#6868A0',
+    };
+
+    function makeIcon(era) {
+      const colour = ERA_COLOURS[era] || '#C44030';
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="32" viewBox="0 0 24 32">
+        <path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 20 12 20S24 21 24 12C24 5.4 18.6 0 12 0z" fill="${colour}"/>
+        <circle cx="12" cy="12" r="5" fill="white"/>
+      </svg>`;
+      return L.divIcon({
+        html: svg,
+        className: '',
+        iconSize: [24, 32],
+        iconAnchor: [12, 32],
+        popupAnchor: [0, -32]
+      });
+    }
+
+    const sites = [
+      { name: "Lal Kot",                    era: "Ancient",   year: "1052 CE", loc: "Mehrauli",        lat: 28.5185, lng: 77.1854, slug: "lal-kot" },
+      { name: "Anangtal Baoli",             era: "Ancient",   year: "1060 CE", loc: "Mehrauli",        lat: 28.5190, lng: 77.1862, slug: "anangtal-baoli" },
+      { name: "Qutub Minar",                era: "Sultanate", year: "1220 CE", loc: "Mehrauli",        lat: 28.5244, lng: 77.1855, slug: "qutub-minar" },
+      { name: "Hauz Khas Complex",          era: "Sultanate", year: "1352 CE", loc: "Hauz Khas",       lat: 28.5494, lng: 77.2001, slug: "hauz-khas-complex" },
+      { name: "Tughlaqabad Fort",           era: "Sultanate", year: "1321 CE", loc: "Tughlaqabad",     lat: 28.4830, lng: 77.2497, slug: "tughlaqabad-fort" },
+      { name: "Nizamuddin Dargah",          era: "Sultanate", year: "1325 CE", loc: "Nizamuddin",      lat: 28.5931, lng: 77.2475, slug: "nizamuddin-dargah" },
+      { name: "Chor Minar",                 era: "Sultanate", year: "14th C",  loc: "Hauz Khas",       lat: 28.5521, lng: 77.1989, slug: "chor-minar" },
+      { name: "Khirki Masjid",              era: "Sultanate", year: "1375 CE", loc: "Khirki Village",  lat: 28.5392, lng: 77.2098, slug: "khirki-masjid" },
+      { name: "Mehrauli Archaeological Park",era:"Sultanate", year: "Mixed",   loc: "Mehrauli",        lat: 28.5215, lng: 77.1852, slug: "mehrauli-archaeological-park" },
+      { name: "Purana Qila",                era: "Mughal",    year: "1538 CE", loc: "Mathura Road",    lat: 28.6113, lng: 77.2417, slug: "purana-qila" },
+      { name: "Adham Khan's Tomb",          era: "Mughal",    year: "1562 CE", loc: "Mehrauli",        lat: 28.5228, lng: 77.1847, slug: "adham-khans-tomb" },
+      { name: "Humayun's Tomb",             era: "Mughal",    year: "1572 CE", loc: "Nizamuddin",      lat: 28.5933, lng: 77.2507, slug: "humayuns-tomb" },
+      { name: "Red Fort",                   era: "Mughal",    year: "1648 CE", loc: "Old Delhi",       lat: 28.6562, lng: 77.2410, slug: "red-fort" },
+      { name: "Chandni Chowk",              era: "Mughal",    year: "1650 CE", loc: "Old Delhi",       lat: 28.6563, lng: 77.2300, slug: "chandni-chowk" },
+      { name: "Safdarjung Complex",         era: "Colonial",  year: "1754 CE", loc: "New Delhi",       lat: 28.5912, lng: 77.2087, slug: "safdarjung-complex" },
+      { name: "Rashtrapati Bhavan",         era: "Colonial",  year: "1929 CE", loc: "Raisina Hill",    lat: 28.6143, lng: 77.1993, slug: "rashtrapati-bhavan" },
+      { name: "India Gate",                 era: "Colonial",  year: "1931 CE", loc: "Rajpath",         lat: 28.6129, lng: 77.2295, slug: "india-gate" },
+      { name: "Connaught Place",            era: "Colonial",  year: "1933 CE", loc: "Central Delhi",   lat: 28.6315, lng: 77.2167, slug: "connaught-place" },
+      { name: "Jantar Mantar",              era: "Colonial",  year: "1724 CE", loc: "Connaught Place", lat: 28.6274, lng: 77.2166, slug: "jantar-mantar" },
+      { name: "Lotus Temple",               era: "Modern",    year: "1986 CE", loc: "Bahapur",         lat: 28.5535, lng: 77.2588, slug: "lotus-temple" },
+      { name: "Akshardham Temple",          era: "Modern",    year: "2005 CE", loc: "East Delhi",      lat: 28.6127, lng: 77.2773, slug: "akshardham-temple" },
+      { name: "National War Memorial",      era: "Modern",    year: "2019 CE", loc: "India Gate",      lat: 28.6125, lng: 77.2280, slug: "national-war-memorial" },
+      { name: "Safdarjung's Tomb",          era: "Colonial",  year: "1754 CE", loc: "New Delhi",       lat: 28.5900, lng: 77.2070, slug: "safdarjungs-tomb" },
+    ];
+
+    sites.forEach(site => {
+      const marker = L.marker([site.lat, site.lng], { icon: makeIcon(site.era) });
+      marker.bindPopup(`
+        <div style="min-width:180px;padding:4px 0;">
+          <div class="popup-era">${site.era.toUpperCase()} ERA</div>
+          <div class="popup-name">${site.name}</div>
+          <div class="popup-meta">${site.year} · ${site.loc}</div>
+          <a class="popup-link" href="site.html?slug=${site.slug}">View site →</a>
+        </div>
+      `, { maxWidth: 220 });
+      marker.addTo(map);
+    });
+
+    // Legend
+    const legend = L.control({ position: 'bottomright' });
+    legend.onAdd = function() {
+      const div = L.DomUtil.create('div', 'legend');
+      div.innerHTML = Object.entries(ERA_COLOURS).map(([era, colour]) => `
+        <div class="legend-item">
+          <div class="legend-dot" style="background:${colour};"></div>
+          ${era} Era
+        </div>`).join('');
+      return div;
+    };
+    legend.addTo(map);
+  </script>
+</body>
+</html>
