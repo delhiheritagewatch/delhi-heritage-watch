@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Heritage Sites — Delhi Heritage Watch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #F5F2EC; color: #1A1A1A; }
+
+    /* NAVBAR */
+    nav {
+      background: #C44030;
+      padding: 0 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav-links a {
+      font-size: 13px;
+      color: white;
+      text-decoration: none;
+      opacity: 0.9;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-cta {
+      border: 1px solid white;
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      color: white;
+      text-decoration: none;
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: #C44030;
+      padding: 48px 64px 40px;
+    }
+    .page-header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 8px;
+    }
+    .page-header p {
+      font-size: 15px;
+      color: #F0C8B0;
+    }
+
+    /* SEARCH + FILTERS */
+    .controls {
+      background: white;
+      padding: 20px 64px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid #E8E5DC;
+      flex-wrap: wrap;
+    }
+    .search-box {
+      flex: 1;
+      min-width: 200px;
+      padding: 10px 16px;
+      border: 1px solid #D3D1C7;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #1A1A1A;
+      background: #F5F2EC;
+    }
+    .search-box:focus { outline: none; border-color: #C44030; }
+    .era-filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .era-btn {
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .era-btn:hover { opacity: 0.85; }
+    .era-btn.active { box-shadow: 0 0 0 2px #1A1A1A; }
+    .era-btn[data-era="All"] { background: #1A1A1A; color: white; }
+    .era-btn[data-era="Ancient"] { background: #A8C5D4; color: #1A1A1A; }
+    .era-btn[data-era="Sultanate"] { background: #E8A830; color: #1A1A1A; }
+    .era-btn[data-era="Mughal"] { background: #C4A84A; color: #1A1A1A; }
+    .era-btn[data-era="Colonial"] { background: #D4A0A8; color: #1A1A1A; }
+    .era-btn[data-era="Modern"] { background: #A8A8CC; color: #1A1A1A; }
+
+    /* SITE COUNT */
+    .site-count {
+      padding: 16px 64px;
+      font-size: 13px;
+      color: #5F5E5A;
+    }
+
+    /* CARDS GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 8px 64px 64px;
+    }
+    .site-card {
+      border-radius: 12px;
+      padding: 24px;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .site-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    .card-era {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: #1A1A1A;
+      margin-bottom: 8px;
+      opacity: 0.7;
+    }
+    .card-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1A1A1A;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+    .card-meta {
+      font-size: 12px;
+      color: #5F5E5A;
+      margin-bottom: 12px;
+    }
+    .card-reports {
+      font-size: 11px;
+      font-weight: 500;
+      color: #993C1D;
+    }
+    .card-reports.no-reports { color: #3B6D11; }
+
+    /* ERA COLOURS */
+    .era-Ancient  { background: #A8C5D4; }
+    .era-Sultanate{ background: #E8A830; }
+    .era-Mughal   { background: #C4A84A; }
+    .era-Colonial { background: #D4A0A8; }
+    .era-Modern   { background: #A8A8CC; }
+
+    /* LOADING + EMPTY */
+    .loading {
+      text-align: center;
+      padding: 80px;
+      color: #5F5E5A;
+      font-size: 15px;
+    }
+    .loading-spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid #E8E5DC;
+      border-top-color: #C44030;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .empty {
+      text-align: center;
+      padding: 60px;
+      color: #5F5E5A;
+      grid-column: 1 / -1;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #1A1A1A;
+      color: #9F9E9A;
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+    }
+    footer a { color: #C44030; text-decoration: none; }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .page-header { padding: 32px 24px; }
+      .controls { padding: 16px 24px; }
+      .grid { padding: 8px 24px 48px; }
+      .site-count { padding: 12px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="https://fabulous-closet-147375.framer.app/" class="nav-logo">Heritage Atlas Delhi</a>
+    <div class="nav-links">
+      <a href="explore.html">Explore</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="about.html">About</a>
+      <a href="report.html" class="nav-cta">Report behaviour</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1>Explore heritage sites</h1>
+    <p>23 sites across five eras — documented from Pillars of Delhi by Arnav Agarwal</p>
+  </div>
+
+  <!-- SEARCH + FILTERS -->
+  <div class="controls">
+    <input
+      type="text"
+      class="search-box"
+      id="searchInput"
+      placeholder="Search by site name or location..."
+      oninput="filterSites()"
+    >
+    <div class="era-filters" id="eraFilters">
+      <button class="era-btn active" data-era="All" onclick="setEra('All', this)">All eras</button>
+      <button class="era-btn" data-era="Ancient" onclick="setEra('Ancient', this)">Ancient</button>
+      <button class="era-btn" data-era="Sultanate" onclick="setEra('Sultanate', this)">Sultanate</button>
+      <button class="era-btn" data-era="Mughal" onclick="setEra('Mughal', this)">Mughal</button>
+      <button class="era-btn" data-era="Colonial" onclick="setEra('Colonial', this)">Colonial</button>
+      <button class="era-btn" data-era="Modern" onclick="setEra('Modern', this)">Modern</button>
+    </div>
+  </div>
+
+  <!-- SITE COUNT -->
+  <div class="site-count" id="siteCount">Loading sites...</div>
+
+  <!-- CARDS GRID -->
+  <div class="grid" id="grid">
+    <div class="loading">
+      <div class="loading-spinner"></div>
+      Loading heritage sites...
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Heritage Atlas Delhi &nbsp;·&nbsp; Built on <a href="https://pillarsofdelhi.com">Pillars of Delhi</a> by Arnav Agarwal &nbsp;·&nbsp; Supported by INTACH</p>
+  </footer>
+
+  <script>
+    // ─── CONFIGURATION ───────────────────────────────────────────────────────
+    const AIRTABLE_TOKEN = 'patgyTl5lOKK7E3le.c2cf51cbc10f5fb51d840b1622987b3b99d0adcd403902278e24e39170faeb40';
+    const BASE_ID        = 'appQlkSSzr2fOSCIp';
+    const TABLE_NAME     = 'Sites';
+    // ─────────────────────────────────────────────────────────────────────────
+
+    let allSites = [];
+    let activeEra = 'All';
+
+    async function loadSites() {
+      try {
+        const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula=Published=TRUE()&sort[0][field]=Name&sort[0][direction]=asc`;
+        const res = await fetch(url, {
+          headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }
+        });
+        if (!res.ok) throw new Error(`Airtable error: ${res.status}`);
+        const data = await res.json();
+        allSites = data.records.map(r => r.fields);
+        renderCards(allSites);
+      } catch (err) {
+        document.getElementById('grid').innerHTML = `
+          <div class="empty">
+            <p style="color:#C44030;font-weight:500;margin-bottom:8px;">Could not load sites</p>
+            <p style="font-size:13px;">${err.message}</p>
+          </div>`;
+        document.getElementById('siteCount').textContent = '';
+      }
+    }
+
+    function renderCards(sites) {
+      const grid = document.getElementById('grid');
+      const count = document.getElementById('siteCount');
+
+      if (sites.length === 0) {
+        grid.innerHTML = '<div class="empty">No sites found matching your search.</div>';
+        count.textContent = '0 sites';
+        return;
+      }
+
+      count.textContent = `${sites.length} site${sites.length !== 1 ? 's' : ''}`;
+
+      grid.innerHTML = sites.map(site => {
+        const era     = site['Era'] || '';
+        const name    = site['Name'] || '';
+        const year    = site['Year built'] || '';
+        const loc     = site['Location'] || '';
+        const slug    = site['Slug'] || name.toLowerCase().replace(/\s+/g, '-');
+        const reports = site['Reports'] ? site['Reports'].length : 0;
+
+        const reportText = reports > 0
+          ? `${reports} report${reports !== 1 ? 's' : ''} this month`
+          : 'No reports this month';
+        const reportClass = reports > 0 ? '' : 'no-reports';
+
+        return `
+          <a href="site.html?slug=${slug}" class="site-card era-${era}">
+            <div class="card-era">${era.toUpperCase()} ERA</div>
+            <div class="card-name">${name}</div>
+            <div class="card-meta">${year}${loc ? ' · ' + loc : ''}</div>
+            <div class="card-reports ${reportClass}">${reportText}</div>
+          </a>`;
+      }).join('');
+    }
+
+    function filterSites() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      let filtered = allSites;
+      if (activeEra !== 'All') {
+        filtered = filtered.filter(s => s['Era'] === activeEra);
+      }
+      if (query) {
+        filtered = filtered.filter(s =>
+          (s['Name'] || '').toLowerCase().includes(query) ||
+          (s['Location'] || '').toLowerCase().includes(query)
+        );
+      }
+      renderCards(filtered);
+    }
+
+    function setEra(era, btn) {
+      activeEra = era;
+      document.querySelectorAll('.era-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterSites();
+    }
+
+    loadSites();
+  </script>
+</body>
+</html>
