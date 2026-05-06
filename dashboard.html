@@ -399,7 +399,7 @@
   <script>
     // ─── CONFIGURATION ───────────────────────────────────────────────────────
     const AIRTABLE_TOKEN = 'patgyTl5lOKK7E3le.c2cf51cbc10f5fb51d840b1622987b3b99d0adcd403902278e24e39170faeb40';
-    const BASE_ID        = 'appQlkSSzr2fOSCIp';
+    const BASE_ID        = 'appQlkSSzr2fOSCIp ';
     const REPORTS_TABLE  = 'Reports';
     const SITES_TABLE    = 'Sites';
     // ─────────────────────────────────────────────────────────────────────────
@@ -440,7 +440,10 @@
     function renderStats(reports) {
       const total    = reports.length;
       const verified = reports.filter(r => r['Status'] === 'Moderator verified').length;
-      const sites    = [...new Set(reports.map(r => r['Site name'] || '').filter(Boolean))].length;
+      const sites    = [...new Set(reports.map(r => {
+        const rawSite = r['Site name'];
+        return Array.isArray(rawSite) ? rawSite[0] : (rawSite || '');
+      }).filter(Boolean))].length;
 
       // Most common category
       const catCount = {};
@@ -492,8 +495,9 @@
       const rows = reports.map(r => {
         const status  = r['Status'] || 'Pending review';
         const s       = statusMap[status] || statusMap['Pending review'];
-        const site    = r['Site name'] || '—';
-        const slug    = site.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const rawSite = r['Site name'];
+        const site    = Array.isArray(rawSite) ? rawSite[0] : (rawSite || '—');
+        const slug    = typeof site === 'string' ? site.toLowerCase().replace(/[^a-z0-9]+/g, '-') : '';
         const cat     = r['Category'] || '—';
         const reporter= r['Reporter name'] || 'Anonymous';
         const date    = r['Date submitted']
@@ -527,7 +531,8 @@
     function renderSiteChart(reports) {
       const siteCount = {};
       reports.forEach(r => {
-        const site = r['Site name'] || 'Unknown';
+        const rawSite = r['Site name'];
+        const site = Array.isArray(rawSite) ? rawSite[0] : (rawSite || 'Unknown');
         siteCount[site] = (siteCount[site] || 0) + 1;
       });
 
