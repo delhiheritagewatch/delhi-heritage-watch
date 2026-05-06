@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Behaviour — Delhi Heritage Watch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #F5F2EC; color: #1A1A1A; }
+
+    /* NAVBAR */
+    nav {
+      background: #C44030;
+      padding: 0 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo { font-size: 15px; font-weight: 700; color: white; text-decoration: none; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { font-size: 13px; color: white; text-decoration: none; opacity: 0.9; }
+    .nav-links a:hover { opacity: 1; }
+    .nav-cta { border: 1px solid white; border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 500; }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: #C44030;
+      padding: 48px 64px 40px;
+    }
+    .page-header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 8px;
+    }
+    .page-header p {
+      font-size: 15px;
+      color: #F0C8B0;
+      max-width: 560px;
+      line-height: 1.6;
+    }
+
+    /* TWO COLUMN LAYOUT */
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 40px;
+      padding: 48px 64px;
+      max-width: 1200px;
+    }
+
+    /* FORM COLUMN */
+    .form-col {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      border: 1px solid #E8E5DC;
+    }
+    .form-intro {
+      margin-bottom: 32px;
+    }
+    .form-intro h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .form-intro p {
+      font-size: 14px;
+      color: #5F5E5A;
+      line-height: 1.6;
+    }
+    .tally-embed {
+      width: 100%;
+      border: none;
+      min-height: 600px;
+    }
+
+    /* SIDEBAR */
+    .sidebar { }
+
+    .info-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid #E8E5DC;
+      margin-bottom: 16px;
+    }
+    .info-card-title {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: #5F5E5A;
+      margin-bottom: 12px;
+    }
+    .info-card p {
+      font-size: 13px;
+      color: #2A2A2A;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    .info-card p:last-child { margin-bottom: 0; }
+
+    .step-list { list-style: none; }
+    .step-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+    .step-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #C44030;
+      color: white;
+      font-size: 11px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .step-text {
+      font-size: 13px;
+      color: #2A2A2A;
+      line-height: 1.5;
+    }
+
+    .category-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .cat-item {
+      font-size: 12px;
+      color: #2A2A2A;
+      padding: 6px 10px;
+      background: #F5F2EC;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cat-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #C44030;
+      flex-shrink: 0;
+    }
+
+    .privacy-note {
+      background: #E1F5EE;
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 12px;
+      color: #085041;
+      line-height: 1.5;
+      border: 1px solid #9FE1CB;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #1A1A1A;
+      color: #9F9E9A;
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      margin-top: 0;
+    }
+    footer a { color: #C44030; text-decoration: none; }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .page-header { padding: 32px 24px; }
+      .layout { grid-template-columns: 1fr; padding: 24px; gap: 24px; }
+      .form-col { padding: 24px; }
+      .sidebar { order: -1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="https://fabulous-closet-147375.framer.app/" class="nav-logo">Heritage Atlas Delhi</a>
+    <div class="nav-links">
+      <a href="explore.html">Explore</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="about.html">About</a>
+      <a href="report.html" class="nav-cta">Report behaviour</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1>Report harmful behaviour</h1>
+    <p>Spotted vandalism, littering, or trespass at a Delhi heritage site? Document it in under 2 minutes. Your report goes to our moderator for review before appearing publicly.</p>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="layout">
+
+    <!-- FORM -->
+    <div class="form-col">
+      <div class="form-intro">
+        <h2>Submit a report</h2>
+        <p>All fields marked with * are required. Your name will appear on the public dashboard once the report is verified.</p>
+      </div>
+      <iframe
+        class="tally-embed"
+        src="https://tally.so/embed/81jYzP?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+        loading="lazy"
+        width="100%"
+        height="600"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        title="Heritage Atlas Delhi — Report Behaviour">
+      </iframe>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+      <div class="info-card">
+        <div class="info-card-title">HOW IT WORKS</div>
+        <ul class="step-list">
+          <li class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text">Select the site and describe what you witnessed</div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text">Upload a photo as evidence</div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text">Our moderator reviews and verifies your report</div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-text">Verified reports appear on the public dashboard</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card-title">WHAT TO REPORT</div>
+        <div class="category-list">
+          <div class="cat-item"><span class="cat-dot"></span>Vandalism & graffiti</div>
+          <div class="cat-item"><span class="cat-dot"></span>Littering & waste</div>
+          <div class="cat-item"><span class="cat-dot"></span>Illegal entry & trespass</div>
+          <div class="cat-item"><span class="cat-dot"></span>Encroachment</div>
+          <div class="cat-item"><span class="cat-dot"></span>Fire & smoke damage</div>
+          <div class="cat-item"><span class="cat-dot"></span>Vegetation damage</div>
+          <div class="cat-item"><span class="cat-dot"></span>Animal harm</div>
+        </div>
+      </div>
+
+      <div class="privacy-note">
+        Your email is optional and only used to notify you when your report is reviewed. It is never shared publicly or with third parties.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Heritage Atlas Delhi &nbsp;·&nbsp; Built on <a href="#">Pillars of Delhi</a> by Arnav Agarwal &nbsp;·&nbsp; Supported by INTACH</p>
+  </footer>
+
+  <script>
+    // Tally embed resize handler
+    window.addEventListener('message', function(e) {
+      if (typeof e.data === 'object' && e.data.type === 'tally-height') {
+        var iframe = document.querySelector('.tally-embed');
+        if (iframe) iframe.height = e.data.height + 'px';
+      }
+    });
+  </script>
+
+</body>
+</html>
