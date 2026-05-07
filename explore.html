@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Explore Heritage Sites — Delhi Heritage Watch</title>
+  <title>Explore Heritage Sites — Heritage Atlas Delhi</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', sans-serif; background: #F5F2EC; color: #1A1A1A; }
 
-    /* NAVBAR */
+    /* ── NAVBAR ─────────────────────────────────────────────────────── */
     nav {
       background: #C44030;
       padding: 0 64px;
@@ -19,53 +19,51 @@
       justify-content: space-between;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 200;
     }
-    .nav-logo {
-      font-size: 15px;
-      font-weight: 700;
-      color: white;
-      text-decoration: none;
-    }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-    }
-    .nav-links a {
-      font-size: 13px;
-      color: white;
-      text-decoration: none;
-      opacity: 0.9;
-    }
+    .nav-logo { font-size: 15px; font-weight: 700; color: white; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { font-size: 13px; color: white; text-decoration: none; opacity: 0.9; white-space: nowrap; }
     .nav-links a:hover { opacity: 1; }
     .nav-cta {
-      border: 1px solid white;
-      border-radius: 20px;
-      padding: 6px 16px;
-      font-size: 12px;
-      font-weight: 500;
-      color: white;
-      text-decoration: none;
+      border: 1px solid white; border-radius: 20px; padding: 6px 16px;
+      font-size: 12px; font-weight: 500; color: white !important;
+      text-decoration: none; white-space: nowrap; opacity: 1 !important;
     }
+    .nav-cta:hover { background: rgba(255,255,255,0.15); }
 
-    /* PAGE HEADER */
-    .page-header {
-      background: #C44030;
-      padding: 48px 64px 40px;
+    /* Mobile right cluster */
+    .nav-mobile-right { display: none; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-mobile-cta {
+      border: 1px solid white; border-radius: 20px; padding: 5px 12px;
+      font-size: 12px; font-weight: 500; color: white; text-decoration: none; white-space: nowrap;
     }
-    .page-header h1 {
-      font-size: 32px;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 8px;
-    }
-    .page-header p {
-      font-size: 15px;
-      color: #F0C8B0;
-    }
+    .hamburger { background: none; border: none; cursor: pointer; padding: 4px; display: flex; flex-direction: column; gap: 5px; }
+    .hamburger span { display: block; width: 20px; height: 2px; background: white; border-radius: 2px; transition: transform 0.2s, opacity 0.2s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* SEARCH + FILTERS */
+    /* Mobile drawer */
+    .nav-drawer {
+      display: none; position: fixed; top: 52px; left: 0; right: 0;
+      background: #B33828; z-index: 199; flex-direction: column;
+      padding: 8px 0 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      color: white; text-decoration: none; font-size: 15px; font-weight: 500;
+      padding: 13px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); opacity: 0.95;
+    }
+    .nav-drawer a:last-child { border-bottom: none; }
+    .nav-drawer a:hover { background: rgba(255,255,255,0.08); }
+
+    /* ── PAGE HEADER ─────────────────────────────────────────────────── */
+    .page-header { background: #C44030; padding: 48px 64px 40px; }
+    .page-header h1 { font-size: 32px; font-weight: 700; color: white; margin-bottom: 8px; }
+    .page-header p { font-size: 15px; color: #F0C8B0; }
+
+    /* ── SEARCH + FILTERS ────────────────────────────────────────────── */
     .controls {
       background: white;
       padding: 20px 64px;
@@ -87,38 +85,25 @@
       background: #F5F2EC;
     }
     .search-box:focus { outline: none; border-color: #C44030; }
-    .era-filters {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    .era-filters { display: flex; gap: 8px; flex-wrap: wrap; }
     .era-btn {
-      padding: 6px 16px;
-      border-radius: 20px;
-      border: none;
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: opacity 0.15s;
+      padding: 6px 16px; border-radius: 20px; border: none;
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
+      cursor: pointer; transition: opacity 0.15s;
     }
     .era-btn:hover { opacity: 0.85; }
     .era-btn.active { box-shadow: 0 0 0 2px #1A1A1A; }
-    .era-btn[data-era="All"] { background: #1A1A1A; color: white; }
-    .era-btn[data-era="Ancient"] { background: #A8C5D4; color: #1A1A1A; }
-    .era-btn[data-era="Sultanate"] { background: #E8A830; color: #1A1A1A; }
-    .era-btn[data-era="Mughal"] { background: #C4A84A; color: #1A1A1A; }
+    .era-btn[data-era="All"]      { background: #1A1A1A; color: white; }
+    .era-btn[data-era="Ancient"]  { background: #A8C5D4; color: #1A1A1A; }
+    .era-btn[data-era="Sultanate"]{ background: #E8A830; color: #1A1A1A; }
+    .era-btn[data-era="Mughal"]   { background: #C4A84A; color: #1A1A1A; }
     .era-btn[data-era="Colonial"] { background: #D4A0A8; color: #1A1A1A; }
-    .era-btn[data-era="Modern"] { background: #A8A8CC; color: #1A1A1A; }
+    .era-btn[data-era="Modern"]   { background: #A8A8CC; color: #1A1A1A; }
 
-    /* SITE COUNT */
-    .site-count {
-      padding: 16px 64px;
-      font-size: 13px;
-      color: #5F5E5A;
-    }
+    /* ── SITE COUNT ──────────────────────────────────────────────────── */
+    .site-count { padding: 16px 64px; font-size: 13px; color: #5F5E5A; }
 
-    /* CARDS GRID */
+    /* ── CARDS GRID ──────────────────────────────────────────────────── */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -126,91 +111,71 @@
       padding: 8px 64px 64px;
     }
     .site-card {
-      border-radius: 12px;
-      padding: 24px;
-      cursor: pointer;
-      text-decoration: none;
-      display: block;
+      border-radius: 12px; padding: 24px; cursor: pointer;
+      text-decoration: none; display: block;
       transition: transform 0.15s, box-shadow 0.15s;
     }
-    .site-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-    }
-    .card-era {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      color: #1A1A1A;
-      margin-bottom: 8px;
-      opacity: 0.7;
-    }
-    .card-name {
-      font-size: 20px;
-      font-weight: 700;
-      color: #1A1A1A;
-      margin-bottom: 6px;
-      line-height: 1.2;
-    }
-    .card-meta {
-      font-size: 12px;
-      color: #5F5E5A;
-      margin-bottom: 12px;
-    }
-    .card-reports {
-      font-size: 11px;
-      font-weight: 500;
-      color: #993C1D;
-    }
+    .site-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .card-era { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; color: #1A1A1A; margin-bottom: 8px; opacity: 0.7; }
+    .card-name { font-size: 20px; font-weight: 700; color: #1A1A1A; margin-bottom: 6px; line-height: 1.2; }
+    .card-meta { font-size: 12px; color: #5F5E5A; margin-bottom: 12px; }
+    .card-reports { font-size: 11px; font-weight: 500; color: #993C1D; }
     .card-reports.no-reports { color: #3B6D11; }
+    .era-Ancient   { background: #A8C5D4; }
+    .era-Sultanate { background: #E8A830; }
+    .era-Mughal    { background: #C4A84A; }
+    .era-Colonial  { background: #D4A0A8; }
+    .era-Modern    { background: #A8A8CC; }
 
-    /* ERA COLOURS */
-    .era-Ancient  { background: #A8C5D4; }
-    .era-Sultanate{ background: #E8A830; }
-    .era-Mughal   { background: #C4A84A; }
-    .era-Colonial { background: #D4A0A8; }
-    .era-Modern   { background: #A8A8CC; }
-
-    /* LOADING + EMPTY */
-    .loading {
-      text-align: center;
-      padding: 80px;
-      color: #5F5E5A;
-      font-size: 15px;
-    }
+    /* ── LOADING + EMPTY ─────────────────────────────────────────────── */
+    .loading { text-align: center; padding: 80px; color: #5F5E5A; font-size: 15px; }
     .loading-spinner {
-      width: 32px;
-      height: 32px;
-      border: 3px solid #E8E5DC;
-      border-top-color: #C44030;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 16px;
+      width: 32px; height: 32px; border: 3px solid #E8E5DC;
+      border-top-color: #C44030; border-radius: 50%;
+      animation: spin 0.8s linear infinite; margin: 0 auto 16px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .empty {
-      text-align: center;
-      padding: 60px;
-      color: #5F5E5A;
-      grid-column: 1 / -1;
-    }
+    .empty { text-align: center; padding: 60px; color: #5F5E5A; grid-column: 1 / -1; }
 
-    /* FOOTER */
+    /* ── FOOTER ──────────────────────────────────────────────────────── */
     footer {
-      background: #1A1A1A;
-      color: #9F9E9A;
-      text-align: center;
-      padding: 24px;
-      font-size: 12px;
+      background: #1A1A1A; color: #9F9E9A; padding: 28px 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 12px; flex-wrap: wrap; gap: 12px;
     }
     footer a { color: #C44030; text-decoration: none; }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { color: #9F9E9A; text-decoration: none; }
+    .footer-links a:hover { color: white; }
 
-    @media (max-width: 768px) {
-      nav { padding: 0 24px; }
-      .page-header { padding: 32px 24px; }
-      .controls { padding: 16px 24px; }
-      .grid { padding: 8px 24px 48px; }
-      .site-count { padding: 12px 24px; }
+    /* ═══════════════════════════════════════════════════════════════════
+       MOBILE  ≤ 640px
+    ═══════════════════════════════════════════════════════════════════ */
+    @media (max-width: 640px) {
+      /* Nav */
+      nav { padding: 0 16px; height: 52px; }
+      .nav-links { display: none; }
+      .nav-mobile-right { display: flex; }
+
+      /* Header */
+      .page-header { padding: 28px 16px; }
+      .page-header h1 { font-size: 24px; }
+
+      /* Controls: stack search above era pills */
+      .controls { padding: 14px 16px; flex-direction: column; align-items: stretch; gap: 12px; }
+      .search-box { min-width: unset; width: 100%; }
+      .era-filters { gap: 6px; }
+      .era-btn { padding: 5px 12px; font-size: 11px; }
+
+      /* Count + grid */
+      .site-count { padding: 10px 16px; }
+      .grid { grid-template-columns: 1fr 1fr; gap: 10px; padding: 4px 16px 48px; }
+      .card-name { font-size: 15px; }
+      .site-card { padding: 14px; }
+
+      /* Footer */
+      footer { padding: 20px 16px; flex-direction: column; gap: 16px; }
+      .footer-links { gap: 16px; }
     }
   </style>
 </head>
@@ -225,7 +190,20 @@
       <a href="about.html">About</a>
       <a href="report.html" class="nav-cta">Report behaviour</a>
     </div>
+    <div class="nav-mobile-right">
+      <a href="report.html" class="nav-mobile-cta">Report behaviour</a>
+      <button class="hamburger" id="hamburger" onclick="toggleDrawer()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
+
+  <!-- MOBILE DRAWER -->
+  <div class="nav-drawer" id="navDrawer">
+    <a href="explore.html" onclick="closeDrawer()">Explore</a>
+    <a href="dashboard.html" onclick="closeDrawer()">Dashboard</a>
+    <a href="about.html" onclick="closeDrawer()">About</a>
+  </div>
 
   <!-- PAGE HEADER -->
   <div class="page-header">
@@ -265,25 +243,40 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>Heritage Atlas Delhi &nbsp;·&nbsp; Built on <a href="https://pillarsofdelhi.com">Pillars of Delhi</a> by Arnav Agarwal &nbsp;·&nbsp; Supported by INTACH</p>
+    <div>Heritage Atlas Delhi &nbsp;·&nbsp; Built on <a href="https://amzn.in/d/09U6ro4Y" target="_blank">Pillars of Delhi</a> by Arnav Agarwal &nbsp;·&nbsp; Expert endorsed</div>
+    <div class="footer-links">
+      <a href="explore.html">Explore</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="report.html">Report</a>
+      <a href="about.html">About</a>
+    </div>
   </footer>
 
   <script>
-    // ─── CONFIGURATION ───────────────────────────────────────────────────────
+    // ── HAMBURGER ──────────────────────────────────────────────────────
+    function toggleDrawer() {
+      const drawer = document.getElementById('navDrawer');
+      const btn    = document.getElementById('hamburger');
+      drawer.classList.toggle('open');
+      btn.classList.toggle('open');
+    }
+    function closeDrawer() {
+      document.getElementById('navDrawer').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
+    }
+
+    // ── CONFIGURATION ──────────────────────────────────────────────────
     const AIRTABLE_TOKEN = 'patgyTl5lOKK7E3le.c2cf51cbc10f5fb51d840b1622987b3b99d0adcd403902278e24e39170faeb40';
     const BASE_ID        = 'appQlkSSzr2fOSCIp';
     const TABLE_NAME     = 'Sites';
-    // ─────────────────────────────────────────────────────────────────────────
 
-    let allSites = [];
+    let allSites  = [];
     let activeEra = 'All';
 
     async function loadSites() {
       try {
         const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula=Published=TRUE()&sort[0][field]=Name&sort[0][direction]=asc`;
-        const res = await fetch(url, {
-          headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }
-        });
+        const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
         if (!res.ok) throw new Error(`Airtable error: ${res.status}`);
         const data = await res.json();
         allSites = data.records.map(r => r.fields);
@@ -299,7 +292,7 @@
     }
 
     function renderCards(sites) {
-      const grid = document.getElementById('grid');
+      const grid  = document.getElementById('grid');
       const count = document.getElementById('siteCount');
 
       if (sites.length === 0) {
@@ -317,12 +310,8 @@
         const loc     = site['Location'] || '';
         const slug    = site['Slug'] || name.toLowerCase().replace(/\s+/g, '-');
         const reports = site['Reports'] ? site['Reports'].length : 0;
-
-        const reportText = reports > 0
-          ? `${reports} report${reports !== 1 ? 's' : ''} this month`
-          : 'No reports this month';
+        const reportText  = reports > 0 ? `${reports} report${reports !== 1 ? 's' : ''} this month` : 'No reports this month';
         const reportClass = reports > 0 ? '' : 'no-reports';
-
         return `
           <a href="site.html?slug=${slug}" class="site-card era-${era}">
             <div class="card-era">${era.toUpperCase()} ERA</div>
@@ -335,10 +324,7 @@
 
     function filterSites() {
       const query = document.getElementById('searchInput').value.toLowerCase();
-      let filtered = allSites;
-      if (activeEra !== 'All') {
-        filtered = filtered.filter(s => s['Era'] === activeEra);
-      }
+      let filtered = activeEra === 'All' ? allSites : allSites.filter(s => s['Era'] === activeEra);
       if (query) {
         filtered = filtered.filter(s =>
           (s['Name'] || '').toLowerCase().includes(query) ||
