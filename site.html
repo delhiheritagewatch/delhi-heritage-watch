@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Heritage Site — Delhi Heritage Watch</title>
+  <title>Heritage Site — Heritage Atlas Delhi</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', sans-serif; background: #F5F2EC; color: #1A1A1A; }
 
-    /* NAVBAR */
+    /* ── NAVBAR ─────────────────────────────────────────────────────── */
     nav {
       background: #C44030;
       padding: 0 64px;
@@ -19,91 +19,86 @@
       justify-content: space-between;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 200;
     }
-    .nav-logo { font-size: 15px; font-weight: 700; color: white; text-decoration: none; }
+    .nav-logo { font-size: 15px; font-weight: 700; color: white; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
     .nav-links { display: flex; align-items: center; gap: 32px; }
-    .nav-links a { font-size: 13px; color: white; text-decoration: none; opacity: 0.9; }
+    .nav-links a { font-size: 13px; color: white; text-decoration: none; opacity: 0.9; white-space: nowrap; }
     .nav-links a:hover { opacity: 1; }
-    .nav-cta { border: 1px solid white; border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 500; }
+    .nav-cta {
+      border: 1px solid white; border-radius: 20px; padding: 6px 16px;
+      font-size: 12px; font-weight: 500; color: white !important;
+      text-decoration: none; white-space: nowrap; opacity: 1 !important;
+    }
+    .nav-cta:hover { background: rgba(255,255,255,0.15); }
 
-    /* BREADCRUMB */
+    /* Mobile right cluster */
+    .nav-mobile-right { display: none; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-mobile-cta {
+      border: 1px solid white; border-radius: 20px; padding: 5px 12px;
+      font-size: 12px; font-weight: 500; color: white; text-decoration: none; white-space: nowrap;
+    }
+    .hamburger { background: none; border: none; cursor: pointer; padding: 4px; display: flex; flex-direction: column; gap: 5px; }
+    .hamburger span { display: block; width: 20px; height: 2px; background: white; border-radius: 2px; transition: transform 0.2s, opacity 0.2s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .nav-drawer {
+      display: none; position: fixed; top: 52px; left: 0; right: 0;
+      background: #B33828; z-index: 199; flex-direction: column;
+      padding: 8px 0 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      color: white; text-decoration: none; font-size: 15px; font-weight: 500;
+      padding: 13px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); opacity: 0.95;
+    }
+    .nav-drawer a:last-child { border-bottom: none; }
+    .nav-drawer a:hover { background: rgba(255,255,255,0.08); }
+
+    /* ── BREADCRUMB ──────────────────────────────────────────────────── */
     .breadcrumb {
-      padding: 12px 64px;
-      font-size: 12px;
-      color: #5F5E5A;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: white;
-      border-bottom: 1px solid #E8E5DC;
+      padding: 12px 64px; font-size: 12px; color: #5F5E5A;
+      display: flex; align-items: center; gap: 6px;
+      background: white; border-bottom: 1px solid #E8E5DC;
     }
     .breadcrumb a { color: #C44030; text-decoration: none; }
     .breadcrumb a:hover { text-decoration: underline; }
 
-    /* SITE HERO */
-    .site-hero {
-      padding: 40px 64px 36px;
-      color: white;
-    }
-    .era-tag {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      opacity: 0.85;
-      margin-bottom: 10px;
-    }
-    .site-title {
-      font-size: 40px;
-      font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 8px;
-    }
-    .site-location {
-      font-size: 14px;
-      opacity: 0.8;
-      margin-bottom: 24px;
-    }
-    .meta-row {
-      display: flex;
-      gap: 40px;
-      flex-wrap: wrap;
-    }
-    .meta-item { }
+    /* ── SITE HERO ───────────────────────────────────────────────────── */
+    .site-hero { padding: 40px 64px 36px; color: white; }
+    .era-tag { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; opacity: 0.85; margin-bottom: 10px; }
+    .site-title { font-size: 40px; font-weight: 700; line-height: 1.1; margin-bottom: 8px; }
+    .site-location { font-size: 14px; opacity: 0.8; margin-bottom: 24px; }
+    .meta-row { display: flex; gap: 40px; flex-wrap: wrap; }
     .meta-label { font-size: 10px; font-weight: 500; letter-spacing: 0.06em; opacity: 0.7; margin-bottom: 3px; }
     .meta-value { font-size: 13px; font-weight: 500; }
 
-    /* ERA COLOURS for hero */
-    .era-Ancient  { background: #6E9BAE; }
-    .era-Sultanate{ background: #B87D1A; }
-    .era-Mughal   { background: #8C7230; }
-    .era-Colonial { background: #9E6070; }
-    .era-Modern   { background: #6868A0; }
+    /* Era hero colours */
+    .era-Ancient   { background: #6E9BAE; }
+    .era-Sultanate { background: #B87D1A; }
+    .era-Mughal    { background: #8C7230; }
+    .era-Colonial  { background: #9E6070; }
+    .era-Modern    { background: #6868A0; }
 
-    /* TABS */
+    /* ── TABS ────────────────────────────────────────────────────────── */
     .tabs {
-      background: white;
-      display: flex;
-      border-bottom: 1px solid #E8E5DC;
-      padding: 0 64px;
-      position: sticky;
-      top: 64px;
-      z-index: 90;
+      background: white; display: flex; border-bottom: 1px solid #E8E5DC;
+      padding: 0 64px; position: sticky; top: 52px; z-index: 90;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
     }
+    .tabs::-webkit-scrollbar { display: none; }
     .tab {
-      padding: 14px 16px;
-      font-size: 13px;
-      font-weight: 500;
-      color: #5F5E5A;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      transition: color 0.15s;
+      padding: 14px 16px; font-size: 13px; font-weight: 500; color: #5F5E5A;
+      cursor: pointer; border-bottom: 2px solid transparent;
+      margin-bottom: -1px; transition: color 0.15s; white-space: nowrap;
     }
     .tab.active { color: #C44030; border-bottom-color: #C44030; }
     .tab:hover { color: #1A1A1A; }
 
-    /* CONTENT AREA */
+    /* ── CONTENT AREA ────────────────────────────────────────────────── */
     .content-area {
       display: grid;
       grid-template-columns: 1fr 320px;
@@ -112,199 +107,124 @@
       max-width: 1200px;
     }
 
-    /* TAB PANELS */
+    /* ── TAB PANELS ──────────────────────────────────────────────────── */
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    /* HISTORY TAB */
-    .history-text {
-      font-size: 15px;
-      line-height: 1.8;
-      color: #2A2A2A;
-      margin-bottom: 24px;
-    }
+    /* ── HISTORY TAB ─────────────────────────────────────────────────── */
+    .history-text { font-size: 15px; line-height: 1.8; color: #2A2A2A; margin-bottom: 24px; }
     .pull-quote {
-      border-left: 4px solid #C44030;
-      padding: 12px 20px;
-      margin: 24px 0;
-      font-size: 15px;
-      font-style: italic;
-      color: #C44030;
-      background: #FAECE7;
-      line-height: 1.6;
-      border-radius: 0 8px 8px 0;
+      border-left: 4px solid #C44030; padding: 12px 20px; margin: 24px 0;
+      font-size: 15px; font-style: italic; color: #C44030;
+      background: #FAECE7; line-height: 1.6; border-radius: 0 8px 8px 0;
     }
-    .pull-quote-source {
-      font-size: 12px;
-      font-style: normal;
-      color: #993C1D;
-      margin-top: 6px;
-      font-weight: 500;
-    }
+    .pull-quote-source { font-size: 12px; font-style: normal; color: #993C1D; margin-top: 6px; font-weight: 500; }
 
-    /* CUSTODIAN CARD */
-    .custodian-card {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      border: 1px solid #E8E5DC;
-      margin-bottom: 20px;
-    }
-    .custodian-title {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.07em;
-      color: #5F5E5A;
-      margin-bottom: 14px;
-    }
+    /* ── CUSTODIAN CARD ──────────────────────────────────────────────── */
+    .custodian-card { background: white; border-radius: 12px; padding: 20px; border: 1px solid #E8E5DC; margin-bottom: 20px; }
+    .custodian-title { font-size: 11px; font-weight: 500; letter-spacing: 0.07em; color: #5F5E5A; margin-bottom: 14px; }
     .custodian-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid #F0EDE4;
-      font-size: 13px;
+      display: flex; justify-content: space-between; padding: 8px 0;
+      border-bottom: 1px solid #F0EDE4; font-size: 13px;
     }
     .custodian-row:last-child { border-bottom: none; }
     .custodian-key { color: #5F5E5A; }
     .custodian-val { font-weight: 500; color: #1A1A1A; text-align: right; max-width: 180px; }
 
-    /* PROTECTION BADGE */
-    .protection-badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 500;
-    }
-    .badge-central { background: #E1F5EE; color: #085041; }
-    .badge-state   { background: #EEEDFE; color: #3C3489; }
-    .badge-none    { background: #F1EFE8; color: #5F5E5A; }
-
-    /* REPORTS TAB */
-    .reports-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
+    /* ── REPORTS TAB ─────────────────────────────────────────────────── */
+    .reports-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
     .reports-count { font-size: 16px; font-weight: 500; }
     .report-btn {
-      background: #C44030;
-      color: white;
-      border: none;
-      border-radius: 20px;
-      padding: 8px 20px;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
+      background: #C44030; color: white; border: none; border-radius: 20px;
+      padding: 8px 20px; font-family: 'Inter', sans-serif; font-size: 13px;
+      font-weight: 500; cursor: pointer; text-decoration: none; display: inline-block;
     }
     .report-btn:hover { background: #A33526; }
-
     .report-item {
-      background: white;
-      border-radius: 10px;
-      padding: 16px 20px;
-      margin-bottom: 10px;
-      border: 1px solid #E8E5DC;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
+      background: white; border-radius: 10px; padding: 16px 20px;
+      margin-bottom: 10px; border: 1px solid #E8E5DC;
+      display: flex; align-items: flex-start; gap: 12px;
     }
-    .report-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      margin-top: 5px;
-      flex-shrink: 0;
-    }
+    .report-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
     .dot-verified { background: #0F6E56; }
     .dot-pending  { background: #EF9F27; }
     .dot-review   { background: #534AB7; }
     .report-body { flex: 1; }
     .report-cat { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
     .report-meta { font-size: 12px; color: #5F5E5A; }
-    .report-status {
-      font-size: 11px;
-      font-weight: 500;
-      padding: 2px 8px;
-      border-radius: 10px;
-      white-space: nowrap;
-    }
+    .report-status { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
     .status-verified { background: #E1F5EE; color: #085041; }
     .status-pending  { background: #FAEEDA; color: #633806; }
     .status-review   { background: #EEEDFE; color: #3C3489; }
-
-    .no-reports {
-      text-align: center;
-      padding: 48px;
-      color: #5F5E5A;
-      background: white;
-      border-radius: 12px;
-      border: 1px solid #E8E5DC;
-    }
+    .no-reports { text-align: center; padding: 48px; color: #5F5E5A; background: white; border-radius: 12px; border: 1px solid #E8E5DC; }
     .no-reports p { margin-bottom: 16px; }
 
-    /* SIDEBAR */
-    .sidebar { }
-
-    /* AWARENESS BANNER */
+    /* ── AWARENESS BANNER ────────────────────────────────────────────── */
     .awareness-banner {
-      background: #FAEEDA;
-      border-radius: 10px;
-      padding: 16px 20px;
-      margin-bottom: 20px;
-      border: 1px solid #FAC775;
+      background: #FAEEDA; border-radius: 10px; padding: 16px 20px;
+      margin-bottom: 20px; border: 1px solid #FAC775;
     }
-    .awareness-text {
-      font-size: 13px;
-      color: #633806;
-      line-height: 1.5;
-      margin-bottom: 12px;
-    }
+    .awareness-text { font-size: 13px; color: #633806; line-height: 1.5; margin-bottom: 12px; }
 
-    /* LOADING */
-    .loading {
-      text-align: center;
-      padding: 80px;
-      color: #5F5E5A;
-    }
+    /* ── LOADING / ERROR ─────────────────────────────────────────────── */
+    .loading { text-align: center; padding: 80px; color: #5F5E5A; }
     .loading-spinner {
-      width: 32px; height: 32px;
-      border: 3px solid #E8E5DC;
-      border-top-color: #C44030;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 16px;
+      width: 32px; height: 32px; border: 3px solid #E8E5DC;
+      border-top-color: #C44030; border-radius: 50%;
+      animation: spin 0.8s linear infinite; margin: 0 auto 16px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+    .error-msg { text-align: center; padding: 80px 64px; color: #993C1D; }
 
-    .error-msg {
-      text-align: center;
-      padding: 80px 64px;
-      color: #993C1D;
-    }
-
-    /* FOOTER */
+    /* ── FOOTER ──────────────────────────────────────────────────────── */
     footer {
-      background: #1A1A1A;
-      color: #9F9E9A;
-      text-align: center;
-      padding: 24px;
-      font-size: 12px;
-      margin-top: 48px;
+      background: #1A1A1A; color: #9F9E9A; padding: 28px 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 12px; flex-wrap: wrap; gap: 12px; margin-top: 48px;
     }
     footer a { color: #C44030; text-decoration: none; }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { color: #9F9E9A; text-decoration: none; }
+    .footer-links a:hover { color: white; }
 
-    @media (max-width: 768px) {
-      nav { padding: 0 24px; }
-      .breadcrumb { padding: 10px 24px; }
-      .site-hero { padding: 32px 24px; }
-      .site-title { font-size: 28px; }
-      .tabs { padding: 0 24px; }
-      .content-area { grid-template-columns: 1fr; padding: 24px; }
+    /* ═══════════════════════════════════════════════════════════════════
+       MOBILE  ≤ 640px
+    ═══════════════════════════════════════════════════════════════════ */
+    @media (max-width: 640px) {
+      /* Nav */
+      nav { padding: 0 16px; height: 52px; }
+      .nav-links { display: none; }
+      .nav-mobile-right { display: flex; }
+
+      /* Breadcrumb */
+      .breadcrumb { padding: 10px 16px; }
+
+      /* Hero */
+      .site-hero { padding: 24px 16px; }
+      .site-title { font-size: 26px; }
+      .meta-row { gap: 16px; }
+      .meta-value { font-size: 12px; }
+
+      /* Tabs: scrollable row, sits below 52px nav */
+      .tabs { padding: 0 16px; top: 52px; }
+
+      /* Content: single column, sidebar goes below */
+      .content-area { grid-template-columns: 1fr; padding: 20px 16px; gap: 20px; }
+      .sidebar { order: 2; }
+
+      /* History text */
+      .history-text { font-size: 14px; }
+
+      /* Reports header stacks on narrow */
+      .reports-header { flex-direction: column; align-items: flex-start; }
+      .report-btn { width: 100%; text-align: center; }
+
+      /* Custodian rows: allow value to wrap */
+      .custodian-val { max-width: 140px; font-size: 12px; }
+
+      /* Footer */
+      footer { padding: 20px 16px; flex-direction: column; gap: 16px; }
+      .footer-links { gap: 16px; }
     }
   </style>
 </head>
@@ -319,7 +239,20 @@
       <a href="about.html">About</a>
       <a href="report.html" class="nav-cta">Report behaviour</a>
     </div>
+    <div class="nav-mobile-right">
+      <a href="report.html" class="nav-mobile-cta">Report behaviour</a>
+      <button class="hamburger" id="hamburger" onclick="toggleDrawer()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
+
+  <!-- MOBILE DRAWER -->
+  <div class="nav-drawer" id="navDrawer">
+    <a href="explore.html" onclick="closeDrawer()">Explore</a>
+    <a href="dashboard.html" onclick="closeDrawer()">Dashboard</a>
+    <a href="about.html" onclick="closeDrawer()">About</a>
+  </div>
 
   <!-- BREADCRUMB -->
   <div class="breadcrumb">
@@ -455,16 +388,33 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>Heritage Atlas Delhi &nbsp;·&nbsp; Built on <a href="#">Pillars of Delhi</a> by Arnav Agarwal &nbsp;·&nbsp; Supported by INTACH</p>
+    <div>Heritage Atlas Delhi &nbsp;·&nbsp; Built on <a href="https://amzn.in/d/09U6ro4Y" target="_blank">Pillars of Delhi</a> by Arnav Agarwal &nbsp;·&nbsp; Expert endorsed</div>
+    <div class="footer-links">
+      <a href="explore.html">Explore</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="report.html">Report</a>
+      <a href="about.html">About</a>
+    </div>
   </footer>
 
   <script>
-    // ─── CONFIGURATION ───────────────────────────────────────────────────────
+    // ── HAMBURGER ──────────────────────────────────────────────────────
+    function toggleDrawer() {
+      const drawer = document.getElementById('navDrawer');
+      const btn    = document.getElementById('hamburger');
+      drawer.classList.toggle('open');
+      btn.classList.toggle('open');
+    }
+    function closeDrawer() {
+      document.getElementById('navDrawer').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
+    }
+
+    // ── CONFIGURATION ──────────────────────────────────────────────────
     const AIRTABLE_TOKEN = 'patgyTl5lOKK7E3le.c2cf51cbc10f5fb51d840b1622987b3b99d0adcd403902278e24e39170faeb40';
     const BASE_ID        = 'appQlkSSzr2fOSCIp';
     const SITES_TABLE    = 'Sites';
     const REPORTS_TABLE  = 'Reports';
-    // ─────────────────────────────────────────────────────────────────────────
 
     const ERA_COLOURS = {
       'Ancient':   'era-Ancient',
@@ -475,28 +425,21 @@
     };
 
     function getSlug() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get('slug');
+      return new URLSearchParams(window.location.search).get('slug');
     }
 
     async function airtableFetch(url) {
-      const res = await fetch(url, {
-        headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }
-      });
+      const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
       if (!res.ok) throw new Error(`Airtable error ${res.status}`);
       return res.json();
     }
 
     async function loadSite() {
       const slug = getSlug();
-      if (!slug) {
-        showError('No site specified. <a href="explore.html">Browse all sites</a>');
-        return;
-      }
+      if (!slug) { showError('No site specified. <a href="explore.html">Browse all sites</a>'); return; }
 
       try {
-        // Load site by slug
-        const formula = encodeURIComponent(`{Slug}="${slug}"`);
+        const formula  = encodeURIComponent(`{Slug}="${slug}"`);
         const siteData = await airtableFetch(
           `https://api.airtable.com/v0/${BASE_ID}/${SITES_TABLE}?filterByFormula=${formula}&maxRecords=1`
         );
@@ -506,12 +449,11 @@
           return;
         }
 
-        const site = siteData.records[0].fields;
+        const site   = siteData.records[0].fields;
         const siteId = siteData.records[0].id;
         renderSite(site, siteId);
 
-        // Load reports for this site
-        const reportFormula = encodeURIComponent(`AND({Status}!="Not relevant")`);
+        const reportFormula = encodeURIComponent(`{Status}!="Not relevant"`);
         const reportData = await airtableFetch(
           `https://api.airtable.com/v0/${BASE_ID}/${REPORTS_TABLE}?filterByFormula=${reportFormula}&sort[0][field]=Date submitted&sort[0][direction]=desc`
         );
@@ -529,67 +471,57 @@
     }
 
     function renderSite(site, id) {
-      const era      = site['Era'] || '';
-      const name     = site['Name'] || '';
-      const location = site['Location'] || '';
-      const year     = site['Year built'] || '';
-      const by       = site['Commissioned by'] || '—';
-      const custodian= site['Custodian'] || '—';
+      const era        = site['Era'] || '';
+      const name       = site['Name'] || '';
+      const location   = site['Location'] || '';
+      const year       = site['Year built'] || '';
+      const by         = site['Commissioned by'] || '—';
+      const custodian  = site['Custodian'] || '—';
       const protection = site['Protection status'] || '—';
-      const budget   = site['Budget 2025-26'] || 'Not available';
-      const history  = site['History'] || 'History coming soon.';
-      const pullQuote= site['Pull quote'] || '';
-      const lat      = site['Latitude'] || '';
-      const lng      = site['Longitude'] || '';
+      const budget     = site['Budget 2025-26'] || 'Not available';
+      const history    = site['History'] || 'History coming soon.';
+      const pullQuote  = site['Pull quote'] || '';
+      const lat        = site['Latitude'] || '';
+      const lng        = site['Longitude'] || '';
 
-      // Page title
-      document.title = `${name} — Delhi Heritage Watch`;
-
-      // Breadcrumb
+      document.title = `${name} — Heritage Atlas Delhi`;
       document.getElementById('breadcrumbName').textContent = name;
 
-      // Hero
       const hero = document.getElementById('siteHero');
       hero.classList.add(ERA_COLOURS[era] || 'era-Ancient');
-      document.getElementById('heroEra').textContent = `${era.toUpperCase()} ERA`;
-      document.getElementById('heroTitle').textContent = name;
-      document.getElementById('heroLocation').textContent = location;
-      document.getElementById('heroCommissioned').textContent = by;
-      document.getElementById('heroYear').textContent = year;
-      document.getElementById('heroCustodian').textContent = custodian;
-      document.getElementById('heroProtection').textContent = protection;
+      document.getElementById('heroEra').textContent         = `${era.toUpperCase()} ERA`;
+      document.getElementById('heroTitle').textContent       = name;
+      document.getElementById('heroLocation').textContent    = location;
+      document.getElementById('heroCommissioned').textContent= by;
+      document.getElementById('heroYear').textContent        = year;
+      document.getElementById('heroCustodian').textContent   = custodian;
+      document.getElementById('heroProtection').textContent  = protection;
 
-      // History
       document.getElementById('historyText').textContent = history;
 
-      // Pull quote
       if (pullQuote) {
         document.getElementById('pullQuoteText').textContent = `"${pullQuote}"`;
         document.getElementById('pullQuote').style.display = 'block';
       }
 
-      // Sidebar
-      document.getElementById('sidebarEra').textContent = era;
-      document.getElementById('sidebarYear').textContent = year;
+      document.getElementById('sidebarEra').textContent       = era;
+      document.getElementById('sidebarYear').textContent      = year;
       document.getElementById('sidebarCustodian').textContent = custodian;
-      document.getElementById('sidebarCoords').textContent = lat && lng ? `${lat}, ${lng}` : '—';
+      document.getElementById('sidebarCoords').textContent    = lat && lng ? `${lat}, ${lng}` : '—';
 
-      // Custodian tab
-      document.getElementById('custodianBody').textContent = custodian;
+      document.getElementById('custodianBody').textContent       = custodian;
       document.getElementById('custodianProtection').textContent = protection;
-      document.getElementById('custodianBudget').textContent = budget;
-      document.getElementById('custodianLocation').textContent = location;
+      document.getElementById('custodianBudget').textContent     = budget;
+      document.getElementById('custodianLocation').textContent   = location;
 
-      // Show content
-      document.getElementById('loadingState').style.display = 'none';
-      document.getElementById('siteContent').style.display = 'block';
+      document.getElementById('loadingState').style.display  = 'none';
+      document.getElementById('siteContent').style.display   = 'block';
     }
 
     function renderReports(reports, siteName) {
       const count = reports.length;
-      document.getElementById('reportsTab').textContent = `Reports (${count})`;
-      document.getElementById('reportsCount').textContent =
-        `${count} report${count !== 1 ? 's' : ''} at ${siteName}`;
+      document.getElementById('reportsTab').textContent    = `Reports (${count})`;
+      document.getElementById('reportsCount').textContent  = `${count} report${count !== 1 ? 's' : ''} at ${siteName}`;
 
       const list = document.getElementById('reportsList');
 
@@ -603,21 +535,20 @@
       }
 
       const statusMap = {
-        'Moderator verified': { cls: 'status-verified', dot: 'dot-verified', label: 'Moderator verified' },
-        'Pending review':     { cls: 'status-pending',  dot: 'dot-pending',  label: 'Pending review' },
-        'Under review':       { cls: 'status-review',   dot: 'dot-review',   label: 'Under review' },
+        'Moderator verified': { cls:'status-verified', dot:'dot-verified', label:'Moderator verified' },
+        'Pending review':     { cls:'status-pending',  dot:'dot-pending',  label:'Pending review' },
+        'Under review':       { cls:'status-review',   dot:'dot-review',   label:'Under review' },
       };
 
       list.innerHTML = reports.map(r => {
-        const f = r.fields;
-        const status = f['Status'] || 'Pending review';
-        const s = statusMap[status] || statusMap['Pending review'];
-        const date = f['Date submitted']
-          ? new Date(f['Date submitted']).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+        const f        = r.fields;
+        const status   = f['Status'] || 'Pending review';
+        const s        = statusMap[status] || statusMap['Pending review'];
+        const date     = f['Date submitted']
+          ? new Date(f['Date submitted']).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})
           : '';
         const reporter = f['Reporter name'] || 'Anonymous';
-        const cat = f['Category'] || 'Other';
-
+        const cat      = f['Category'] || 'Other';
         return `
           <div class="report-item">
             <div class="report-dot ${s.dot}"></div>
