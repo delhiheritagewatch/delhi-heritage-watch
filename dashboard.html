@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Public Dashboard — Delhi Heritage Watch</title>
+  <title>Public Dashboard — Heritage Atlas Delhi</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', sans-serif; background: #F5F2EC; color: #1A1A1A; }
 
-    /* NAVBAR */
+    /* ── NAVBAR ─────────────────────────────────────────────────────── */
     nav {
       background: #C44030;
       padding: 0 64px;
@@ -19,270 +19,194 @@
       justify-content: space-between;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 200;
     }
-    .nav-logo { font-size: 15px; font-weight: 700; color: white; text-decoration: none; }
+    .nav-logo { font-size: 15px; font-weight: 700; color: white; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
     .nav-links { display: flex; align-items: center; gap: 32px; }
-    .nav-links a { font-size: 13px; color: white; text-decoration: none; opacity: 0.9; }
+    .nav-links a { font-size: 13px; color: white; text-decoration: none; opacity: 0.9; white-space: nowrap; }
     .nav-links a:hover { opacity: 1; }
-    .nav-cta { border: 1px solid white; border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 500; }
+    .nav-cta {
+      border: 1px solid white; border-radius: 20px; padding: 6px 16px;
+      font-size: 12px; font-weight: 500; color: white !important;
+      text-decoration: none; white-space: nowrap; opacity: 1 !important;
+    }
+    .nav-cta:hover { background: rgba(255,255,255,0.15); }
 
-    /* PAGE HEADER */
+    /* Mobile right cluster */
+    .nav-mobile-right { display: none; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-mobile-cta {
+      border: 1px solid white; border-radius: 20px; padding: 5px 12px;
+      font-size: 12px; font-weight: 500; color: white; text-decoration: none; white-space: nowrap;
+    }
+    .hamburger { background: none; border: none; cursor: pointer; padding: 4px; display: flex; flex-direction: column; gap: 5px; }
+    .hamburger span { display: block; width: 20px; height: 2px; background: white; border-radius: 2px; transition: transform 0.2s, opacity 0.2s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .nav-drawer {
+      display: none; position: fixed; top: 52px; left: 0; right: 0;
+      background: #B33828; z-index: 199; flex-direction: column;
+      padding: 8px 0 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      color: white; text-decoration: none; font-size: 15px; font-weight: 500;
+      padding: 13px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); opacity: 0.95;
+    }
+    .nav-drawer a:last-child { border-bottom: none; }
+    .nav-drawer a:hover { background: rgba(255,255,255,0.08); }
+
+    /* ── PAGE HEADER ─────────────────────────────────────────────────── */
     .page-header { background: #C44030; padding: 48px 64px 40px; }
     .page-header h1 { font-size: 32px; font-weight: 700; color: white; margin-bottom: 8px; }
     .page-header p { font-size: 15px; color: #F0C8B0; line-height: 1.6; }
 
-    /* MAIN CONTENT */
+    /* ── MAIN ────────────────────────────────────────────────────────── */
     .main { padding: 40px 64px; }
 
-    /* STATS GRID */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-    .stat-card {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      border: 1px solid #E8E5DC;
-    }
-    .stat-val {
-      font-size: 32px;
-      font-weight: 700;
-      color: #1A1A1A;
-      margin-bottom: 4px;
-    }
-    .stat-label {
-      font-size: 12px;
-      color: #5F5E5A;
-      line-height: 1.4;
-    }
+    /* ── STATS GRID ──────────────────────────────────────────────────── */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+    .stat-card { background: white; border-radius: 12px; padding: 20px; border: 1px solid #E8E5DC; }
+    .stat-val { font-size: 32px; font-weight: 700; color: #1A1A1A; margin-bottom: 4px; }
+    .stat-label { font-size: 12px; color: #5F5E5A; line-height: 1.4; }
     .stat-card.highlight .stat-val { color: #C44030; }
     .stat-card.positive .stat-val { color: #0F6E56; }
 
-    /* INSIGHT BAR */
+    /* ── INSIGHT BAR ─────────────────────────────────────────────────── */
     .insight-bar {
-      background: #E1F5EE;
-      border: 1px solid #9FE1CB;
-      border-radius: 10px;
-      padding: 14px 20px;
-      margin-bottom: 24px;
-      font-size: 13px;
-      color: #085041;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      background: #E1F5EE; border: 1px solid #9FE1CB; border-radius: 10px;
+      padding: 14px 20px; margin-bottom: 24px; font-size: 13px; color: #085041;
+      display: flex; align-items: center; gap: 10px;
     }
-    .insight-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #0F6E56;
-      flex-shrink: 0;
-    }
+    .insight-dot { width: 8px; height: 8px; border-radius: 50%; background: #0F6E56; flex-shrink: 0; }
 
-    /* CONTROLS */
-    .controls {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
+    /* ── CONTROLS ────────────────────────────────────────────────────── */
+    .controls { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
     .search-box {
-      flex: 1;
-      min-width: 200px;
-      padding: 10px 16px;
-      border: 1px solid #D3D1C7;
-      border-radius: 8px;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      background: white;
+      flex: 1; min-width: 200px; padding: 10px 16px;
+      border: 1px solid #D3D1C7; border-radius: 8px;
+      font-family: 'Inter', sans-serif; font-size: 14px; background: white;
     }
     .search-box:focus { outline: none; border-color: #C44030; }
     .filter-pills { display: flex; gap: 6px; flex-wrap: wrap; }
     .filter-pill {
-      padding: 6px 14px;
-      border-radius: 20px;
-      border: 1px solid #D3D1C7;
-      background: white;
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      font-weight: 500;
-      color: #5F5E5A;
-      cursor: pointer;
-      transition: all 0.15s;
+      padding: 6px 14px; border-radius: 20px; border: 1px solid #D3D1C7;
+      background: white; font-family: 'Inter', sans-serif; font-size: 12px;
+      font-weight: 500; color: #5F5E5A; cursor: pointer; transition: all 0.15s;
     }
     .filter-pill:hover { border-color: #C44030; color: #C44030; }
     .filter-pill.active { background: #C44030; color: white; border-color: #C44030; }
 
-    /* TABLE */
-    .table-wrap {
-      background: white;
-      border-radius: 12px;
-      border: 1px solid #E8E5DC;
-      overflow: hidden;
-      margin-bottom: 32px;
-    }
+    /* ── TABLE ───────────────────────────────────────────────────────── */
+    .table-wrap { background: white; border-radius: 12px; border: 1px solid #E8E5DC; overflow: hidden; margin-bottom: 32px; }
     .table-header {
-      padding: 16px 20px;
-      border-bottom: 1px solid #E8E5DC;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      padding: 16px 20px; border-bottom: 1px solid #E8E5DC;
+      display: flex; align-items: center; justify-content: space-between;
     }
     .table-title { font-size: 14px; font-weight: 500; }
     .table-count { font-size: 13px; color: #5F5E5A; }
     table { width: 100%; border-collapse: collapse; }
     th {
-      text-align: left;
-      font-size: 11px;
-      font-weight: 500;
-      color: #5F5E5A;
-      letter-spacing: 0.05em;
-      padding: 10px 20px;
-      border-bottom: 1px solid #E8E5DC;
-      background: #FAFAF8;
+      text-align: left; font-size: 11px; font-weight: 500; color: #5F5E5A;
+      letter-spacing: 0.05em; padding: 10px 20px;
+      border-bottom: 1px solid #E8E5DC; background: #FAFAF8;
     }
-    td {
-      padding: 14px 20px;
-      border-bottom: 1px solid #F0EDE4;
-      font-size: 13px;
-      vertical-align: middle;
-    }
+    td { padding: 14px 20px; border-bottom: 1px solid #F0EDE4; font-size: 13px; vertical-align: middle; }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: #FAFAF8; }
-    .site-link {
-      color: #C44030;
-      font-weight: 500;
-      text-decoration: none;
-      cursor: pointer;
-    }
+    .site-link { color: #C44030; font-weight: 500; text-decoration: none; cursor: pointer; }
     .site-link:hover { text-decoration: underline; }
-    .cat-tag {
-      background: #F5F2EC;
-      color: #5F5E5A;
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 4px;
-    }
-    .status-badge {
-      font-size: 11px;
-      font-weight: 500;
-      padding: 3px 10px;
-      border-radius: 20px;
-      white-space: nowrap;
-    }
+    .cat-tag { background: #F5F2EC; color: #5F5E5A; font-size: 11px; padding: 3px 8px; border-radius: 4px; }
+    .status-badge { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
     .s-verified { background: #E1F5EE; color: #085041; }
     .s-pending  { background: #FAEEDA; color: #633806; }
     .s-review   { background: #EEEDFE; color: #3C3489; }
     .reporter-name { color: #5F5E5A; }
     .date-cell { color: #9F9E9A; font-size: 12px; }
 
-    /* EMPTY STATE */
-    .empty-state {
-      text-align: center;
-      padding: 60px;
-      color: #5F5E5A;
-    }
+    /* ── EMPTY STATE ─────────────────────────────────────────────────── */
+    .empty-state { text-align: center; padding: 60px; color: #5F5E5A; }
     .empty-state p { margin-bottom: 16px; font-size: 15px; }
     .empty-btn {
-      display: inline-block;
-      background: #C44030;
-      color: white;
-      padding: 10px 24px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 500;
+      display: inline-block; background: #C44030; color: white;
+      padding: 10px 24px; border-radius: 20px; text-decoration: none;
+      font-size: 13px; font-weight: 500;
     }
 
-    /* ASI DATA SECTION */
-    .section-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-    .section-sub {
-      font-size: 13px;
-      color: #5F5E5A;
-      margin-bottom: 20px;
-    }
-    .asi-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 40px;
-    }
-    .asi-card {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      border: 1px solid #E8E5DC;
-    }
-    .asi-card-title {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      color: #5F5E5A;
-      margin-bottom: 16px;
-    }
-    .bar-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
+    /* ── ASI / CHARTS ────────────────────────────────────────────────── */
+    .section-title { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+    .section-sub { font-size: 13px; color: #5F5E5A; margin-bottom: 20px; }
+    .asi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; }
+    .asi-card { background: white; border-radius: 12px; padding: 20px; border: 1px solid #E8E5DC; }
+    .asi-card-title { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; color: #5F5E5A; margin-bottom: 16px; }
+    .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
     .bar-label { font-size: 12px; color: #2A2A2A; width: 140px; flex-shrink: 0; }
     .bar-track { flex: 1; height: 8px; background: #F0EDE4; border-radius: 4px; overflow: hidden; }
     .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
     .bar-val { font-size: 12px; font-weight: 500; color: #1A1A1A; width: 30px; text-align: right; }
     .asi-placeholder {
-      background: #F5F2EC;
-      border: 1px dashed #D3D1C7;
-      border-radius: 10px;
-      padding: 32px;
-      text-align: center;
-      color: #9F9E9A;
-      font-size: 13px;
-      line-height: 1.6;
+      background: #F5F2EC; border: 1px dashed #D3D1C7; border-radius: 10px;
+      padding: 32px; text-align: center; color: #9F9E9A; font-size: 13px; line-height: 1.6;
     }
 
-    /* LOADING */
-    .loading {
-      text-align: center;
-      padding: 60px;
-      color: #5F5E5A;
-    }
+    /* ── LOADING ─────────────────────────────────────────────────────── */
+    .loading { text-align: center; padding: 60px; color: #5F5E5A; }
     .spinner {
-      width: 32px; height: 32px;
-      border: 3px solid #E8E5DC;
-      border-top-color: #C44030;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 16px;
+      width: 32px; height: 32px; border: 3px solid #E8E5DC;
+      border-top-color: #C44030; border-radius: 50%;
+      animation: spin 0.8s linear infinite; margin: 0 auto 16px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* FOOTER */
+    /* ── FOOTER ──────────────────────────────────────────────────────── */
     footer {
-      background: #1A1A1A;
-      color: #9F9E9A;
-      text-align: center;
-      padding: 24px;
-      font-size: 12px;
+      background: #1A1A1A; color: #9F9E9A; padding: 28px 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 12px; flex-wrap: wrap; gap: 12px;
     }
     footer a { color: #C44030; text-decoration: none; }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { color: #9F9E9A; text-decoration: none; }
+    .footer-links a:hover { color: white; }
 
-    @media (max-width: 768px) {
-      nav { padding: 0 24px; }
-      .page-header { padding: 32px 24px; }
-      .main { padding: 24px; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    /* ═══════════════════════════════════════════════════════════════════
+       MOBILE  ≤ 640px
+    ═══════════════════════════════════════════════════════════════════ */
+    @media (max-width: 640px) {
+      /* Nav */
+      nav { padding: 0 16px; height: 52px; }
+      .nav-links { display: none; }
+      .nav-mobile-right { display: flex; }
+
+      /* Header */
+      .page-header { padding: 28px 16px; }
+      .page-header h1 { font-size: 24px; }
+
+      /* Main */
+      .main { padding: 20px 16px; }
+
+      /* Stats: 2 columns */
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .stat-val { font-size: 24px; }
+
+      /* Controls: stack search above pills */
+      .controls { flex-direction: column; align-items: stretch; }
+      .search-box { min-width: unset; width: 100%; }
+
+      /* Table: hide less critical columns */
+      th:nth-child(3), td:nth-child(3),
+      th:nth-child(5), td:nth-child(5) { display: none; }
+      th, td { padding: 10px 10px; font-size: 12px; }
+
+      /* Charts */
       .asi-grid { grid-template-columns: 1fr; }
-      th, td { padding: 10px 12px; }
+      .bar-label { width: 100px; }
+
+      /* Footer */
+      footer { padding: 20px 16px; flex-direction: column; gap: 16px; }
+      .footer-links { gap: 16px; }
     }
   </style>
 </head>
@@ -297,7 +221,20 @@
       <a href="about.html">About</a>
       <a href="report.html" class="nav-cta">Report behaviour</a>
     </div>
+    <div class="nav-mobile-right">
+      <a href="report.html" class="nav-mobile-cta">Report behaviour</a>
+      <button class="hamburger" id="hamburger" onclick="toggleDrawer()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
+
+  <!-- MOBILE DRAWER -->
+  <div class="nav-drawer" id="navDrawer">
+    <a href="explore.html" onclick="closeDrawer()">Explore</a>
+    <a href="dashboard.html" onclick="closeDrawer()">Dashboard</a>
+    <a href="about.html" onclick="closeDrawer()">About</a>
+  </div>
 
   <!-- PAGE HEADER -->
   <div class="page-header">
@@ -365,7 +302,7 @@
       </div>
     </div>
 
-    <!-- ASI DATA SECTION -->
+    <!-- CHARTS -->
     <div class="section-title">ASI incident data</div>
     <div class="section-sub">Historical incident records from the Archaeological Survey of India · integrated from official reports</div>
 
@@ -393,41 +330,52 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>Heritage Atlas Delhi &nbsp;·&nbsp; Built on <a href="#">Pillars of Delhi</a> by Arnav Agarwal &nbsp;·&nbsp; Supported by INTACH</p>
+    <div>Heritage Atlas Delhi &nbsp;·&nbsp; Built on <a href="https://amzn.in/d/09U6ro4Y" target="_blank">Pillars of Delhi</a> by Arnav Agarwal &nbsp;·&nbsp; Expert endorsed</div>
+    <div class="footer-links">
+      <a href="explore.html">Explore</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="report.html">Report</a>
+      <a href="about.html">About</a>
+    </div>
   </footer>
 
   <script>
-    // ─── CONFIGURATION ───────────────────────────────────────────────────────
+    // ── HAMBURGER ──────────────────────────────────────────────────────
+    function toggleDrawer() {
+      const drawer = document.getElementById('navDrawer');
+      const btn    = document.getElementById('hamburger');
+      drawer.classList.toggle('open');
+      btn.classList.toggle('open');
+    }
+    function closeDrawer() {
+      document.getElementById('navDrawer').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
+    }
+
+    // ── CONFIGURATION ──────────────────────────────────────────────────
     const AIRTABLE_TOKEN = 'patgyTl5lOKK7E3le.c2cf51cbc10f5fb51d840b1622987b3b99d0adcd403902278e24e39170faeb40';
     const BASE_ID        = 'appQlkSSzr2fOSCIp';
     const REPORTS_TABLE  = 'Reports';
-    const SITES_TABLE    = 'Sites';
-    // ─────────────────────────────────────────────────────────────────────────
 
-    let allReports = [];
+    let allReports   = [];
     let activeFilter = 'all';
 
     async function airtableFetch(url) {
-      const res = await fetch(url, {
-        headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }
-      });
+      const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
       if (!res.ok) throw new Error(`Airtable error ${res.status}`);
       return res.json();
     }
 
     async function loadDashboard() {
       try {
-        // Load all reports except "Not relevant"
         const formula = encodeURIComponent(`{Status}!="Not relevant"`);
         const data = await airtableFetch(
           `https://api.airtable.com/v0/${BASE_ID}/${REPORTS_TABLE}?filterByFormula=${formula}&sort[0][field]=Date submitted&sort[0][direction]=desc`
         );
-
         allReports = data.records.map(r => r.fields);
         renderStats(allReports);
         renderTable(allReports);
         renderSiteChart(allReports);
-
       } catch (err) {
         document.getElementById('tableBody').innerHTML = `
           <div class="empty-state">
@@ -445,13 +393,9 @@
         return Array.isArray(rawSite) ? rawSite[0] : (rawSite || '');
       }).filter(Boolean))].length;
 
-      // Most common category
       const catCount = {};
-      reports.forEach(r => {
-        const cat = r['Category'];
-        if (cat) catCount[cat] = (catCount[cat] || 0) + 1;
-      });
-      const topCat = Object.entries(catCount).sort((a,b) => b[1]-a[1])[0];
+      reports.forEach(r => { const c = r['Category']; if (c) catCount[c] = (catCount[c]||0)+1; });
+      const topCat     = Object.entries(catCount).sort((a,b) => b[1]-a[1])[0];
       const topCatName = topCat ? topCat[0].split(' ')[0] : '—';
 
       document.getElementById('statTotal').textContent    = total;
@@ -459,23 +403,18 @@
       document.getElementById('statSites').textContent    = sites || '—';
       document.getElementById('statTop').textContent      = topCatName;
 
-      // Insight bar
       if (total > 0) {
         const insight = document.getElementById('insightBar');
-        const text    = document.getElementById('insightText');
         insight.style.display = 'flex';
-
-        if (verified > 0) {
-          text.textContent = `${verified} verified report${verified !== 1 ? 's' : ''} across ${sites} site${sites !== 1 ? 's' : ''}. Most reported behaviour: ${topCat ? topCat[0] : '—'}.`;
-        } else {
-          text.textContent = `${total} report${total !== 1 ? 's' : ''} submitted and awaiting moderator review.`;
-        }
+        document.getElementById('insightText').textContent = verified > 0
+          ? `${verified} verified report${verified!==1?'s':''} across ${sites} site${sites!==1?'s':''}. Most reported behaviour: ${topCat?topCat[0]:'—'}.`
+          : `${total} report${total!==1?'s':''} submitted and awaiting moderator review.`;
       }
     }
 
     function renderTable(reports) {
       const count = document.getElementById('tableCount');
-      count.textContent = `${reports.length} report${reports.length !== 1 ? 's' : ''}`;
+      count.textContent = `${reports.length} report${reports.length!==1?'s':''}`;
 
       if (reports.length === 0) {
         document.getElementById('tableBody').innerHTML = `
@@ -487,23 +426,22 @@
       }
 
       const statusMap = {
-        'Moderator verified': { cls: 's-verified', label: 'Moderator verified' },
-        'Pending review':     { cls: 's-pending',  label: 'Pending review' },
-        'Under review':       { cls: 's-review',   label: 'Under review' },
+        'Moderator verified': { cls:'s-verified', label:'Moderator verified' },
+        'Pending review':     { cls:'s-pending',  label:'Pending review' },
+        'Under review':       { cls:'s-review',   label:'Under review' },
       };
 
       const rows = reports.map(r => {
-        const status  = r['Status'] || 'Pending review';
-        const s       = statusMap[status] || statusMap['Pending review'];
-        const rawSite = r['Site name'];
-        const site    = Array.isArray(rawSite) ? rawSite[0] : (rawSite || '—');
-        const slug    = typeof site === 'string' ? site.toLowerCase().replace(/[^a-z0-9]+/g, '-') : '';
-        const cat     = r['Category'] || '—';
-        const reporter= r['Reporter name'] || 'Anonymous';
-        const date    = r['Date submitted']
-          ? new Date(r['Date submitted']).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+        const status   = r['Status'] || 'Pending review';
+        const s        = statusMap[status] || statusMap['Pending review'];
+        const rawSite  = r['Site name'];
+        const site     = Array.isArray(rawSite) ? rawSite[0] : (rawSite || '—');
+        const slug     = typeof site === 'string' ? site.toLowerCase().replace(/[^a-z0-9]+/g,'-') : '';
+        const cat      = r['Category'] || '—';
+        const reporter = r['Reporter name'] || 'Anonymous';
+        const date     = r['Date submitted']
+          ? new Date(r['Date submitted']).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})
           : '—';
-
         return `<tr>
           <td><a href="site.html?slug=${slug}" class="site-link">${site}</a></td>
           <td><span class="cat-tag">${cat}</span></td>
@@ -515,15 +453,9 @@
 
       document.getElementById('tableBody').innerHTML = `
         <table>
-          <thead>
-            <tr>
-              <th>Site</th>
-              <th>Behaviour</th>
-              <th>Reported by</th>
-              <th>Status</th>
-              <th>Date</th>
-            </tr>
-          </thead>
+          <thead><tr>
+            <th>Site</th><th>Behaviour</th><th>Reported by</th><th>Status</th><th>Date</th>
+          </tr></thead>
           <tbody>${rows}</tbody>
         </table>`;
     }
@@ -533,48 +465,33 @@
       reports.forEach(r => {
         const rawSite = r['Site name'];
         const site = Array.isArray(rawSite) ? rawSite[0] : (rawSite || 'Unknown');
-        siteCount[site] = (siteCount[site] || 0) + 1;
+        siteCount[site] = (siteCount[site]||0)+1;
       });
-
-      const sorted = Object.entries(siteCount)
-        .sort((a,b) => b[1]-a[1])
-        .slice(0, 6);
-
+      const sorted  = Object.entries(siteCount).sort((a,b)=>b[1]-a[1]).slice(0,6);
       if (sorted.length === 0) {
-        document.getElementById('siteChart').innerHTML =
-          '<div class="asi-placeholder">No reports yet.</div>';
+        document.getElementById('siteChart').innerHTML = '<div class="asi-placeholder">No reports yet.</div>';
         return;
       }
-
-      const max = sorted[0][1];
+      const max     = sorted[0][1];
       const colours = ['#C44030','#E8A830','#A8C5D4','#C4A84A','#D4A0A8','#A8A8CC'];
-
-      document.getElementById('siteChart').innerHTML = sorted.map(([site, count], i) => `
+      document.getElementById('siteChart').innerHTML = sorted.map(([site,count],i) => `
         <div class="bar-row">
-          <div class="bar-label">${site.length > 18 ? site.substring(0,18)+'…' : site}</div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width:${(count/max*100)}%;background:${colours[i % colours.length]};"></div>
-          </div>
+          <div class="bar-label">${site.length>18?site.substring(0,18)+'…':site}</div>
+          <div class="bar-track"><div class="bar-fill" style="width:${count/max*100}%;background:${colours[i%colours.length]};"></div></div>
           <div class="bar-val">${count}</div>
         </div>`).join('');
     }
 
     function applyFilters() {
       const query = document.getElementById('searchInput').value.toLowerCase();
-      let filtered = allReports;
-
-      if (activeFilter !== 'all') {
-        filtered = filtered.filter(r => r['Status'] === activeFilter);
-      }
-
+      let filtered = activeFilter === 'all' ? allReports : allReports.filter(r => r['Status'] === activeFilter);
       if (query) {
         filtered = filtered.filter(r =>
-          (r['Site name'] || '').toLowerCase().includes(query) ||
-          (r['Reporter name'] || '').toLowerCase().includes(query) ||
-          (r['Category'] || '').toLowerCase().includes(query)
+          (r['Site name']||'').toLowerCase().includes(query) ||
+          (r['Reporter name']||'').toLowerCase().includes(query) ||
+          (r['Category']||'').toLowerCase().includes(query)
         );
       }
-
       renderTable(filtered);
     }
 
