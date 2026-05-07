@@ -9,7 +9,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', sans-serif; background: #F5F2EC; color: #1A1A1A; }
 
-    /* NAVBAR */
+    /* ── NAVBAR ─────────────────────────────────────────────────────── */
     nav {
       background: #C44030;
       padding: 0 64px;
@@ -19,33 +19,51 @@
       justify-content: space-between;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 200;
     }
-    .nav-logo { font-size: 15px; font-weight: 700; color: white; text-decoration: none; }
+    .nav-logo { font-size: 15px; font-weight: 700; color: white; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
     .nav-links { display: flex; align-items: center; gap: 32px; }
-    .nav-links a { font-size: 13px; color: white; text-decoration: none; opacity: 0.9; }
+    .nav-links a { font-size: 13px; color: white; text-decoration: none; opacity: 0.9; white-space: nowrap; }
     .nav-links a:hover { opacity: 1; }
-    .nav-cta { border: 1px solid white; border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 500; }
+    .nav-cta {
+      border: 1px solid white; border-radius: 20px; padding: 6px 16px;
+      font-size: 12px; font-weight: 500; color: white !important;
+      text-decoration: none; white-space: nowrap; opacity: 1 !important;
+    }
+    .nav-cta:hover { background: rgba(255,255,255,0.15); }
 
-    /* PAGE HEADER */
-    .page-header {
-      background: #C44030;
-      padding: 48px 64px 40px;
+    /* Mobile right cluster */
+    .nav-mobile-right { display: none; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-mobile-cta {
+      border: 1px solid white; border-radius: 20px; padding: 5px 12px;
+      font-size: 12px; font-weight: 500; color: white; text-decoration: none; white-space: nowrap;
     }
-    .page-header h1 {
-      font-size: 32px;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 8px;
-    }
-    .page-header p {
-      font-size: 15px;
-      color: #F0C8B0;
-      max-width: 560px;
-      line-height: 1.6;
-    }
+    .hamburger { background: none; border: none; cursor: pointer; padding: 4px; display: flex; flex-direction: column; gap: 5px; }
+    .hamburger span { display: block; width: 20px; height: 2px; background: white; border-radius: 2px; transition: transform 0.2s, opacity 0.2s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* TWO COLUMN LAYOUT */
+    /* Mobile drawer */
+    .nav-drawer {
+      display: none; position: fixed; top: 52px; left: 0; right: 0;
+      background: #B33828; z-index: 199; flex-direction: column;
+      padding: 8px 0 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      color: white; text-decoration: none; font-size: 15px; font-weight: 500;
+      padding: 13px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); opacity: 0.95;
+    }
+    .nav-drawer a:last-child { border-bottom: none; }
+    .nav-drawer a:hover { background: rgba(255,255,255,0.08); }
+
+    /* ── PAGE HEADER ─────────────────────────────────────────────────── */
+    .page-header { background: #C44030; padding: 48px 64px 40px; }
+    .page-header h1 { font-size: 32px; font-weight: 700; color: white; margin-bottom: 8px; }
+    .page-header p { font-size: 15px; color: #F0C8B0; max-width: 560px; line-height: 1.6; }
+
+    /* ── TWO COLUMN LAYOUT ───────────────────────────────────────────── */
     .layout {
       display: grid;
       grid-template-columns: 1fr 340px;
@@ -54,134 +72,75 @@
       max-width: 1200px;
     }
 
-    /* FORM COLUMN */
-    .form-col {
-      background: white;
-      border-radius: 16px;
-      padding: 40px;
-      border: 1px solid #E8E5DC;
-    }
-    .form-intro {
-      margin-bottom: 32px;
-    }
-    .form-intro h2 {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    .form-intro p {
-      font-size: 14px;
-      color: #5F5E5A;
-      line-height: 1.6;
-    }
-    .tally-embed {
-      width: 100%;
-      border: none;
-      min-height: 600px;
-    }
+    /* ── FORM COLUMN ─────────────────────────────────────────────────── */
+    .form-col { background: white; border-radius: 16px; padding: 40px; border: 1px solid #E8E5DC; }
+    .form-intro { margin-bottom: 32px; }
+    .form-intro h2 { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+    .form-intro p { font-size: 14px; color: #5F5E5A; line-height: 1.6; }
+    .tally-embed { width: 100%; border: none; min-height: 600px; }
 
-    /* SIDEBAR */
-    .sidebar { }
-
-    .info-card {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      border: 1px solid #E8E5DC;
-      margin-bottom: 16px;
-    }
-    .info-card-title {
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      color: #5F5E5A;
-      margin-bottom: 12px;
-    }
-    .info-card p {
-      font-size: 13px;
-      color: #2A2A2A;
-      line-height: 1.6;
-      margin-bottom: 10px;
-    }
+    /* ── SIDEBAR ─────────────────────────────────────────────────────── */
+    .info-card { background: white; border-radius: 12px; padding: 20px; border: 1px solid #E8E5DC; margin-bottom: 16px; }
+    .info-card-title { font-size: 12px; font-weight: 500; letter-spacing: 0.06em; color: #5F5E5A; margin-bottom: 12px; }
+    .info-card p { font-size: 13px; color: #2A2A2A; line-height: 1.6; margin-bottom: 10px; }
     .info-card p:last-child { margin-bottom: 0; }
 
     .step-list { list-style: none; }
-    .step-item {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      margin-bottom: 14px;
-    }
+    .step-item { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; }
     .step-num {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: #C44030;
-      color: white;
-      font-size: 11px;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 1px;
+      width: 24px; height: 24px; border-radius: 50%; background: #C44030;
+      color: white; font-size: 11px; font-weight: 500;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
     }
-    .step-text {
-      font-size: 13px;
-      color: #2A2A2A;
-      line-height: 1.5;
-    }
+    .step-text { font-size: 13px; color: #2A2A2A; line-height: 1.5; }
 
-    .category-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+    .category-list { display: flex; flex-direction: column; gap: 6px; }
     .cat-item {
-      font-size: 12px;
-      color: #2A2A2A;
-      padding: 6px 10px;
-      background: #F5F2EC;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-size: 12px; color: #2A2A2A; padding: 6px 10px;
+      background: #F5F2EC; border-radius: 6px;
+      display: flex; align-items: center; gap: 8px;
     }
-    .cat-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #C44030;
-      flex-shrink: 0;
-    }
+    .cat-dot { width: 6px; height: 6px; border-radius: 50%; background: #C44030; flex-shrink: 0; }
 
     .privacy-note {
-      background: #E1F5EE;
-      border-radius: 10px;
-      padding: 14px 16px;
-      font-size: 12px;
-      color: #085041;
-      line-height: 1.5;
-      border: 1px solid #9FE1CB;
+      background: #E1F5EE; border-radius: 10px; padding: 14px 16px;
+      font-size: 12px; color: #085041; line-height: 1.5; border: 1px solid #9FE1CB;
     }
 
-    /* FOOTER */
+    /* ── FOOTER ──────────────────────────────────────────────────────── */
     footer {
-      background: #1A1A1A;
-      color: #9F9E9A;
-      text-align: center;
-      padding: 24px;
-      font-size: 12px;
-      margin-top: 0;
+      background: #1A1A1A; color: #9F9E9A; padding: 28px 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 12px; flex-wrap: wrap; gap: 12px;
     }
     footer a { color: #C44030; text-decoration: none; }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { color: #9F9E9A; text-decoration: none; }
+    .footer-links a:hover { color: white; }
 
-    @media (max-width: 768px) {
-      nav { padding: 0 24px; }
-      .page-header { padding: 32px 24px; }
-      .layout { grid-template-columns: 1fr; padding: 24px; gap: 24px; }
-      .form-col { padding: 24px; }
+    /* ═══════════════════════════════════════════════════════════════════
+       MOBILE  ≤ 640px
+    ═══════════════════════════════════════════════════════════════════ */
+    @media (max-width: 640px) {
+      /* Nav */
+      nav { padding: 0 16px; height: 52px; }
+      .nav-links { display: none; }
+      .nav-mobile-right { display: flex; }
+
+      /* Header */
+      .page-header { padding: 28px 16px; }
+      .page-header h1 { font-size: 24px; }
+      .page-header p { font-size: 14px; }
+
+      /* Layout: single column, sidebar above form */
+      .layout { grid-template-columns: 1fr; padding: 20px 16px; gap: 20px; }
       .sidebar { order: -1; }
+      .form-col { padding: 20px; }
+
+      /* Footer */
+      footer { padding: 20px 16px; flex-direction: column; gap: 16px; }
+      .footer-links { gap: 16px; }
     }
   </style>
 </head>
@@ -196,7 +155,20 @@
       <a href="about.html">About</a>
       <a href="report.html" class="nav-cta">Report behaviour</a>
     </div>
+    <div class="nav-mobile-right">
+      <a href="report.html" class="nav-mobile-cta">Report behaviour</a>
+      <button class="hamburger" id="hamburger" onclick="toggleDrawer()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
+
+  <!-- MOBILE DRAWER -->
+  <div class="nav-drawer" id="navDrawer">
+    <a href="explore.html" onclick="closeDrawer()">Explore</a>
+    <a href="dashboard.html" onclick="closeDrawer()">Dashboard</a>
+    <a href="about.html" onclick="closeDrawer()">About</a>
+  </div>
 
   <!-- PAGE HEADER -->
   <div class="page-header">
@@ -228,7 +200,6 @@
 
     <!-- SIDEBAR -->
     <div class="sidebar">
-
       <div class="info-card">
         <div class="info-card-title">HOW IT WORKS</div>
         <ul class="step-list">
@@ -254,11 +225,11 @@
       <div class="info-card">
         <div class="info-card-title">WHAT TO REPORT</div>
         <div class="category-list">
-          <div class="cat-item"><span class="cat-dot"></span>Vandalism & graffiti</div>
-          <div class="cat-item"><span class="cat-dot"></span>Littering & waste</div>
-          <div class="cat-item"><span class="cat-dot"></span>Illegal entry & trespass</div>
+          <div class="cat-item"><span class="cat-dot"></span>Vandalism &amp; graffiti</div>
+          <div class="cat-item"><span class="cat-dot"></span>Littering &amp; waste</div>
+          <div class="cat-item"><span class="cat-dot"></span>Illegal entry &amp; trespass</div>
           <div class="cat-item"><span class="cat-dot"></span>Encroachment</div>
-          <div class="cat-item"><span class="cat-dot"></span>Fire & smoke damage</div>
+          <div class="cat-item"><span class="cat-dot"></span>Fire &amp; smoke damage</div>
           <div class="cat-item"><span class="cat-dot"></span>Vegetation damage</div>
           <div class="cat-item"><span class="cat-dot"></span>Animal harm</div>
         </div>
@@ -267,16 +238,32 @@
       <div class="privacy-note">
         Your email is optional and only used to notify you when your report is reviewed. It is never shared publicly or with third parties.
       </div>
-
     </div>
   </div>
 
   <!-- FOOTER -->
   <footer>
-    <p>Heritage Atlas Delhi &nbsp;·&nbsp; Built on <a href="#">Pillars of Delhi</a> by Arnav Agarwal &nbsp;·&nbsp; Supported by INTACH</p>
+    <div>Heritage Atlas Delhi &nbsp;·&nbsp; Built on <a href="about.html">Pillars of Delhi</a> by Arnav Agarwal &nbsp;·&nbsp; Expert endorsed</div>
+    <div class="footer-links">
+      <a href="explore.html">Explore</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="report.html">Report</a>
+      <a href="about.html">About</a>
+    </div>
   </footer>
 
   <script>
+    function toggleDrawer() {
+      const drawer = document.getElementById('navDrawer');
+      const btn    = document.getElementById('hamburger');
+      drawer.classList.toggle('open');
+      btn.classList.toggle('open');
+    }
+    function closeDrawer() {
+      document.getElementById('navDrawer').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
+    }
+
     // Tally embed resize handler
     window.addEventListener('message', function(e) {
       if (typeof e.data === 'object' && e.data.type === 'tally-height') {
