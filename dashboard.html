@@ -27,18 +27,40 @@
     .nav-drawer a { color: white; text-decoration: none; font-size: 15px; font-weight: 500; padding: 13px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); opacity: 0.95; }
     .nav-drawer a:last-child { border-bottom: none; }
     .nav-drawer a:hover { background: rgba(255,255,255,0.08); }
+
     .page-header { background: #C44030; padding: 48px 64px 40px; }
     .page-header h1 { font-size: 32px; font-weight: 700; color: white; margin-bottom: 8px; }
     .page-header p { font-size: 15px; color: #F0C8B0; line-height: 1.6; }
+
     .main { padding: 40px 64px; }
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+
+    /* ── TOP STATS ROW: 4 stat cards + site chart side by side ── */
+    .top-row {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 16px;
+      margin-bottom: 24px;
+      align-items: start;
+    }
+    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .stat-card { background: white; border-radius: 12px; padding: 20px; border: 1px solid #E8E5DC; }
     .stat-val { font-size: 32px; font-weight: 700; color: #1A1A1A; margin-bottom: 4px; }
     .stat-label { font-size: 12px; color: #5F5E5A; line-height: 1.4; }
     .stat-card.highlight .stat-val { color: #C44030; }
     .stat-card.positive .stat-val { color: #0F6E56; }
+
+    /* ── SITE CHART CARD (top right) ── */
+    .site-chart-card { background: white; border-radius: 12px; padding: 20px; border: 1px solid #E8E5DC; }
+    .site-chart-title { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; color: #5F5E5A; margin-bottom: 16px; }
+    .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .bar-label { font-size: 12px; color: #2A2A2A; width: 140px; flex-shrink: 0; }
+    .bar-track { flex: 1; height: 8px; background: #F0EDE4; border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+    .bar-val { font-size: 12px; font-weight: 500; color: #1A1A1A; width: 30px; text-align: right; }
+
     .insight-bar { background: #E1F5EE; border: 1px solid #9FE1CB; border-radius: 10px; padding: 14px 20px; margin-bottom: 24px; font-size: 13px; color: #085041; display: flex; align-items: center; gap: 10px; }
     .insight-dot { width: 8px; height: 8px; border-radius: 50%; background: #0F6E56; flex-shrink: 0; }
+
     .controls { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
     .search-box { flex: 1; min-width: 200px; padding: 10px 16px; border: 1px solid #D3D1C7; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 14px; background: white; }
     .search-box:focus { outline: none; border-color: #C44030; }
@@ -46,6 +68,7 @@
     .filter-pill { padding: 6px 14px; border-radius: 20px; border: 1px solid #D3D1C7; background: white; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: #5F5E5A; cursor: pointer; transition: all 0.15s; }
     .filter-pill:hover { border-color: #C44030; color: #C44030; }
     .filter-pill.active { background: #C44030; color: white; border-color: #C44030; }
+
     .table-wrap { background: white; border-radius: 12px; border: 1px solid #E8E5DC; overflow: hidden; margin-bottom: 32px; }
     .table-header { padding: 16px 20px; border-bottom: 1px solid #E8E5DC; display: flex; align-items: center; justify-content: space-between; }
     .table-title { font-size: 14px; font-weight: 500; }
@@ -64,23 +87,21 @@
     .s-review   { background: #EEEDFE; color: #3C3489; }
     .reporter-name { color: #5F5E5A; }
     .date-cell { color: #9F9E9A; font-size: 12px; }
+
     .empty-state { text-align: center; padding: 60px; color: #5F5E5A; }
     .empty-state p { margin-bottom: 16px; font-size: 15px; }
     .empty-btn { display: inline-block; background: #C44030; color: white; padding: 10px 24px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: 500; }
+
     .section-title { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
     .section-sub { font-size: 13px; color: #5F5E5A; margin-bottom: 20px; }
-    .asi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; }
-    .asi-card { background: white; border-radius: 12px; padding: 20px; border: 1px solid #E8E5DC; }
+    .asi-card { background: white; border-radius: 12px; padding: 20px; border: 1px solid #E8E5DC; margin-bottom: 40px; }
     .asi-card-title { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; color: #5F5E5A; margin-bottom: 16px; }
-    .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-    .bar-label { font-size: 12px; color: #2A2A2A; width: 140px; flex-shrink: 0; }
-    .bar-track { flex: 1; height: 8px; background: #F0EDE4; border-radius: 4px; overflow: hidden; }
-    .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
-    .bar-val { font-size: 12px; font-weight: 500; color: #1A1A1A; width: 30px; text-align: right; }
     .asi-placeholder { background: #F5F2EC; border: 1px dashed #D3D1C7; border-radius: 10px; padding: 32px; text-align: center; color: #9F9E9A; font-size: 13px; line-height: 1.6; }
+
     .loading { text-align: center; padding: 60px; color: #5F5E5A; }
     .spinner { width: 32px; height: 32px; border: 3px solid #E8E5DC; border-top-color: #C44030; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
     @keyframes spin { to { transform: rotate(360deg); } }
+
     footer { background: #1A1A1A; color: #9F9E9A; padding: 28px 64px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; flex-wrap: wrap; gap: 12px; }
     footer a { color: #C44030; text-decoration: none; }
     .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
@@ -95,27 +116,24 @@
       .page-header { padding: 28px 16px; }
       .page-header h1 { font-size: 24px; }
       .main { padding: 20px 16px; }
+
+      /* Stack top row vertically on mobile */
+      .top-row { grid-template-columns: 1fr; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
       .stat-val { font-size: 24px; }
+
       .controls { flex-direction: column; align-items: stretch; }
       .search-box { min-width: unset; width: 100%; }
 
       /* Hide Reported by (col 3) and Date (col 5) */
       th:nth-child(3), td:nth-child(3),
       th:nth-child(5), td:nth-child(5) { display: none; }
-
-      /* Tighter cells */
       th { padding: 8px 6px; font-size: 10px; letter-spacing: 0.02em; }
       td { padding: 10px 6px; font-size: 12px; }
-
-      /* Truncate long site names */
       .site-link { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 110px; }
-
-      /* Keep tags on one line */
       .cat-tag { font-size: 10px; padding: 2px 5px; white-space: nowrap; }
       .status-badge { font-size: 10px; padding: 2px 6px; white-space: nowrap; }
 
-      .asi-grid { grid-template-columns: 1fr; }
       .bar-label { width: 100px; }
       footer { padding: 20px 16px; flex-direction: column; gap: 16px; }
       .footer-links { gap: 16px; }
@@ -152,18 +170,28 @@
   </div>
 
   <div class="main">
-    <div class="stats-grid" id="statsGrid">
-      <div class="stat-card highlight"><div class="stat-val" id="statTotal">—</div><div class="stat-label">Total reports submitted</div></div>
-      <div class="stat-card positive"><div class="stat-val" id="statVerified">—</div><div class="stat-label">Moderator verified</div></div>
-      <div class="stat-card"><div class="stat-val" id="statSites">—</div><div class="stat-label">Sites with reports</div></div>
-      <div class="stat-card"><div class="stat-val" id="statTop">—</div><div class="stat-label">Most reported behaviour</div></div>
+
+    <!-- TOP ROW: 4 stat cards left, most affected sites right -->
+    <div class="top-row">
+      <div class="stats-grid">
+        <div class="stat-card highlight"><div class="stat-val" id="statTotal">—</div><div class="stat-label">Total reports submitted</div></div>
+        <div class="stat-card positive"><div class="stat-val" id="statVerified">—</div><div class="stat-label">Moderator verified</div></div>
+        <div class="stat-card"><div class="stat-val" id="statSites">—</div><div class="stat-label">Unique sites with reports</div></div>
+        <div class="stat-card"><div class="stat-val" id="statTop">—</div><div class="stat-label">Most reported behaviour</div></div>
+      </div>
+      <div class="site-chart-card">
+        <div class="site-chart-title">MOST AFFECTED SITES</div>
+        <div id="siteChart"><div class="loading" style="padding:20px;"><div class="spinner"></div></div></div>
+      </div>
     </div>
 
+    <!-- INSIGHT BAR -->
     <div class="insight-bar" id="insightBar" style="display:none;">
       <span class="insight-dot"></span>
       <span id="insightText"></span>
     </div>
 
+    <!-- CONTROLS -->
     <div class="controls">
       <input type="text" class="search-box" id="searchInput" placeholder="Search by site, reporter name, or behaviour..." oninput="applyFilters()">
       <div class="filter-pills">
@@ -174,6 +202,7 @@
       </div>
     </div>
 
+    <!-- TABLE -->
     <div class="table-wrap">
       <div class="table-header">
         <span class="table-title">All reported incidents</span>
@@ -184,18 +213,16 @@
       </div>
     </div>
 
+    <!-- ASI DATA -->
     <div class="section-title">ASI incident data</div>
     <div class="section-sub">Historical incident records from the Archaeological Survey of India · integrated from official reports</div>
-    <div class="asi-grid">
-      <div class="asi-card">
-        <div class="asi-card-title">INCIDENTS BY BEHAVIOUR TYPE</div>
-        <div id="asiChart"><div class="asi-placeholder">ASI incident data will appear here once sourced through our institutional partnership.<br><br>Data is being requested through formal channels.</div></div>
-      </div>
-      <div class="asi-card">
-        <div class="asi-card-title">MOST AFFECTED SITES</div>
-        <div id="siteChart"><div class="loading" style="padding:20px;"><div class="spinner"></div></div></div>
+    <div class="asi-card">
+      <div class="asi-card-title">INCIDENTS BY BEHAVIOUR TYPE</div>
+      <div id="asiChart">
+        <div class="asi-placeholder">ASI incident data will appear here once sourced through our institutional partnership.<br><br>Data is being requested through formal channels.</div>
       </div>
     </div>
+
   </div>
 
   <footer>
@@ -245,10 +272,15 @@
       }
     }
 
+    function getSiteName(r) {
+      const s = r['Site name'];
+      return Array.isArray(s) ? s[0] : (s || '');
+    }
+
     function renderStats(reports) {
       const total    = reports.length;
       const verified = reports.filter(r => r['Status'] === 'Moderator verified').length;
-      const sites    = [...new Set(reports.map(r => { const s = r['Site name']; return Array.isArray(s) ? s[0] : (s||''); }).filter(Boolean))].length;
+      const sites    = [...new Set(reports.map(getSiteName).filter(Boolean))].length;
       const catCount = {};
       reports.forEach(r => { const c = r['Category']; if (c) catCount[c] = (catCount[c]||0)+1; });
       const topCat = Object.entries(catCount).sort((a,b) => b[1]-a[1])[0];
@@ -257,8 +289,7 @@
       document.getElementById('statSites').textContent    = sites || '—';
       document.getElementById('statTop').textContent      = topCat ? topCat[0].split(' ')[0] : '—';
       if (total > 0) {
-        const insight = document.getElementById('insightBar');
-        insight.style.display = 'flex';
+        document.getElementById('insightBar').style.display = 'flex';
         document.getElementById('insightText').textContent = verified > 0
           ? `${verified} verified report${verified!==1?'s':''} across ${sites} site${sites!==1?'s':''}. Most reported behaviour: ${topCat?topCat[0]:'—'}.`
           : `${total} report${total!==1?'s':''} submitted and awaiting moderator review.`;
@@ -279,9 +310,8 @@
       const rows = reports.map(r => {
         const status  = r['Status'] || 'Pending review';
         const s       = statusMap[status] || statusMap['Pending review'];
-        const rawSite = r['Site name'];
-        const site    = Array.isArray(rawSite) ? rawSite[0] : (rawSite || '—');
-        const slug    = typeof site === 'string' ? site.toLowerCase().replace(/[^a-z0-9]+/g,'-') : '';
+        const site    = getSiteName(r) || '—';
+        const slug    = site.toLowerCase().replace(/[^a-z0-9]+/g,'-');
         const cat     = r['Category'] || '—';
         const reporter= r['Reporter name'] || 'Anonymous';
         const date    = r['Date submitted'] ? new Date(r['Date submitted']).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
@@ -302,9 +332,12 @@
 
     function renderSiteChart(reports) {
       const siteCount = {};
-      reports.forEach(r => { const s = r['Site name']; const site = Array.isArray(s)?s[0]:(s||'Unknown'); siteCount[site]=(siteCount[site]||0)+1; });
+      reports.forEach(r => { const site = getSiteName(r) || 'Unknown'; siteCount[site] = (siteCount[site]||0)+1; });
       const sorted = Object.entries(siteCount).sort((a,b)=>b[1]-a[1]).slice(0,6);
-      if (!sorted.length) { document.getElementById('siteChart').innerHTML='<div class="asi-placeholder">No reports yet.</div>'; return; }
+      if (!sorted.length) {
+        document.getElementById('siteChart').innerHTML = '<div class="asi-placeholder">No reports yet.</div>';
+        return;
+      }
       const max = sorted[0][1];
       const colours = ['#C44030','#E8A830','#A8C5D4','#C4A84A','#D4A0A8','#A8A8CC'];
       document.getElementById('siteChart').innerHTML = sorted.map(([site,count],i) =>
@@ -319,7 +352,7 @@
       const query = document.getElementById('searchInput').value.toLowerCase();
       let filtered = activeFilter==='all' ? allReports : allReports.filter(r=>r['Status']===activeFilter);
       if (query) filtered = filtered.filter(r =>
-        (r['Site name']||'').toLowerCase().includes(query) ||
+        getSiteName(r).toLowerCase().includes(query) ||
         (r['Reporter name']||'').toLowerCase().includes(query) ||
         (r['Category']||'').toLowerCase().includes(query));
       renderTable(filtered);
