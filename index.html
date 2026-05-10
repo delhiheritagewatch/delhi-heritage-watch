@@ -14,230 +14,52 @@
 
     /* ── NAVBAR ─────────────────────────────────────────────────────── */
     nav {
-      background: #C44030;
-      padding: 0 64px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 200;
+      background: #C44030; padding: 0 64px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 200;
     }
-    .nav-logo {
-      font-size: 15px;
-      font-weight: 700;
-      color: white;
-      text-decoration: none;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    /* Desktop links (Explore / Dashboard / About + Report pill) */
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-    }
-    .nav-links a {
-      font-size: 13px;
-      color: white;
-      text-decoration: none;
-      opacity: 0.9;
-      white-space: nowrap;
-    }
+    .nav-logo { font-size: 15px; font-weight: 700; color: white; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { font-size: 13px; color: white; text-decoration: none; opacity: 0.9; white-space: nowrap; }
     .nav-links a:hover { opacity: 1; }
-    .nav-cta {
-      border: 1px solid white;
-      border-radius: 20px;
-      padding: 6px 16px;
-      font-size: 12px;
-      font-weight: 500;
-      color: white !important;
-      text-decoration: none;
-      white-space: nowrap;
-      opacity: 1 !important;
-    }
+    .nav-cta { border: 1px solid white; border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 500; color: white !important; text-decoration: none; white-space: nowrap; opacity: 1 !important; }
     .nav-cta:hover { background: rgba(255,255,255,0.15); }
-
-    /* Mobile right-side cluster: Report pill + hamburger */
-    .nav-mobile-right {
-      display: none;
-      align-items: center;
-      gap: 10px;
-      flex-shrink: 0;
-    }
-    .nav-mobile-cta {
-      border: 1px solid white;
-      border-radius: 20px;
-      padding: 5px 12px;
-      font-size: 12px;
-      font-weight: 500;
-      color: white;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-    .hamburger {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    .hamburger span {
-      display: block;
-      width: 20px;
-      height: 2px;
-      background: white;
-      border-radius: 2px;
-      transition: transform 0.2s, opacity 0.2s;
-    }
+    .nav-mobile-right { display: none; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-mobile-cta { border: 1px solid white; border-radius: 20px; padding: 5px 12px; font-size: 12px; font-weight: 500; color: white; text-decoration: none; white-space: nowrap; }
+    .hamburger { background: none; border: none; cursor: pointer; padding: 4px; display: flex; flex-direction: column; gap: 5px; }
+    .hamburger span { display: block; width: 20px; height: 2px; background: white; border-radius: 2px; transition: transform 0.2s, opacity 0.2s; }
     .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    /* Mobile drawer */
-    .nav-drawer {
-      display: none;
-      position: fixed;
-      top: 56px;
-      left: 0; right: 0;
-      background: #B33828;
-      z-index: 199;
-      flex-direction: column;
-      padding: 8px 0 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    }
+    .nav-drawer { display: none; position: fixed; top: 56px; left: 0; right: 0; background: #B33828; z-index: 199; flex-direction: column; padding: 8px 0 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
     .nav-drawer.open { display: flex; }
-    .nav-drawer a {
-      color: white;
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 500;
-      padding: 13px 24px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      opacity: 0.95;
-    }
+    .nav-drawer a { color: white; text-decoration: none; font-size: 15px; font-weight: 500; padding: 13px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); opacity: 0.95; }
     .nav-drawer a:last-child { border-bottom: none; }
     .nav-drawer a:hover { background: rgba(255,255,255,0.08); }
 
     /* ── HERO ────────────────────────────────────────────────────────── */
-    .hero {
-      background: #C44030;
-      padding: 56px 64px 48px;
-    }
-    .hero-eyebrow {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      color: #F0C8B0;
-      margin-bottom: 14px;
-    }
-    .hero h1 {
-      font-size: 44px;
-      font-weight: 700;
-      color: white;
-      line-height: 1.1;
-      margin-bottom: 16px;
-      max-width: 680px;
-    }
-    .hero-sub {
-      font-size: 16px;
-      color: #F0C8B0;
-      line-height: 1.6;
-      max-width: 560px;
-      margin-bottom: 28px;
-    }
-    .hero-stats {
-      display: flex;
-      gap: 32px;
-      flex-wrap: wrap;
-    }
-    .hero-stat strong {
-      display: block;
-      font-size: 22px;
-      font-weight: 700;
-      color: white;
-    }
-    .hero-stat span {
-      font-size: 12px;
-      color: #F0C8B0;
-    }
+    .hero { background: #C44030; padding: 56px 64px 48px; }
+    .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; color: #F0C8B0; margin-bottom: 14px; }
+    .hero h1 { font-size: 44px; font-weight: 700; color: white; line-height: 1.1; margin-bottom: 16px; max-width: 680px; }
+    .hero-sub { font-size: 16px; color: #F0C8B0; line-height: 1.6; max-width: 560px; margin-bottom: 28px; }
+    .hero-stats { display: flex; gap: 32px; flex-wrap: wrap; }
+    .hero-stat strong { display: block; font-size: 22px; font-weight: 700; color: white; }
+    .hero-stat span { font-size: 12px; color: #F0C8B0; }
 
     /* ── SITES SECTION ───────────────────────────────────────────────── */
     .sites-section { padding: 48px 64px; }
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; gap: 16px; flex-wrap: wrap; }
     .section-title { font-size: 24px; font-weight: 700; color: #1A1A1A; }
-    .section-header-right {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .view-all {
-      font-size: 14px;
-      font-weight: 500;
-      color: #C44030;
-      text-decoration: none;
-      white-space: nowrap;
-    }
+    .section-header-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .view-all { font-size: 14px; font-weight: 500; color: #C44030; text-decoration: none; white-space: nowrap; }
     .view-all:hover { text-decoration: underline; }
-
-    .sites-search {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: white;
-      border-radius: 8px;
-      padding: 8px 12px;
-      border: 1px solid #E8E5DC;
-    }
-    .sites-search input {
-      border: none;
-      outline: none;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      color: #1A1A1A;
-      width: 180px;
-      background: transparent;
-    }
+    .sites-search { display: flex; align-items: center; gap: 8px; background: white; border-radius: 8px; padding: 8px 12px; border: 1px solid #E8E5DC; }
+    .sites-search input { border: none; outline: none; font-family: 'Inter', sans-serif; font-size: 13px; color: #1A1A1A; width: 180px; background: transparent; }
     .sites-search input::placeholder { color: #9F9E9A; }
-    .hero-search-btn {
-      background: #C44030;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      padding: 6px 14px;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-    }
+    .hero-search-btn { background: #C44030; color: white; border: none; border-radius: 6px; padding: 6px 14px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; }
 
-    .era-pills {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-    }
-    .era-pill {
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 500;
-      cursor: pointer;
-      border: none;
-      font-family: 'Inter', sans-serif;
-      transition: opacity 0.15s, transform 0.15s;
-    }
+    .era-pills { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+    .era-pill { padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 500; cursor: pointer; border: none; font-family: 'Inter', sans-serif; transition: opacity 0.15s; }
     .era-pill:hover { opacity: 0.85; }
     .era-pill.active { box-shadow: 0 0 0 2px #1A1A1A; }
     .pill-all      { background: #1A1A1A; color: white; }
@@ -248,67 +70,27 @@
     .pill-modern   { background: #A8A8CC; color: #1A1A1A; }
 
     /* SITE CARDS */
-    .sites-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 16px;
-    }
-    .site-card {
-      border-radius: 14px;
-      padding: 22px;
-      text-decoration: none;
-      display: block;
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
+    .sites-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+    .site-card { border-radius: 14px; padding: 22px; text-decoration: none; display: block; transition: transform 0.15s, box-shadow 0.15s; }
     .site-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
-    .card-era {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      color: rgba(0,0,0,0.5);
-      margin-bottom: 8px;
-    }
+    .card-era { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; color: rgba(0,0,0,0.5); margin-bottom: 8px; }
     .card-name { font-size: 18px; font-weight: 700; color: #1A1A1A; margin-bottom: 4px; line-height: 1.2; }
     .card-meta { font-size: 12px; color: rgba(0,0,0,0.5); margin-bottom: 10px; }
-    .card-reports { font-size: 11px; font-weight: 500; color: #993C1D; }
     .card-ok { font-size: 11px; font-weight: 500; color: #3B6D11; }
-    .era-ancient   { background: #A8C5D4; }
-    .era-sultanate { background: #E8A830; }
-    .era-mughal    { background: #C4A84A; }
-    .era-colonial  { background: #D4A0A8; }
-    .era-modern    { background: #A8A8CC; }
+    .era-Ancient   { background: #A8C5D4; }
+    .era-Sultanate { background: #E8A830; }
+    .era-Mughal    { background: #C4A84A; }
+    .era-Colonial  { background: #D4A0A8; }
+    .era-Modern    { background: #A8A8CC; }
+
+    /* Cards loading state */
+    .cards-loading { color: #9F9E9A; font-size: 13px; padding: 24px 0; }
 
     /* ── AWARENESS BANNER ────────────────────────────────────────────── */
-    .awareness-banner {
-      background: #FAEEDA;
-      border-top: 1px solid #FAC775;
-      border-bottom: 1px solid #FAC775;
-      padding: 18px 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-    .awareness-text {
-      font-size: 14px;
-      color: #633806;
-      line-height: 1.5;
-      max-width: 700px;
-    }
+    .awareness-banner { background: #FAEEDA; border-top: 1px solid #FAC775; border-bottom: 1px solid #FAC775; padding: 18px 64px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .awareness-text { font-size: 14px; color: #633806; line-height: 1.5; max-width: 700px; }
     .awareness-text strong { color: #854F0B; }
-    .awareness-btn {
-      background: #C44030;
-      color: white;
-      border: none;
-      border-radius: 20px;
-      padding: 10px 22px;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      text-decoration: none;
-      white-space: nowrap;
-    }
+    .awareness-btn { background: #C44030; color: white; border: none; border-radius: 20px; padding: 10px 22px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: none; white-space: nowrap; }
     .awareness-btn:hover { background: #A33526; }
 
     /* ── MAP SECTION ─────────────────────────────────────────────────── */
@@ -316,58 +98,26 @@
     .map-section-header { margin-bottom: 16px; }
     .map-section-title { font-size: 24px; font-weight: 700; color: #1A1A1A; margin-bottom: 4px; }
     .map-section-sub { font-size: 14px; color: #5F5E5A; }
-    #home-map {
-      width: 100%;
-      height: 440px;
-      border-radius: 14px;
-      border: 1px solid #E8E5DC;
-      overflow: hidden;
-    }
+    #home-map { width: 100%; height: 440px; border-radius: 14px; border: 1px solid #E8E5DC; overflow: hidden; }
 
     /* ── STATS SECTION ───────────────────────────────────────────────── */
     .stats-section { padding: 48px 64px; background: #C44030; }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 32px;
-      text-align: center;
-    }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; text-align: center; }
     .stat-item strong { display: block; font-size: 36px; font-weight: 700; color: white; margin-bottom: 6px; }
     .stat-item span { font-size: 13px; color: #F0C8B0; line-height: 1.4; }
 
     /* ── CTA SECTION ─────────────────────────────────────────────────── */
     .cta-section { padding: 64px; text-align: center; background: #F5F2EC; }
     .cta-section h2 { font-size: 32px; font-weight: 700; color: #1A1A1A; margin-bottom: 12px; }
-    .cta-section p {
-      font-size: 16px; color: #5F5E5A; margin-bottom: 32px;
-      max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.6;
-    }
+    .cta-section p { font-size: 16px; color: #5F5E5A; margin-bottom: 32px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.6; }
     .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn-primary {
-      background: #C44030; color: white; border: none; border-radius: 20px;
-      padding: 12px 28px; font-size: 14px; font-weight: 600; cursor: pointer;
-      font-family: 'Inter', sans-serif; text-decoration: none;
-    }
+    .btn-primary { background: #C44030; color: white; border: none; border-radius: 20px; padding: 12px 28px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: none; }
     .btn-primary:hover { background: #A33526; }
-    .btn-secondary {
-      background: transparent; color: #1A1A1A; border: 1.5px solid #D3D1C7;
-      border-radius: 20px; padding: 12px 28px; font-size: 14px; font-weight: 500;
-      cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: none;
-    }
+    .btn-secondary { background: transparent; color: #1A1A1A; border: 1.5px solid #D3D1C7; border-radius: 20px; padding: 12px 28px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: none; }
     .btn-secondary:hover { border-color: #C44030; color: #C44030; }
 
     /* ── FOOTER ──────────────────────────────────────────────────────── */
-    footer {
-      background: #1A1A1A;
-      color: #9F9E9A;
-      padding: 28px 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 12px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
+    footer { background: #1A1A1A; color: #9F9E9A; padding: 28px 64px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; flex-wrap: wrap; gap: 12px; }
     footer a { color: #C44030; text-decoration: none; }
     .footer-links { display: flex; gap: 20px; }
     .footer-links a { color: #9F9E9A; text-decoration: none; }
@@ -377,49 +127,31 @@
        MOBILE  ≤ 640px
     ═══════════════════════════════════════════════════════════════════ */
     @media (max-width: 640px) {
-      /* Nav */
       nav { padding: 0 16px; height: 52px; }
-      .nav-links { display: none; }                  /* hide desktop links */
-      .nav-mobile-right { display: flex; }           /* show pill + hamburger */
-
-      /* Hero */
+      .nav-links { display: none; }
+      .nav-mobile-right { display: flex; }
+      .nav-drawer { top: 52px; }
       .hero { padding: 32px 16px 28px; }
       .hero h1 { font-size: 28px; }
       .hero-sub { font-size: 14px; margin-bottom: 20px; }
       .hero-stats { gap: 16px; }
       .hero-stat strong { font-size: 18px; }
-
-      /* Sites section */
       .sites-section { padding: 28px 16px; }
-
-      /* Section header: title on top, search+view-all below */
       .section-header { flex-direction: column; align-items: flex-start; gap: 12px; }
       .section-header-right { width: 100%; }
       .sites-search { flex: 1; }
       .sites-search input { width: 100%; }
-
-      /* Cards: 2 columns */
       .sites-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
       .card-name { font-size: 14px; }
       .site-card { padding: 14px; }
-
-      /* Awareness banner */
       .awareness-banner { padding: 16px; flex-direction: column; align-items: flex-start; }
-
-      /* Map */
       .map-section { padding: 28px 16px; }
       #home-map { height: 280px; }
-
-      /* Stats */
       .stats-section { padding: 32px 16px; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
       .stat-item strong { font-size: 26px; }
-
-      /* CTA */
       .cta-section { padding: 40px 16px; }
       .cta-section h2 { font-size: 24px; }
-
-      /* Footer */
       footer { padding: 20px 16px; flex-direction: column; gap: 16px; }
       .footer-links { gap: 16px; flex-wrap: wrap; }
     }
@@ -430,16 +162,12 @@
   <!-- NAVBAR -->
   <nav>
     <a href="/" class="nav-logo">Heritage Atlas Delhi</a>
-
-    <!-- Desktop: all links in a row -->
     <div class="nav-links">
       <a href="/explore.html">Explore</a>
       <a href="/dashboard.html">Dashboard</a>
       <a href="/about.html">About</a>
       <a href="/report.html" class="nav-cta">Report behaviour</a>
     </div>
-
-    <!-- Mobile: Report pill always visible + hamburger for the rest -->
     <div class="nav-mobile-right">
       <a href="/report.html" class="nav-mobile-cta">Report behaviour</a>
       <button class="hamburger" id="hamburger" onclick="toggleDrawer()" aria-label="Menu">
@@ -448,7 +176,6 @@
     </div>
   </nav>
 
-  <!-- MOBILE DRAWER (Explore / Dashboard / About) -->
   <div class="nav-drawer" id="navDrawer">
     <a href="/explore.html" onclick="closeDrawer()">Explore</a>
     <a href="/dashboard.html" onclick="closeDrawer()">Dashboard</a>
@@ -477,7 +204,7 @@
           <input type="text" id="heroSearch" placeholder="Search a site…" oninput="heroSearchFilter(this.value)">
           <button class="hero-search-btn" onclick="goToExplore()">Search</button>
         </div>
-        <a href="/explore.html" class="view-all">View all 23 →</a>
+        <a href="/explore.html" class="view-all">View all →</a>
       </div>
     </div>
     <div class="era-pills">
@@ -489,7 +216,7 @@
       <button class="era-pill pill-modern" onclick="filterCards('Modern',this)">Modern</button>
     </div>
     <div class="sites-grid" id="sitesGrid">
-      <!-- Cards rendered by JS -->
+      <div class="cards-loading">Loading sites…</div>
     </div>
   </div>
 
@@ -501,7 +228,7 @@
     <a href="/report.html" class="awareness-btn">Report behaviour</a>
   </div>
 
-  <!-- MAP SECTION — unchanged -->
+  <!-- MAP SECTION -->
   <div class="map-section">
     <div class="map-section-header">
       <div class="map-section-title">All 23 sites on the map</div>
@@ -544,10 +271,8 @@
   <script>
     // ── HAMBURGER ──────────────────────────────────────────────────────
     function toggleDrawer() {
-      const drawer = document.getElementById('navDrawer');
-      const btn    = document.getElementById('hamburger');
-      drawer.classList.toggle('open');
-      btn.classList.toggle('open');
+      document.getElementById('navDrawer').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
     }
     function closeDrawer() {
       document.getElementById('navDrawer').classList.remove('open');
@@ -558,126 +283,96 @@
     const AIRTABLE_TOKEN = 'patgyTl5lOKK7E3le.c2cf51cbc10f5fb51d840b1622987b3b99d0adcd403902278e24e39170faeb40';
     const BASE_ID        = 'appQlkSSzr2fOSCIp';
 
-    const ERA_CLASSES = {
-      Ancient:'era-ancient', Sultanate:'era-sultanate',
-      Mughal:'era-mughal', Colonial:'era-colonial', Modern:'era-modern'
-    };
     const MAP_COLORS = {
       Ancient:'#6E9BAE', Sultanate:'#C4901A',
       Mughal:'#8C7230', Colonial:'#9E6070', Modern:'#6868A0'
     };
 
-    const ALL_SITES = [
-      {name:"Lal Kot",era:"Ancient",year:"1052 CE",loc:"Mehrauli",lat:28.5185,lng:77.1854,slug:"lal-kot"},
-      {name:"Anangtal Baoli",era:"Ancient",year:"1060 CE",loc:"Mehrauli",lat:28.5190,lng:77.1862,slug:"anangtal-baoli"},
-      {name:"Qutub Minar",era:"Sultanate",year:"1220 CE",loc:"Mehrauli",lat:28.5244,lng:77.1855,slug:"qutub-minar"},
-      {name:"Hauz Khas Complex",era:"Sultanate",year:"1352 CE",loc:"Hauz Khas",lat:28.5494,lng:77.2001,slug:"hauz-khas-complex"},
-      {name:"Tughlaqabad Fort",era:"Sultanate",year:"1321 CE",loc:"South Delhi",lat:28.4830,lng:77.2497,slug:"tughlaqabad-fort"},
-      {name:"Nizamuddin Dargah",era:"Sultanate",year:"1325 CE",loc:"Nizamuddin",lat:28.5931,lng:77.2475,slug:"nizamuddin-dargah"},
-      {name:"Chor Minar",era:"Sultanate",year:"14th C",loc:"Hauz Khas",lat:28.5521,lng:77.1989,slug:"chor-minar"},
-      {name:"Khirki Masjid",era:"Sultanate",year:"1375 CE",loc:"Khirki",lat:28.5392,lng:77.2098,slug:"khirki-masjid"},
-      {name:"Mehrauli Archaeological Park",era:"Sultanate",year:"Mixed",loc:"Mehrauli",lat:28.5215,lng:77.1852,slug:"mehrauli-archaeological-park"},
-      {name:"Purana Qila",era:"Mughal",year:"1538 CE",loc:"Mathura Road",lat:28.6113,lng:77.2417,slug:"purana-qila"},
-      {name:"Adham Khan's Tomb",era:"Mughal",year:"1562 CE",loc:"Mehrauli",lat:28.5228,lng:77.1847,slug:"adham-khans-tomb"},
-      {name:"Humayun's Tomb",era:"Mughal",year:"1572 CE",loc:"Nizamuddin",lat:28.5933,lng:77.2507,slug:"humayuns-tomb"},
-      {name:"Red Fort",era:"Mughal",year:"1648 CE",loc:"Old Delhi",lat:28.6562,lng:77.2410,slug:"red-fort"},
-      {name:"Chandni Chowk",era:"Mughal",year:"1650 CE",loc:"Old Delhi",lat:28.6563,lng:77.2300,slug:"chandni-chowk"},
-      {name:"Safdarjung Complex",era:"Colonial",year:"1754 CE",loc:"New Delhi",lat:28.5912,lng:77.2087,slug:"safdarjung-complex"},
-      {name:"Rashtrapati Bhavan",era:"Colonial",year:"1929 CE",loc:"Raisina Hill",lat:28.6143,lng:77.1993,slug:"rashtrapati-bhavan"},
-      {name:"India Gate",era:"Colonial",year:"1931 CE",loc:"Rajpath",lat:28.6129,lng:77.2295,slug:"india-gate"},
-      {name:"Connaught Place",era:"Colonial",year:"1933 CE",loc:"Central Delhi",lat:28.6315,lng:77.2167,slug:"connaught-place"},
-      {name:"Jantar Mantar",era:"Colonial",year:"1724 CE",loc:"Connaught Place",lat:28.6274,lng:77.2166,slug:"jantar-mantar"},
-      {name:"Lotus Temple",era:"Modern",year:"1986 CE",loc:"Bahapur",lat:28.5535,lng:77.2588,slug:"lotus-temple"},
-      {name:"Akshardham Temple",era:"Modern",year:"2005 CE",loc:"East Delhi",lat:28.6127,lng:77.2773,slug:"akshardham-temple"},
-      {name:"National War Memorial",era:"Modern",year:"2019 CE",loc:"India Gate",lat:28.6125,lng:77.2280,slug:"national-war-memorial"},
-      {name:"Safdarjung's Tomb",era:"Colonial",year:"1754 CE",loc:"New Delhi",lat:28.5900,lng:77.2070,slug:"safdarjungs-tomb"}
-    ];
-
+    // ── SITE DATA — fetched once from Airtable ─────────────────────────
+    let allSites  = [];   // all published sites for search + map
     let activeEra = 'all';
 
-    const SHOWCASE = {
-      Ancient:   [
-        {name:"Lal Kot",year:"1052 CE",loc:"Mehrauli",slug:"lal-kot"},
-        {name:"Anangtal Baoli",year:"1060 CE",loc:"Mehrauli",slug:"anangtal-baoli"}
-      ],
-      Sultanate: [
-        {name:"Qutub Minar",year:"1220 CE",loc:"Mehrauli",slug:"qutub-minar"},
-        {name:"Hauz Khas Complex",year:"1352 CE",loc:"Hauz Khas",slug:"hauz-khas-complex"},
-        {name:"Tughlaqabad Fort",year:"1321 CE",loc:"South Delhi",slug:"tughlaqabad-fort"},
-        {name:"Nizamuddin Dargah",year:"1325 CE",loc:"Nizamuddin",slug:"nizamuddin-dargah"},
-        {name:"Chor Minar",year:"14th C",loc:"Hauz Khas",slug:"chor-minar"},
-        {name:"Khirki Masjid",year:"1375 CE",loc:"Khirki Village",slug:"khirki-masjid"},
-        {name:"Mehrauli Archaeological Park",year:"Mixed",loc:"Mehrauli",slug:"mehrauli-archaeological-park"}
-      ],
-      Mughal:    [
-        {name:"Purana Qila",year:"1538 CE",loc:"Mathura Road",slug:"purana-qila"},
-        {name:"Adham Khan's Tomb",year:"1562 CE",loc:"Mehrauli",slug:"adham-khans-tomb"},
-        {name:"Humayun's Tomb",year:"1572 CE",loc:"Nizamuddin",slug:"humayuns-tomb"},
-        {name:"Red Fort",year:"1648 CE",loc:"Old Delhi",slug:"red-fort"},
-        {name:"Chandni Chowk",year:"1650 CE",loc:"Old Delhi",slug:"chandni-chowk"}
-      ],
-      Colonial:  [
-        {name:"Safdarjung Complex",year:"1754 CE",loc:"New Delhi",slug:"safdarjung-complex"},
-        {name:"Safdarjung's Tomb",year:"1754 CE",loc:"New Delhi",slug:"safdarjungs-tomb"},
-        {name:"Jantar Mantar",year:"1724 CE",loc:"Connaught Place",slug:"jantar-mantar"},
-        {name:"Rashtrapati Bhavan",year:"1929 CE",loc:"Raisina Hill",slug:"rashtrapati-bhavan"},
-        {name:"India Gate",year:"1931 CE",loc:"Rajpath",slug:"india-gate"},
-        {name:"Connaught Place",year:"1933 CE",loc:"Central Delhi",slug:"connaught-place"}
-      ],
-      Modern:    [
-        {name:"Lotus Temple",year:"1986 CE",loc:"Bahapur",slug:"lotus-temple"},
-        {name:"Akshardham Temple",year:"2005 CE",loc:"East Delhi",slug:"akshardham-temple"},
-        {name:"National War Memorial",year:"2019 CE",loc:"India Gate",slug:"national-war-memorial"}
-      ]
-    };
-
-    const ALL_SHOWCASE = [
-      {name:"Lal Kot",era:"Ancient",year:"1052 CE",loc:"Mehrauli",slug:"lal-kot"},
-      {name:"Tughlaqabad Fort",era:"Sultanate",year:"1321 CE",loc:"South Delhi",slug:"tughlaqabad-fort"},
-      {name:"Humayun's Tomb",era:"Mughal",year:"1572 CE",loc:"Nizamuddin",slug:"humayuns-tomb"},
-      {name:"India Gate",era:"Colonial",year:"1931 CE",loc:"Rajpath",slug:"india-gate"},
-      {name:"Lotus Temple",era:"Modern",year:"1986 CE",loc:"South Delhi",slug:"lotus-temple"},
-    ];
-
-    function renderCards(era) {
-      const grid = document.getElementById('sitesGrid');
-      if (era === 'all') {
-        grid.innerHTML = ALL_SHOWCASE.map(s => cardHTML(s.name,s.era,s.year,s.loc,s.slug)).join('');
-      } else {
-        grid.innerHTML = (SHOWCASE[era]||[]).map(s => cardHTML(s.name,era,s.year,s.loc,s.slug)).join('');
+    async function loadSites() {
+      try {
+        const url = `https://api.airtable.com/v0/${BASE_ID}/Sites?filterByFormula=Published=TRUE()&sort[0][field]=Name&sort[0][direction]=asc`;
+        const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
+        if (!res.ok) throw new Error(res.status);
+        const data = await res.json();
+        allSites = data.records.map(r => r.fields);
+        renderCards('all');
+        initMap();           // map uses live Airtable data
+      } catch(e) {
+        document.getElementById('sitesGrid').innerHTML =
+          '<div class="cards-loading">Could not load sites.</div>';
       }
     }
 
-    function cardHTML(name,era,year,loc,slug) {
-      return `<a href="/site.html?slug=${slug}" class="site-card ${ERA_CLASSES[era]||''}">
+    // ── CARD RENDERING ─────────────────────────────────────────────────
+    function renderCards(era) {
+      const grid = document.getElementById('sitesGrid');
+      const search = document.getElementById('heroSearch').value.toLowerCase();
+
+      let sites = era === 'all' ? allSites : allSites.filter(s => s['Era'] === era);
+
+      // Apply search filter if typed
+      if (search) {
+        sites = sites.filter(s =>
+          (s['Name'] || '').toLowerCase().includes(search) ||
+          (s['Location'] || '').toLowerCase().includes(search)
+        );
+      }
+
+      // "All eras" view: show one representative per era (first alphabetically)
+      // "Specific era" view: show all sites in that era
+      if (era === 'all' && !search) {
+        const byEra = {};
+        allSites.forEach(s => {
+          const e = s['Era'];
+          if (!byEra[e]) byEra[e] = s; // first site per era
+        });
+        sites = Object.values(byEra);
+      }
+
+      if (sites.length === 0) {
+        grid.innerHTML = '<div class="cards-loading">No sites found.</div>';
+        return;
+      }
+
+      grid.innerHTML = sites.map(s => cardHTML(s)).join('');
+    }
+
+    function cardHTML(s) {
+      const era  = s['Era'] || '';
+      const name = s['Name'] || '';
+      const year = s['Year built'] || '';
+      const loc  = s['Location'] || '';
+      const slug = s['Slug'] || name.toLowerCase().replace(/\s+/g, '-');
+      return `<a href="/site.html?slug=${slug}" class="site-card era-${era}">
         <div class="card-era">${era.toUpperCase()} ERA</div>
         <div class="card-name">${name}</div>
-        <div class="card-meta">${year} · ${loc}</div>
+        <div class="card-meta">${year}${loc ? ' · ' + loc : ''}</div>
         <div class="card-ok">No reports this month</div>
       </a>`;
     }
 
-    function filterCards(era,btn) {
+    function filterCards(era, btn) {
       activeEra = era;
       document.querySelectorAll('.era-pill').forEach(p => p.classList.remove('active'));
       btn.classList.add('active');
       renderCards(era);
     }
 
+    // ── SEARCH ─────────────────────────────────────────────────────────
+    function heroSearchFilter(val) {
+      renderCards(activeEra);
+    }
+
     function goToExplore() {
       const q = document.getElementById('heroSearch').value;
       window.location.href = '/explore.html' + (q ? '?q=' + encodeURIComponent(q) : '');
     }
-    function heroSearchFilter(val) {
-      if (!val) { renderCards(activeEra); return; }
-      const filtered = ALL_SITES.filter(s =>
-        s.name.toLowerCase().includes(val.toLowerCase()) ||
-        s.loc.toLowerCase().includes(val.toLowerCase())
-      ).slice(0,8);
-      document.getElementById('sitesGrid').innerHTML =
-        filtered.map(s => cardHTML(s.name,s.era,s.year,s.loc,s.slug)).join('');
-    }
 
+    // ── STATS ──────────────────────────────────────────────────────────
     async function loadStats() {
       try {
         const formula = encodeURIComponent('{Status}!="Not relevant"');
@@ -688,50 +383,63 @@
         if (!res.ok) return;
         const data = await res.json();
         const verified = data.records.filter(r => r.fields.Status === 'Moderator verified').length;
-        document.getElementById('statReports').textContent  = verified || '0';
+        document.getElementById('statReports').textContent   = verified || '0';
         document.getElementById('footerReports').textContent = data.records.length || '0';
       } catch(e) {}
     }
 
+    // ── MAP — uses live Airtable data ──────────────────────────────────
     function initMap() {
       const map = L.map('home-map', { center:[28.57,77.21], zoom:11, scrollWheelZoom:false });
       L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
         attribution: '© OpenStreetMap contributors © CARTO', maxZoom:19
       }).addTo(map);
 
-      ALL_SITES.forEach(function(s) {
-        var color = MAP_COLORS[s.era] || '#C44030';
-        var icon = L.divIcon({
-          html: '<div style="width:13px;height:13px;border-radius:50%;background:'+color+';border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.25);cursor:pointer;"></div>',
+      allSites.forEach(function(s) {
+        const lat  = parseFloat(s['Latitude']);
+        const lng  = parseFloat(s['Longitude']);
+        const era  = s['Era'] || '';
+        const name = s['Name'] || '';
+        const year = s['Year built'] || '';
+        const loc  = s['Location'] || '';
+        const slug = s['Slug'] || name.toLowerCase().replace(/\s+/g, '-');
+        if (!lat || !lng) return;
+
+        const color = MAP_COLORS[era] || '#C44030';
+        const icon  = L.divIcon({
+          html: `<div style="width:13px;height:13px;border-radius:50%;background:${color};border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.25);cursor:pointer;"></div>`,
           className:'', iconSize:[13,13], iconAnchor:[6,6], popupAnchor:[0,-8]
         });
-        L.marker([s.lat,s.lng],{icon:icon})
+
+        L.marker([lat, lng], {icon})
           .bindPopup(
-            '<div style="font-family:Inter,sans-serif;min-width:160px;">'+
-            '<div style="font-size:10px;font-weight:500;letter-spacing:0.07em;color:#5F5E5A;margin-bottom:3px;">'+s.era.toUpperCase()+' ERA</div>'+
-            '<div style="font-size:14px;font-weight:700;color:#1A1A1A;margin-bottom:2px;">'+s.name+'</div>'+
-            '<div style="font-size:12px;color:#5F5E5A;margin-bottom:8px;">'+s.year+' · '+s.loc+'</div>'+
-            '<a href="/site.html?slug='+s.slug+'" style="font-size:12px;font-weight:500;color:#C44030;text-decoration:none;">View site →</a>'+
-            '</div>',{maxWidth:220})
+            `<div style="font-family:Inter,sans-serif;min-width:160px;">
+              <div style="font-size:10px;font-weight:500;letter-spacing:0.07em;color:#5F5E5A;margin-bottom:3px;">${era.toUpperCase()} ERA</div>
+              <div style="font-size:14px;font-weight:700;color:#1A1A1A;margin-bottom:2px;">${name}</div>
+              <div style="font-size:12px;color:#5F5E5A;margin-bottom:8px;">${year}${loc ? ' · ' + loc : ''}</div>
+              <a href="/site.html?slug=${slug}" style="font-size:12px;font-weight:500;color:#C44030;text-decoration:none;">View site →</a>
+            </div>`, {maxWidth:220}
+          )
           .addTo(map);
       });
 
-      var legend = L.control({position:'bottomright'});
+      // Legend
+      const legend = L.control({position:'bottomright'});
       legend.onAdd = function() {
-        var div = L.DomUtil.create('div');
+        const div = L.DomUtil.create('div');
         div.style.cssText = 'background:white;padding:10px 14px;border-radius:8px;font-family:Inter,sans-serif;font-size:11px;line-height:1.8;box-shadow:0 2px 8px rgba(0,0,0,0.12);';
-        div.innerHTML = Object.entries(MAP_COLORS).map(function(e) {
-          return '<div style="display:flex;align-items:center;gap:7px;"><div style="width:10px;height:10px;border-radius:50%;background:'+e[1]+';flex-shrink:0;"></div>'+e[0]+' Era</div>';
-        }).join('');
+        div.innerHTML = Object.entries(MAP_COLORS).map(([era, color]) =>
+          `<div style="display:flex;align-items:center;gap:7px;"><div style="width:10px;height:10px;border-radius:50%;background:${color};flex-shrink:0;"></div>${era} Era</div>`
+        ).join('');
         return div;
       };
       legend.addTo(map);
     }
 
+    // ── INIT ───────────────────────────────────────────────────────────
     document.addEventListener('DOMContentLoaded', function() {
-      renderCards('all');
+      loadSites();   // fetches sites → renders cards → initialises map
       loadStats();
-      initMap();
     });
   </script>
 </body>
