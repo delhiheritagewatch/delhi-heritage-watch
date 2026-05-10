@@ -55,27 +55,41 @@
     .era-Modern    { background: #6868A0; }
 
     /* ── SITE IMAGE ──────────────────────────────────────────────────── */
-    .site-image-wrap {
-      width: 100%;
-      max-height: 420px;
-      overflow: hidden;
-      position: relative;
+    /* ── SITE IMAGE CAROUSEL ─────────────────────────────────────────── */
+    .carousel {
+      width: 100%; height: 420px; position: relative;
+      overflow: hidden; background: #1A1A1A; display: none;
     }
-    .site-image-wrap img {
-      width: 100%;
-      height: 420px;
-      object-fit: cover;
-      display: block;
+    .carousel-track { display: flex; height: 100%; transition: transform 0.35s ease; }
+    .carousel-slide { flex-shrink: 0; width: 100%; height: 100%; }
+    .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(0,0,0,0.45); border: none; color: white;
+      font-size: 18px; width: 40px; height: 40px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      z-index: 10; transition: background 0.15s;
     }
-    .site-image-caption {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      background: linear-gradient(transparent, rgba(0,0,0,0.5));
-      color: white;
-      font-size: 11px;
-      padding: 24px 20px 12px;
-      opacity: 0.8;
+    .carousel-btn:hover { background: rgba(0,0,0,0.7); }
+    .carousel-btn.prev { left: 14px; }
+    .carousel-btn.next { right: 14px; }
+    .carousel-dots {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 6px; z-index: 10;
     }
+    .carousel-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(255,255,255,0.45); cursor: pointer; transition: background 0.15s;
+    }
+    .carousel-dot.active { background: white; }
+    .carousel-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.55));
+      color: white; font-size: 11px; padding: 32px 20px 12px;
+      pointer-events: none; opacity: 0.9;
+    }
+    .carousel.single .carousel-btn,
+    .carousel.single .carousel-dots { display: none; }
 
     /* ── TABS ────────────────────────────────────────────────────────── */
     .tabs { background: white; display: flex; border-bottom: 1px solid #E8E5DC; padding: 0 64px; position: sticky; top: 52px; z-index: 90; overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -171,7 +185,7 @@
       .site-title { font-size: 26px; }
       .meta-row { gap: 16px; }
       .meta-value { font-size: 12px; }
-      .site-image-wrap img { height: 220px; }
+      .carousel { height: 220px; }
       .tabs { padding: 0 16px; top: 52px; }
       .content-area { grid-template-columns: 1fr; padding: 20px 16px; gap: 20px; }
       .sidebar { order: 2; }
@@ -251,10 +265,13 @@
       </div>
     </div>
 
-    <!-- SITE IMAGE — shown below hero if a photo exists in Airtable -->
-    <div class="site-image-wrap" id="siteImageWrap" style="display:none;">
-      <img id="siteImage" src="" alt="">
-      <div class="site-image-caption" id="siteImageCaption"></div>
+    <!-- SITE IMAGE CAROUSEL -->
+    <div class="carousel" id="siteCarousel">
+      <div class="carousel-track" id="carouselTrack"></div>
+      <button class="carousel-btn prev" onclick="carouselMove(-1)" aria-label="Previous">&#8249;</button>
+      <button class="carousel-btn next" onclick="carouselMove(1)" aria-label="Next">&#8250;</button>
+      <div class="carousel-dots" id="carouselDots"></div>
+      <div class="carousel-caption" id="carouselCaption"></div>
     </div>
 
     <!-- TABS -->
@@ -433,14 +450,8 @@
       const lat        = site['Latitude'] || '';
       const lng        = site['Longitude'] || '';
 
-      // Airtable attachment fields return an array of objects with a url property
-      const photos     = site['Photo'] || site['Photos'] || site['Image'] || [];
-      const photoUrl   = Array.isArray(photos) && photos.length > 0 ? photos[0].url : null;
-      const photoThumb = Array.isArray(photos) && photos.length > 0
-        ? (photos[0].thumbnails && photos[0].thumbnails.large
-            ? photos[0].thumbnails.large.url
-            : photos[0].url)
-        : null;
+      // Airtable attachment fields — array of objects with .url and .thumbnails
+      const photos = site['Photos'] || [];
 
       document.title = `${name} — Heritage Atlas Delhi`;
       document.getElementById('breadcrumbName').textContent = name;
@@ -456,16 +467,8 @@
       document.getElementById('heroCustodian').textContent    = custodian;
       document.getElementById('heroProtection').textContent   = protection;
 
-      // Site image — show below hero if a photo attachment exists
-      if (photoUrl) {
-        const imgEl  = document.getElementById('siteImage');
-        const capEl  = document.getElementById('siteImageCaption');
-        const wrapEl = document.getElementById('siteImageWrap');
-        imgEl.src    = photoThumb || photoUrl;
-        imgEl.alt    = name;
-        capEl.textContent = name + (location ? ' · ' + location : '');
-        wrapEl.style.display = 'block';
-      }
+      // Build carousel from all photo attachments
+      buildCarousel(photos, name, location);
 
       // History — render as paragraphs, inject pull quote after first paragraph
       renderHistory(history, pullQuote);
@@ -561,6 +564,56 @@
             <span class="report-status ${s.cls}">${s.label}</span>
           </div>`;
       }).join('');
+    }
+
+
+    // ── CAROUSEL ───────────────────────────────────────────────────────
+    let carouselIndex = 0;
+    let carouselTotal = 0;
+
+    function buildCarousel(photos, name, location) {
+      if (!Array.isArray(photos) || photos.length === 0) return;
+
+      const carousel = document.getElementById('siteCarousel');
+      const track    = document.getElementById('carouselTrack');
+      const dots     = document.getElementById('carouselDots');
+      const caption  = document.getElementById('carouselCaption');
+
+      carouselTotal = photos.length;
+      carouselIndex = 0;
+
+      // Build slides
+      track.innerHTML = photos.map(p => {
+        const url = (p.thumbnails && p.thumbnails.large)
+          ? p.thumbnails.large.url
+          : p.url;
+        return `<div class="carousel-slide"><img src="${url}" alt="${name}" loading="lazy"></div>`;
+      }).join('');
+
+      // Build dots
+      dots.innerHTML = photos.map((_, i) =>
+        `<div class="carousel-dot${i === 0 ? ' active' : ''}" onclick="carouselGoTo(${i})"></div>`
+      ).join('');
+
+      // Caption
+      caption.textContent = name + (location ? ' · ' + location : '');
+
+      // Single image — add class to hide arrows/dots
+      if (photos.length === 1) carousel.classList.add('single');
+
+      carousel.style.display = 'block';
+    }
+
+    function carouselMove(dir) {
+      carouselGoTo((carouselIndex + dir + carouselTotal) % carouselTotal);
+    }
+
+    function carouselGoTo(idx) {
+      carouselIndex = idx;
+      document.getElementById('carouselTrack').style.transform = `translateX(-${idx * 100}%)`;
+      document.querySelectorAll('.carousel-dot').forEach((d, i) =>
+        d.classList.toggle('active', i === idx)
+      );
     }
 
     function switchTab(name, el) {
