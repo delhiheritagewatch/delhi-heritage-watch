@@ -11,59 +11,31 @@
 
     /* ── NAVBAR ─────────────────────────────────────────────────────── */
     nav {
-      background: #C44030;
-      padding: 0 64px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 200;
+      background: #C44030; padding: 0 64px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 200;
     }
     .nav-logo { font-size: 15px; font-weight: 700; color: white; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
     .nav-links { display: flex; align-items: center; gap: 32px; }
     .nav-links a { font-size: 13px; color: white; text-decoration: none; opacity: 0.9; white-space: nowrap; }
     .nav-links a:hover { opacity: 1; }
-    .nav-cta {
-      border: 1px solid white; border-radius: 20px; padding: 6px 16px;
-      font-size: 12px; font-weight: 500; color: white !important;
-      text-decoration: none; white-space: nowrap; opacity: 1 !important;
-    }
+    .nav-cta { border: 1px solid white; border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 500; color: white !important; text-decoration: none; white-space: nowrap; opacity: 1 !important; }
     .nav-cta:hover { background: rgba(255,255,255,0.15); }
-
-    /* Mobile right cluster */
     .nav-mobile-right { display: none; align-items: center; gap: 10px; flex-shrink: 0; }
-    .nav-mobile-cta {
-      border: 1px solid white; border-radius: 20px; padding: 5px 12px;
-      font-size: 12px; font-weight: 500; color: white; text-decoration: none; white-space: nowrap;
-    }
+    .nav-mobile-cta { border: 1px solid white; border-radius: 20px; padding: 5px 12px; font-size: 12px; font-weight: 500; color: white; text-decoration: none; white-space: nowrap; }
     .hamburger { background: none; border: none; cursor: pointer; padding: 4px; display: flex; flex-direction: column; gap: 5px; }
     .hamburger span { display: block; width: 20px; height: 2px; background: white; border-radius: 2px; transition: transform 0.2s, opacity 0.2s; }
     .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    /* Mobile drawer */
-    .nav-drawer {
-      display: none; position: fixed; top: 52px; left: 0; right: 0;
-      background: #B33828; z-index: 199; flex-direction: column;
-      padding: 8px 0 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    }
+    .nav-drawer { display: none; position: fixed; top: 52px; left: 0; right: 0; background: #B33828; z-index: 199; flex-direction: column; padding: 8px 0 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
     .nav-drawer.open { display: flex; }
-    .nav-drawer a {
-      color: white; text-decoration: none; font-size: 15px; font-weight: 500;
-      padding: 13px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); opacity: 0.95;
-    }
+    .nav-drawer a { color: white; text-decoration: none; font-size: 15px; font-weight: 500; padding: 13px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); opacity: 0.95; }
     .nav-drawer a:last-child { border-bottom: none; }
     .nav-drawer a:hover { background: rgba(255,255,255,0.08); }
 
     /* ── BREADCRUMB ──────────────────────────────────────────────────── */
-    .breadcrumb {
-      padding: 12px 64px; font-size: 12px; color: #5F5E5A;
-      display: flex; align-items: center; gap: 6px;
-      background: white; border-bottom: 1px solid #E8E5DC;
-    }
+    .breadcrumb { padding: 12px 64px; font-size: 12px; color: #5F5E5A; display: flex; align-items: center; gap: 6px; background: white; border-bottom: 1px solid #E8E5DC; }
     .breadcrumb a { color: #C44030; text-decoration: none; }
     .breadcrumb a:hover { text-decoration: underline; }
 
@@ -76,57 +48,76 @@
     .meta-label { font-size: 10px; font-weight: 500; letter-spacing: 0.06em; opacity: 0.7; margin-bottom: 3px; }
     .meta-value { font-size: 13px; font-weight: 500; }
 
-    /* Era hero colours */
     .era-Ancient   { background: #6E9BAE; }
     .era-Sultanate { background: #B87D1A; }
     .era-Mughal    { background: #8C7230; }
     .era-Colonial  { background: #9E6070; }
     .era-Modern    { background: #6868A0; }
 
+    /* ── SITE IMAGE ──────────────────────────────────────────────────── */
+    .site-image-wrap {
+      width: 100%;
+      max-height: 420px;
+      overflow: hidden;
+      position: relative;
+    }
+    .site-image-wrap img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      display: block;
+    }
+    .site-image-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.5));
+      color: white;
+      font-size: 11px;
+      padding: 24px 20px 12px;
+      opacity: 0.8;
+    }
+
     /* ── TABS ────────────────────────────────────────────────────────── */
-    .tabs {
-      background: white; display: flex; border-bottom: 1px solid #E8E5DC;
-      padding: 0 64px; position: sticky; top: 52px; z-index: 90;
-      overflow-x: auto; -webkit-overflow-scrolling: touch;
-    }
+    .tabs { background: white; display: flex; border-bottom: 1px solid #E8E5DC; padding: 0 64px; position: sticky; top: 52px; z-index: 90; overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .tabs::-webkit-scrollbar { display: none; }
-    .tab {
-      padding: 14px 16px; font-size: 13px; font-weight: 500; color: #5F5E5A;
-      cursor: pointer; border-bottom: 2px solid transparent;
-      margin-bottom: -1px; transition: color 0.15s; white-space: nowrap;
-    }
+    .tab { padding: 14px 16px; font-size: 13px; font-weight: 500; color: #5F5E5A; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.15s; white-space: nowrap; }
     .tab.active { color: #C44030; border-bottom-color: #C44030; }
     .tab:hover { color: #1A1A1A; }
 
     /* ── CONTENT AREA ────────────────────────────────────────────────── */
-    .content-area {
-      display: grid;
-      grid-template-columns: 1fr 320px;
-      gap: 32px;
-      padding: 40px 64px;
-      max-width: 1200px;
-    }
+    .content-area { display: grid; grid-template-columns: 1fr 320px; gap: 32px; padding: 40px 64px; max-width: 1200px; }
 
     /* ── TAB PANELS ──────────────────────────────────────────────────── */
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    /* ── HISTORY TAB ─────────────────────────────────────────────────── */
-    .history-text { font-size: 15px; line-height: 1.8; color: #2A2A2A; margin-bottom: 24px; }
-    .pull-quote {
-      border-left: 4px solid #C44030; padding: 12px 20px; margin: 24px 0;
-      font-size: 15px; font-style: italic; color: #C44030;
-      background: #FAECE7; line-height: 1.6; border-radius: 0 8px 8px 0;
+    /* ── HISTORY TEXT — paragraphs with proper spacing ───────────────── */
+    .history-body p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #2A2A2A;
+      margin-bottom: 20px;
     }
-    .pull-quote-source { font-size: 12px; font-style: normal; color: #993C1D; margin-top: 6px; font-weight: 500; }
+    .history-body p:last-child { margin-bottom: 0; }
+
+    /* ── PULL QUOTE — appears mid-flow after first paragraph ─────────── */
+    .pull-quote {
+      border-left: 4px solid #C44030;
+      padding: 14px 20px;
+      margin: 24px 0;
+      font-size: 16px;
+      font-style: italic;
+      color: #C44030;
+      background: #FAECE7;
+      line-height: 1.6;
+      border-radius: 0 8px 8px 0;
+    }
+    .pull-quote-source { font-size: 12px; font-style: normal; color: #993C1D; margin-top: 8px; font-weight: 500; }
 
     /* ── CUSTODIAN CARD ──────────────────────────────────────────────── */
     .custodian-card { background: white; border-radius: 12px; padding: 20px; border: 1px solid #E8E5DC; margin-bottom: 20px; }
     .custodian-title { font-size: 11px; font-weight: 500; letter-spacing: 0.07em; color: #5F5E5A; margin-bottom: 14px; }
-    .custodian-row {
-      display: flex; justify-content: space-between; padding: 8px 0;
-      border-bottom: 1px solid #F0EDE4; font-size: 13px;
-    }
+    .custodian-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #F0EDE4; font-size: 13px; }
     .custodian-row:last-child { border-bottom: none; }
     .custodian-key { color: #5F5E5A; }
     .custodian-val { font-weight: 500; color: #1A1A1A; text-align: right; max-width: 180px; }
@@ -134,17 +125,9 @@
     /* ── REPORTS TAB ─────────────────────────────────────────────────── */
     .reports-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
     .reports-count { font-size: 16px; font-weight: 500; }
-    .report-btn {
-      background: #C44030; color: white; border: none; border-radius: 20px;
-      padding: 8px 20px; font-family: 'Inter', sans-serif; font-size: 13px;
-      font-weight: 500; cursor: pointer; text-decoration: none; display: inline-block;
-    }
+    .report-btn { background: #C44030; color: white; border: none; border-radius: 20px; padding: 8px 20px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; text-decoration: none; display: inline-block; }
     .report-btn:hover { background: #A33526; }
-    .report-item {
-      background: white; border-radius: 10px; padding: 16px 20px;
-      margin-bottom: 10px; border: 1px solid #E8E5DC;
-      display: flex; align-items: flex-start; gap: 12px;
-    }
+    .report-item { background: white; border-radius: 10px; padding: 16px 20px; margin-bottom: 10px; border: 1px solid #E8E5DC; display: flex; align-items: flex-start; gap: 12px; }
     .report-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
     .dot-verified { background: #0F6E56; }
     .dot-pending  { background: #EF9F27; }
@@ -160,28 +143,17 @@
     .no-reports p { margin-bottom: 16px; }
 
     /* ── AWARENESS BANNER ────────────────────────────────────────────── */
-    .awareness-banner {
-      background: #FAEEDA; border-radius: 10px; padding: 16px 20px;
-      margin-bottom: 20px; border: 1px solid #FAC775;
-    }
+    .awareness-banner { background: #FAEEDA; border-radius: 10px; padding: 16px 20px; margin-bottom: 20px; border: 1px solid #FAC775; }
     .awareness-text { font-size: 13px; color: #633806; line-height: 1.5; margin-bottom: 12px; }
 
     /* ── LOADING / ERROR ─────────────────────────────────────────────── */
     .loading { text-align: center; padding: 80px; color: #5F5E5A; }
-    .loading-spinner {
-      width: 32px; height: 32px; border: 3px solid #E8E5DC;
-      border-top-color: #C44030; border-radius: 50%;
-      animation: spin 0.8s linear infinite; margin: 0 auto 16px;
-    }
+    .loading-spinner { width: 32px; height: 32px; border: 3px solid #E8E5DC; border-top-color: #C44030; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .error-msg { text-align: center; padding: 80px 64px; color: #993C1D; }
 
     /* ── FOOTER ──────────────────────────────────────────────────────── */
-    footer {
-      background: #1A1A1A; color: #9F9E9A; padding: 28px 64px;
-      display: flex; align-items: center; justify-content: space-between;
-      font-size: 12px; flex-wrap: wrap; gap: 12px; margin-top: 48px;
-    }
+    footer { background: #1A1A1A; color: #9F9E9A; padding: 28px 64px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; flex-wrap: wrap; gap: 12px; margin-top: 48px; }
     footer a { color: #C44030; text-decoration: none; }
     .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
     .footer-links a { color: #9F9E9A; text-decoration: none; }
@@ -191,38 +163,23 @@
        MOBILE  ≤ 640px
     ═══════════════════════════════════════════════════════════════════ */
     @media (max-width: 640px) {
-      /* Nav */
       nav { padding: 0 16px; height: 52px; }
       .nav-links { display: none; }
       .nav-mobile-right { display: flex; }
-
-      /* Breadcrumb */
       .breadcrumb { padding: 10px 16px; }
-
-      /* Hero */
       .site-hero { padding: 24px 16px; }
       .site-title { font-size: 26px; }
       .meta-row { gap: 16px; }
       .meta-value { font-size: 12px; }
-
-      /* Tabs: scrollable row, sits below 52px nav */
+      .site-image-wrap img { height: 220px; }
       .tabs { padding: 0 16px; top: 52px; }
-
-      /* Content: single column, sidebar goes below */
       .content-area { grid-template-columns: 1fr; padding: 20px 16px; gap: 20px; }
       .sidebar { order: 2; }
-
-      /* History text */
-      .history-text { font-size: 14px; }
-
-      /* Reports header stacks on narrow */
+      .history-body p { font-size: 14px; }
+      .pull-quote { font-size: 14px; }
       .reports-header { flex-direction: column; align-items: flex-start; }
       .report-btn { width: 100%; text-align: center; }
-
-      /* Custodian rows: allow value to wrap */
       .custodian-val { max-width: 140px; font-size: 12px; }
-
-      /* Footer */
       footer { padding: 20px 16px; flex-direction: column; gap: 16px; }
       .footer-links { gap: 16px; }
     }
@@ -247,7 +204,6 @@
     </div>
   </nav>
 
-  <!-- MOBILE DRAWER -->
   <div class="nav-drawer" id="navDrawer">
     <a href="explore.html" onclick="closeDrawer()">Explore</a>
     <a href="dashboard.html" onclick="closeDrawer()">Dashboard</a>
@@ -267,7 +223,7 @@
     Loading site...
   </div>
 
-  <!-- SITE CONTENT (hidden until loaded) -->
+  <!-- SITE CONTENT -->
   <div id="siteContent" style="display:none;">
 
     <!-- HERO -->
@@ -295,6 +251,12 @@
       </div>
     </div>
 
+    <!-- SITE IMAGE — shown below hero if a photo exists in Airtable -->
+    <div class="site-image-wrap" id="siteImageWrap" style="display:none;">
+      <img id="siteImage" src="" alt="">
+      <div class="site-image-caption" id="siteImageCaption"></div>
+    </div>
+
     <!-- TABS -->
     <div class="tabs">
       <div class="tab active" onclick="switchTab('history', this)">History</div>
@@ -310,18 +272,15 @@
 
         <!-- HISTORY PANEL -->
         <div class="tab-panel active" id="panel-history">
-          <div class="history-text" id="historyText"></div>
-          <div class="pull-quote" id="pullQuote" style="display:none;">
-            <div id="pullQuoteText"></div>
-            <div class="pull-quote-source">— Pillars of Delhi, Arnav Agarwal</div>
-          </div>
+          <!-- History text with pull quote injected after first paragraph by JS -->
+          <div class="history-body" id="historyBody"></div>
         </div>
 
         <!-- REPORTS PANEL -->
         <div class="tab-panel" id="panel-reports">
           <div class="reports-header">
             <div class="reports-count" id="reportsCount">0 reports</div>
-            <a href="report.html" class="report-btn" id="reportBtnLink">Report behaviour at this site</a>
+            <a href="report.html" class="report-btn">Report behaviour at this site</a>
           </div>
           <div id="reportsList"></div>
         </div>
@@ -353,14 +312,12 @@
 
       <!-- SIDEBAR -->
       <div class="sidebar">
-
         <div class="awareness-banner">
           <div class="awareness-text">
             Spotted harmful behaviour at this site? Vandalism, littering, and trespass damage Delhi's heritage every day.
           </div>
           <a href="report.html" class="report-btn" style="width:100%;text-align:center;display:block;">Report behaviour</a>
         </div>
-
         <div class="custodian-card">
           <div class="custodian-title">QUICK FACTS</div>
           <div class="custodian-row">
@@ -380,7 +337,6 @@
             <span class="custodian-val" id="sidebarCoords"></span>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -398,30 +354,23 @@
   </footer>
 
   <script>
-    // ── HAMBURGER ──────────────────────────────────────────────────────
     function toggleDrawer() {
-      const drawer = document.getElementById('navDrawer');
-      const btn    = document.getElementById('hamburger');
-      drawer.classList.toggle('open');
-      btn.classList.toggle('open');
+      document.getElementById('navDrawer').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
     }
     function closeDrawer() {
       document.getElementById('navDrawer').classList.remove('open');
       document.getElementById('hamburger').classList.remove('open');
     }
 
-    // ── CONFIGURATION ──────────────────────────────────────────────────
     const AIRTABLE_TOKEN = 'patgyTl5lOKK7E3le.c2cf51cbc10f5fb51d840b1622987b3b99d0adcd403902278e24e39170faeb40';
     const BASE_ID        = 'appQlkSSzr2fOSCIp';
     const SITES_TABLE    = 'Sites';
     const REPORTS_TABLE  = 'Reports';
 
     const ERA_COLOURS = {
-      'Ancient':   'era-Ancient',
-      'Sultanate': 'era-Sultanate',
-      'Mughal':    'era-Mughal',
-      'Colonial':  'era-Colonial',
-      'Modern':    'era-Modern',
+      Ancient: 'era-Ancient', Sultanate: 'era-Sultanate',
+      Mughal: 'era-Mughal', Colonial: 'era-Colonial', Modern: 'era-Modern'
     };
 
     function getSlug() {
@@ -484,44 +433,97 @@
       const lat        = site['Latitude'] || '';
       const lng        = site['Longitude'] || '';
 
+      // Airtable attachment fields return an array of objects with a url property
+      const photos     = site['Photo'] || site['Photos'] || site['Image'] || [];
+      const photoUrl   = Array.isArray(photos) && photos.length > 0 ? photos[0].url : null;
+      const photoThumb = Array.isArray(photos) && photos.length > 0
+        ? (photos[0].thumbnails && photos[0].thumbnails.large
+            ? photos[0].thumbnails.large.url
+            : photos[0].url)
+        : null;
+
       document.title = `${name} — Heritage Atlas Delhi`;
       document.getElementById('breadcrumbName').textContent = name;
 
+      // Hero
       const hero = document.getElementById('siteHero');
       hero.classList.add(ERA_COLOURS[era] || 'era-Ancient');
-      document.getElementById('heroEra').textContent         = `${era.toUpperCase()} ERA`;
-      document.getElementById('heroTitle').textContent       = name;
-      document.getElementById('heroLocation').textContent    = location;
-      document.getElementById('heroCommissioned').textContent= by;
-      document.getElementById('heroYear').textContent        = year;
-      document.getElementById('heroCustodian').textContent   = custodian;
-      document.getElementById('heroProtection').textContent  = protection;
+      document.getElementById('heroEra').textContent          = `${era.toUpperCase()} ERA`;
+      document.getElementById('heroTitle').textContent        = name;
+      document.getElementById('heroLocation').textContent     = location;
+      document.getElementById('heroCommissioned').textContent = by;
+      document.getElementById('heroYear').textContent         = year;
+      document.getElementById('heroCustodian').textContent    = custodian;
+      document.getElementById('heroProtection').textContent   = protection;
 
-      document.getElementById('historyText').textContent = history;
-
-      if (pullQuote) {
-        document.getElementById('pullQuoteText').textContent = `"${pullQuote}"`;
-        document.getElementById('pullQuote').style.display = 'block';
+      // Site image — show below hero if a photo attachment exists
+      if (photoUrl) {
+        const imgEl  = document.getElementById('siteImage');
+        const capEl  = document.getElementById('siteImageCaption');
+        const wrapEl = document.getElementById('siteImageWrap');
+        imgEl.src    = photoThumb || photoUrl;
+        imgEl.alt    = name;
+        capEl.textContent = name + (location ? ' · ' + location : '');
+        wrapEl.style.display = 'block';
       }
 
+      // History — render as paragraphs, inject pull quote after first paragraph
+      renderHistory(history, pullQuote);
+
+      // Sidebar
       document.getElementById('sidebarEra').textContent       = era;
       document.getElementById('sidebarYear').textContent      = year;
       document.getElementById('sidebarCustodian').textContent = custodian;
       document.getElementById('sidebarCoords').textContent    = lat && lng ? `${lat}, ${lng}` : '—';
 
+      // Custodian tab
       document.getElementById('custodianBody').textContent       = custodian;
       document.getElementById('custodianProtection').textContent = protection;
       document.getElementById('custodianBudget').textContent     = budget;
       document.getElementById('custodianLocation').textContent   = location;
 
-      document.getElementById('loadingState').style.display  = 'none';
-      document.getElementById('siteContent').style.display   = 'block';
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('siteContent').style.display  = 'block';
+    }
+
+    function renderHistory(historyText, pullQuote) {
+      const container = document.getElementById('historyBody');
+
+      // Split into paragraphs on double newlines or single newlines
+      const raw = historyText.trim();
+      const paras = raw
+        .split(/\n{2,}/)          // split on blank lines first
+        .flatMap(block =>
+          block.split(/\n/)       // then split remaining single newlines
+        )
+        .map(p => p.trim())
+        .filter(p => p.length > 0);
+
+      // Build pull quote HTML if one exists
+      const pullQuoteHTML = pullQuote
+        ? `<div class="pull-quote">
+             <div>"${pullQuote}"</div>
+             <div class="pull-quote-source">— Pillars of Delhi, Arnav Agarwal</div>
+           </div>`
+        : '';
+
+      // Inject pull quote after first paragraph (or at start if only one para)
+      let html = '';
+      paras.forEach((para, i) => {
+        html += `<p>${para}</p>`;
+        // Insert pull quote after the first paragraph
+        if (i === 0 && pullQuoteHTML) {
+          html += pullQuoteHTML;
+        }
+      });
+
+      container.innerHTML = html;
     }
 
     function renderReports(reports, siteName) {
       const count = reports.length;
-      document.getElementById('reportsTab').textContent    = `Reports (${count})`;
-      document.getElementById('reportsCount').textContent  = `${count} report${count !== 1 ? 's' : ''} at ${siteName}`;
+      document.getElementById('reportsTab').textContent   = `Reports (${count})`;
+      document.getElementById('reportsCount').textContent = `${count} report${count !== 1 ? 's' : ''} at ${siteName}`;
 
       const list = document.getElementById('reportsList');
 
@@ -545,7 +547,7 @@
         const status   = f['Status'] || 'Pending review';
         const s        = statusMap[status] || statusMap['Pending review'];
         const date     = f['Date submitted']
-          ? new Date(f['Date submitted']).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})
+          ? new Date(f['Date submitted']).toLocaleDateString('en-IN', {day:'numeric',month:'short',year:'numeric'})
           : '';
         const reporter = f['Reporter name'] || 'Anonymous';
         const cat      = f['Category'] || 'Other';
