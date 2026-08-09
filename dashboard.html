@@ -110,6 +110,27 @@
     .asi-card-title { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; color: #5F5E5A; margin-bottom: 16px; }
     .asi-placeholder { background: #F5F2EC; border: 1px dashed #D3D1C7; border-radius: 10px; padding: 32px; text-align: center; color: #9F9E9A; font-size: 13px; line-height: 1.6; }
 
+    /* ── RTI FINDINGS SECTION ────────────────────────────────────────── */
+    .rti-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
+    .rti-stat-card { background: white; border-radius: 12px; padding: 24px; border: 1px solid #E8E5DC; }
+    .rti-stat-card.rti-highlight { border-color: #C44030; border-width: 2px; }
+    .rti-number { font-size: 56px; font-weight: 700; color: #C44030; line-height: 1; margin-bottom: 10px; }
+    .rti-label { font-size: 13px; color: #2A2A2A; line-height: 1.5; margin-bottom: 8px; }
+    .rti-detail { font-size: 11px; color: #5F5E5A; font-style: italic; margin-top: 8px; padding-top: 8px; border-top: 1px solid #F0EDE4; }
+    .rti-quote-card { background: #1A1A1A; border-radius: 12px; padding: 28px 32px; margin-bottom: 16px; }
+    .rti-quote-label { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; color: #9F9E9A; margin-bottom: 12px; }
+    .rti-quote { font-size: 18px; font-style: italic; color: #F5F2EC; line-height: 1.6; }
+    .rti-analysis-card { background: #FAEEDA; border: 1px solid #FAC775; border-radius: 12px; padding: 24px 28px; margin-bottom: 40px; }
+    .rti-analysis-title { font-size: 14px; font-weight: 700; color: #633806; margin-bottom: 12px; }
+    .rti-analysis-body p { font-size: 13px; color: #4A3010; line-height: 1.7; margin-bottom: 10px; }
+    .rti-analysis-body p:last-child { margin-bottom: 0; }
+    .rti-source { font-size: 11px; color: #8A6030; margin-top: 16px; padding-top: 12px; border-top: 1px solid #FAC775; }
+    @media (max-width: 640px) {
+      .rti-grid { grid-template-columns: 1fr; }
+      .rti-number { font-size: 40px; }
+      .rti-quote { font-size: 15px; }
+    }
+
     .loading { text-align: center; padding: 60px; color: #5F5E5A; }
     .spinner { width: 32px; height: 32px; border: 3px solid #E8E5DC; border-top-color: #C44030; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -204,6 +225,44 @@
       <span id="insightText"></span>
     </div>
 
+    <!-- RTI FINDINGS -->
+    <div class="section-title">What ASI's records show</div>
+    <div class="section-sub">Data obtained via Right to Information (RTI) application · two financial years · all 174 centrally protected monuments in Delhi</div>
+
+    <div class="rti-grid">
+
+      <div class="rti-stat-card">
+        <div class="rti-number">174</div>
+        <div class="rti-label">Centrally protected monuments in Delhi under ASI's jurisdiction</div>
+      </div>
+
+      <div class="rti-stat-card rti-highlight">
+        <div class="rti-number">1</div>
+        <div class="rti-label">Incident of damage formally recorded across two financial years</div>
+        <div class="rti-detail">Damage to a jali at Zafer Mahal · December 2023</div>
+      </div>
+
+      <div class="rti-stat-card rti-highlight">
+        <div class="rti-number">1</div>
+        <div class="rti-label">FIR filed against individuals for damage in the same period</div>
+      </div>
+
+    </div>
+
+    <div class="rti-quote-card">
+      <div class="rti-quote-label">ON THEIR TRACKING MECHANISM — ASI's response to RTI</div>
+      <div class="rti-quote">"Sub Circle incharge regularly monitor and keep a strict vigil to check on such incidents."</div>
+    </div>
+
+    <div class="rti-analysis-card">
+      <div class="rti-analysis-title">What this reveals</div>
+      <div class="rti-analysis-body">
+        <p>ASI manages 174 protected monuments in Delhi alone — and hundreds more nationwide — with no formal public reporting tool and no public incident register. With only 1 damage incident formally recorded across two full financial years, most damage goes unnoticed until routine inspections catch it, by which point it may be too late.</p>
+        <p>This is the gap Heritage Atlas Delhi is trying to fill — through citizen documentation, community reporting, and public accountability.</p>
+      </div>
+      <div class="rti-source">Source: RTI application filed by Heritage Atlas Delhi · Response received from Archaeological Survey of India, Delhi Circle</div>
+    </div>
+
     <!-- CONTROLS -->
     <div class="controls">
       <input type="text" class="search-box" id="searchInput" placeholder="Search by site, reporter name, or behaviour..." oninput="applyFilters()">
@@ -223,16 +282,6 @@
       </div>
       <div id="tableBody">
         <div class="loading"><div class="spinner"></div>Loading reports...</div>
-      </div>
-    </div>
-
-    <!-- ASI DATA -->
-    <div class="section-title">ASI incident data</div>
-    <div class="section-sub">Historical incident records from the Archaeological Survey of India · integrated from official reports</div>
-    <div class="asi-card">
-      <div class="asi-card-title">INCIDENTS BY BEHAVIOUR TYPE</div>
-      <div id="asiChart">
-        <div class="asi-placeholder">ASI incident data will appear here once sourced through our institutional partnership.<br><br>Data is being requested through formal channels.</div>
       </div>
     </div>
 
