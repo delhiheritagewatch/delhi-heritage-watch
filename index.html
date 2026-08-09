@@ -106,6 +106,23 @@
     .stat-item strong { display: block; font-size: 36px; font-weight: 700; color: white; margin-bottom: 6px; }
     .stat-item span { font-size: 13px; color: #F0C8B0; line-height: 1.4; }
 
+    /* ── PODCAST SECTION ─────────────────────────────────────────────── */
+    .podcast-section { padding: 56px 64px; background: #F5F2EC; }
+    .podcast-section .section-title { font-size: 24px; font-weight: 700; color: #1A1A1A; margin-bottom: 6px; }
+    .podcast-section .section-sub { font-size: 14px; color: #5F5E5A; margin-bottom: 32px; }
+    .podcast-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(480px, 1fr)); gap: 24px; }
+    .podcast-card { background: white; border-radius: 14px; overflow: hidden; border: 1px solid #E8E5DC; }
+    .podcast-video { width: 100%; aspect-ratio: 16/9; background: #1A1A1A; display: block; }
+    .podcast-video video { width: 100%; height: 100%; display: block; }
+    .podcast-info { padding: 18px 20px; }
+    .podcast-guest { font-size: 11px; font-weight: 500; letter-spacing: 0.07em; color: #C44030; margin-bottom: 5px; }
+    .podcast-title { font-size: 16px; font-weight: 700; color: #1A1A1A; margin-bottom: 6px; line-height: 1.3; }
+    .podcast-desc { font-size: 13px; color: #5F5E5A; line-height: 1.6; }
+    @media (max-width: 640px) {
+      .podcast-section { padding: 32px 16px; }
+      .podcast-grid { grid-template-columns: 1fr; }
+    }
+
     /* ── CTA SECTION ─────────────────────────────────────────────────── */
     .cta-section { padding: 64px; text-align: center; background: #F5F2EC; }
     .cta-section h2 { font-size: 32px; font-weight: 700; color: #1A1A1A; margin-bottom: 12px; }
@@ -244,6 +261,38 @@
       <div class="stat-item"><strong id="footerReports">—</strong><span>Community reports<br>submitted</span></div>
       <div class="stat-item"><strong>5</strong><span>Eras of Delhi's<br>history covered</span></div>
       <div class="stat-item"><strong>Expert</strong><span>Institutional<br>endorsement</span></div>
+    </div>
+  </div>
+
+  <!-- PODCAST SECTION -->
+  <div class="podcast-section">
+    <div class="section-title">Conversations on heritage</div>
+    <div class="section-sub">In dialogue with the people working to protect Delhi's past</div>
+    <div class="podcast-grid">
+
+      <!-- Episode 1: Vikramjit Singh Rooprai -->
+      <!-- Replace YOUTUBE_VIDEO_ID below with the ID from the YouTube URL -->
+      <!-- e.g. if URL is https://youtu.be/dQw4w9WgXcQ then ID is dQw4w9WgXcQ -->
+      <div class="podcast-card">
+        <div class="podcast-video">
+          <iframe
+            src="https://www.youtube.com/embed/TRc8whg_56s"
+            title="Delhi's Heritage Is Disappearing. Why Does No One Notice? | Vikramjit Singh Rooprai"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            style="width:100%;height:100%;display:block;">
+          </iframe>
+        </div>
+        <div class="podcast-info">
+          <div class="podcast-guest">VIKRAMJIT SINGH ROOPRAI · Founder, Youth for Heritage Foundation & Heritageshaala</div>
+          <div class="podcast-title">Delhi's Heritage Is Disappearing. Why Does No One Notice?</div>
+          <div class="podcast-desc">Delhi has over 170 ASI-protected monuments. Most residents cannot name five of them. Vikramjit Singh Rooprai on public apathy, heritage photography as a tool for getting people to care, and why he frames protection as an individual responsibility — not just an institutional one.</div>
+        </div>
+      </div>
+
+      <!-- Add future episodes here — copy the podcast-card block above -->
+
     </div>
   </div>
 
