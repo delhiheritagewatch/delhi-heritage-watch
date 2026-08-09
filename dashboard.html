@@ -258,6 +258,7 @@
   </div>
 
   <script>
+    // ── LIGHTBOX ───────────────────────────────────────────────────────
     let lbPhotos = [], lbIndex = 0;
     function openLightbox(urls) {
       lbPhotos = urls; lbIndex = 0;
@@ -278,9 +279,9 @@
     }
     function handleLightboxClick(e) { if (e.target === document.getElementById('lightbox')) closeLightbox(); }
     document.addEventListener('keydown', e => { if (e.key==='Escape') closeLightbox(); });
-  </script>
 
-</body>
+    // ── HAMBURGER ──────────────────────────────────────────────────────
+    function toggleDrawer() {
       document.getElementById('navDrawer').classList.toggle('open');
       document.getElementById('hamburger').classList.toggle('open');
     }
