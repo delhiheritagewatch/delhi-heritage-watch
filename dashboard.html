@@ -87,6 +87,18 @@
     .s-review   { background: #EEEDFE; color: #3C3489; }
     .reporter-name { color: #5F5E5A; }
     .date-cell { color: #9F9E9A; font-size: 12px; }
+    .photo-link { font-size: 11px; color: #C44030; cursor: pointer; white-space: nowrap; background: none; border: none; font-family: 'Inter', sans-serif; padding: 0; text-decoration: underline; }
+    .photo-link:hover { color: #A33526; }
+    /* Lightbox */
+    .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; }
+    .lightbox.open { display: flex; }
+    .lightbox-inner { position: relative; display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: 92vw; }
+    .lightbox img { max-width: 88vw; max-height: 80vh; object-fit: contain; border-radius: 8px; }
+    .lightbox-thumbs { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+    .lightbox-thumb { width: 56px; height: 42px; object-fit: cover; border-radius: 4px; cursor: pointer; opacity: 0.6; border: 2px solid transparent; transition: opacity 0.15s; }
+    .lightbox-thumb.active { opacity: 1; border-color: white; }
+    .lightbox-close { position: absolute; top: -40px; right: 0; color: white; font-size: 26px; cursor: pointer; background: none; border: none; line-height: 1; opacity: 0.8; }
+    .lightbox-close:hover { opacity: 1; }
 
     .empty-state { text-align: center; padding: 60px; color: #5F5E5A; }
     .empty-state p { margin-bottom: 16px; font-size: 15px; }
@@ -125,9 +137,10 @@
       .controls { flex-direction: column; align-items: stretch; }
       .search-box { min-width: unset; width: 100%; }
 
-      /* Hide Reported by (col 3) and Date (col 5) */
+      /* Hide Reported by (col 3) and Date (col 5) and Photos (col 6) */
       th:nth-child(3), td:nth-child(3),
-      th:nth-child(5), td:nth-child(5) { display: none; }
+      th:nth-child(5), td:nth-child(5),
+      th:nth-child(6), td:nth-child(6) { display: none; }
       th { padding: 8px 6px; font-size: 10px; letter-spacing: 0.02em; }
       td { padding: 10px 6px; font-size: 12px; }
       .site-link { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 110px; }
@@ -235,8 +248,39 @@
     </div>
   </footer>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="handleLightboxClick(event)">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" onclick="closeLightbox()">&#x2715;</button>
+      <img id="lightboxImg" src="" alt="Report photo">
+      <div class="lightbox-thumbs" id="lightboxThumbs"></div>
+    </div>
+  </div>
+
   <script>
-    function toggleDrawer() {
+    let lbPhotos = [], lbIndex = 0;
+    function openLightbox(urls) {
+      lbPhotos = urls; lbIndex = 0;
+      renderLightbox();
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function renderLightbox() {
+      document.getElementById('lightboxImg').src = lbPhotos[lbIndex];
+      document.getElementById('lightboxThumbs').innerHTML = lbPhotos.length > 1
+        ? lbPhotos.map((u,i) => `<img class="lightbox-thumb${i===lbIndex?' active':''}" src="${u}" onclick="lbGoTo(${i})">`).join('')
+        : '';
+    }
+    function lbGoTo(i) { lbIndex = i; renderLightbox(); }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function handleLightboxClick(e) { if (e.target === document.getElementById('lightbox')) closeLightbox(); }
+    document.addEventListener('keydown', e => { if (e.key==='Escape') closeLightbox(); });
+  </script>
+
+</body>
       document.getElementById('navDrawer').classList.toggle('open');
       document.getElementById('hamburger').classList.toggle('open');
     }
@@ -315,17 +359,22 @@
         const cat     = r['Category'] || '—';
         const reporter= r['Reporter name'] || 'Anonymous';
         const date    = r['Date submitted'] ? new Date(r['Date submitted']).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
+        const photos  = Array.isArray(r['Photo']) ? r['Photo'] : [];
+        const photoCell = photos.length > 0
+          ? `<button class="photo-link" onclick='openLightbox(${JSON.stringify(photos.map(p=>p.url))})'>📷 ${photos.length} photo${photos.length>1?'s':''}</button>`
+          : `<span style="color:#D3D1C7;font-size:11px;">—</span>`;
         return `<tr>
           <td><a href="site.html?slug=${slug}" class="site-link" title="${site}">${site}</a></td>
           <td><span class="cat-tag">${cat}</span></td>
           <td class="reporter-name">${reporter}</td>
           <td><span class="status-badge ${s.cls}">${s.label}</span></td>
           <td class="date-cell">${date}</td>
+          <td>${photoCell}</td>
         </tr>`;
       }).join('');
       document.getElementById('tableBody').innerHTML = `
         <table>
-          <thead><tr><th>Site</th><th>Behaviour</th><th>Reported by</th><th>Status</th><th>Date</th></tr></thead>
+          <thead><tr><th>Site</th><th>Behaviour</th><th>Reported by</th><th>Status</th><th>Date</th><th>Photos</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>`;
     }
