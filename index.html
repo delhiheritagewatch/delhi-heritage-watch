@@ -123,13 +123,13 @@
     .education-section { padding: 56px 64px; background: white; }
     .education-section .section-title { font-size: 24px; font-weight: 700; color: #1A1A1A; margin-bottom: 6px; }
     .education-section .section-sub { font-size: 14px; color: #5F5E5A; margin-bottom: 36px; }
-    .education-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .education-text { max-width: 720px; margin-bottom: 40px; }
     .education-text p { font-size: 15px; color: #3A3A38; line-height: 1.75; margin-bottom: 20px; }
     .education-text p:last-child { margin-bottom: 0; }
     .education-text em { font-style: italic; color: #5F5E5A; }
-    .education-photos { display: flex; flex-direction: column; gap: 16px; }
-    .education-photo { width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid #E8E5DC; }
-    .education-photo img { width: 100%; height: auto; display: block; }
+    .education-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .education-photo { border-radius: 12px; overflow: hidden; border: 1px solid #E8E5DC; }
+    .education-photo img { width: 100%; height: 360px; object-fit: cover; object-position: center 30%; display: block; }
     .education-photo-caption { padding: 10px 14px; font-size: 12px; color: #5F5E5A; background: #F5F2EC; line-height: 1.4; }
 
     /* ── CTA SECTION ─────────────────────────────────────────────────── */
@@ -179,7 +179,8 @@
       .podcast-section { padding: 32px 16px; }
       .podcast-grid { grid-template-columns: 1fr; }
       .education-section { padding: 32px 16px; }
-      .education-layout { grid-template-columns: 1fr; gap: 32px; }
+      .education-photos { grid-template-columns: 1fr; }
+      .education-photo img { height: 260px; }
       .cta-section { padding: 40px 16px; }
       .cta-section h2 { font-size: 24px; }
       footer { padding: 20px 16px; flex-direction: column; gap: 16px; }
@@ -320,15 +321,13 @@
   <div class="education-section">
     <div class="section-title">Taking heritage into classrooms</div>
     <div class="section-sub">If conservation is to outlast the current generation, the next one needs to understand what is at stake</div>
-    <div class="education-layout">
-      <div class="education-text">
+    <div class="education-text">
         <p>One common thread ran through our conversations with heritage professionals and historians: the people best positioned to protect these monuments in the long run are not archaeologists or policy-makers. They are the students sitting in classrooms across Delhi — and across the country — who have never been told that this history belongs to them.</p>
         <p>Education is what conservation actually depends on. Institutions can protect a monument from demolition. Only an informed public can protect it from indifference.</p>
         <p>We conducted a session for Grade 8 students at Salwan Public School, Sector 15 Part II, Gurugram. The session covered what heritage means, why conservation matters, the different kinds of value a monument can hold. A brief history of Delhi was told through its monuments — from the ancient to the colonial — not as a timeline of rulers, but as a sequence of decisions about what to build, where to build it, and for whom.</p>
         <p>Student engagement throughout was strong. Questions came in from across the room. Several students had visited some of the sites we discussed — and had never thought about them this way before.</p>
         <p><em>A historian can decide a monument is worth saving. Only the next generation decides whether that decision survives them.</em></p>
-      </div>
-      <div class="education-photos">
+    <div class="education-photos">
         <div class="education-photo">
           <img src="/images/education-session-1.jpg" alt="Arnav presenting at Salwan Public School" onerror="this.parentElement.style.display='none'">
           <div class="education-photo-caption">Presenting to Grade 8 students at Salwan Public School, Sector 15, Gurugram</div>
@@ -337,7 +336,6 @@
           <img src="/images/education-session-2.jpg" alt="Grade 8 students engaged in the session" onerror="this.parentElement.style.display='none'">
           <div class="education-photo-caption">Students engaging with questions on heritage, conservation, and Delhi's history</div>
         </div>
-      </div>
     </div>
   </div>
 
