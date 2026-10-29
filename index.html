@@ -514,19 +514,30 @@
       window.location.href = '/explore.html' + (q ? '?q=' + encodeURIComponent(q) : '');
     }
 
+    // ── PAGINATED AIRTABLE FETCH (handles >100 records) ───────────────
+    async function airtableFetchAll(baseUrl) {
+      let records = [], offset = null;
+      do {
+        const url = offset ? `${baseUrl}&offset=${encodeURIComponent(offset)}` : baseUrl;
+        const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
+        if (!res.ok) throw new Error(res.status);
+        const data = await res.json();
+        records = records.concat(data.records);
+        offset = data.offset || null;
+      } while (offset);
+      return records;
+    }
+
     // ── STATS ──────────────────────────────────────────────────────────
     async function loadStats() {
       try {
         const formula = encodeURIComponent('{Status}!="Not relevant"');
-        const res = await fetch(
-          `https://api.airtable.com/v0/${BASE_ID}/Reports?filterByFormula=${formula}&fields%5B%5D=Status`,
-          { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } }
+        const records = await airtableFetchAll(
+          `https://api.airtable.com/v0/${BASE_ID}/Reports?filterByFormula=${formula}&fields%5B%5D=Status`
         );
-        if (!res.ok) return;
-        const data = await res.json();
-        const verified = data.records.filter(r => r.fields.Status === 'Moderator verified').length;
+        const verified = records.filter(r => r.fields.Status === 'Moderator verified').length;
         document.getElementById('statReports').textContent   = verified || '0';
-        document.getElementById('footerReports').textContent = data.records.length || '0';
+        document.getElementById('footerReports').textContent = records.length || '0';
       } catch(e) {}
     }
 
@@ -584,16 +595,13 @@
     async function loadSlider() {
       try {
         const formula = encodeURIComponent(`{Status}!="Not relevant"`);
-        const res = await fetch(
-          `https://api.airtable.com/v0/${BASE_ID}/Reports?filterByFormula=${formula}&fields%5B%5D=Photo&fields%5B%5D=Site+name&fields%5B%5D=Category&fields%5B%5D=Date&sort[0][field]=Date&sort[0][direction]=desc&maxRecords=50`,
-          { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } }
+        const records = await airtableFetchAll(
+          `https://api.airtable.com/v0/${BASE_ID}/Reports?filterByFormula=${formula}&fields%5B%5D=Photo&fields%5B%5D=Site+name&fields%5B%5D=Category&fields%5B%5D=Date&sort[0][field]=Date&sort[0][direction]=desc`
         );
-        if (!res.ok) throw new Error(res.status);
-        const data = await res.json();
 
         // flatten: each photo from each record becomes one slide
         sliderSlides = [];
-        data.records.forEach(r => {
+        records.forEach(r => {
           const f = r.fields;
           const photos = Array.isArray(f['Photo']) ? f['Photo'] : [];
           const site = Array.isArray(f['Site name']) ? f['Site name'][0] : (f['Site name'] || '');
