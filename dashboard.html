@@ -350,13 +350,24 @@
       return res.json();
     }
 
+    async function airtableFetchAll(baseUrl) {
+      let records = [], offset = null;
+      do {
+        const url = offset ? `${baseUrl}&offset=${encodeURIComponent(offset)}` : baseUrl;
+        const data = await airtableFetch(url);
+        records = records.concat(data.records);
+        offset = data.offset || null;
+      } while (offset);
+      return records;
+    }
+
     async function loadDashboard() {
       try {
         const formula = encodeURIComponent(`{Status}!="Not relevant"`);
-        const data = await airtableFetch(
+        const records = await airtableFetchAll(
           `https://api.airtable.com/v0/${BASE_ID}/${REPORTS_TABLE}?filterByFormula=${formula}&sort[0][field]=Date&sort[0][direction]=desc`
         );
-        allReports = data.records.map(r => r.fields);
+        allReports = records.map(r => r.fields);
         renderStats(allReports);
         renderTable(allReports);
         renderSiteChart(allReports);
