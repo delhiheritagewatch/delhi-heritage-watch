@@ -583,9 +583,9 @@
 
     async function loadSlider() {
       try {
-        const formula = encodeURIComponent(`AND({Status}!="Not relevant",{Photo}!=BLANK())`);
+        const formula = encodeURIComponent(`{Status}!="Not relevant"`);
         const res = await fetch(
-          `https://api.airtable.com/v0/${BASE_ID}/Reports?filterByFormula=${formula}&fields%5B%5D=Photo&fields%5B%5D=Site+name&fields%5B%5D=Category&fields%5B%5D=Date&sort[0][field]=Date&sort[0][direction]=desc&maxRecords=30`,
+          `https://api.airtable.com/v0/${BASE_ID}/Reports?filterByFormula=${formula}&fields%5B%5D=Photo&fields%5B%5D=Site+name&fields%5B%5D=Category&fields%5B%5D=Date&sort[0][field]=Date&sort[0][direction]=desc&maxRecords=50`,
           { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } }
         );
         if (!res.ok) throw new Error(res.status);
