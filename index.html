@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Delhi Heritage Watch — Delhi's heritage needs your eyes and your voice</title>
+  <title>Heritage Atlas Delhi — Delhi's heritage needs your eyes and your voice</title>
   <meta name="description" content="Explore 35 heritage sites across Delhi's five eras. Report harmful behaviour. Help protect what's left.">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -106,6 +106,38 @@
     .stat-item strong { display: block; font-size: 36px; font-weight: 700; color: white; margin-bottom: 6px; }
     .stat-item span { font-size: 13px; color: #F0C8B0; line-height: 1.4; }
 
+    /* ── PHOTO SLIDER ────────────────────────────────────────────────── */
+    .slider-section { padding: 56px 64px; background: #1A1A1A; }
+    .slider-section .section-title { font-size: 24px; font-weight: 700; color: white; margin-bottom: 6px; }
+    .slider-section .section-sub { font-size: 14px; color: #A0A09A; margin-bottom: 32px; }
+    .slider-header { display: flex; align-items: flex-start; margin-bottom: 32px; }
+    .slider-wrap { position: relative; display: flex; align-items: center; gap: 16px; }
+    .slider-track { flex: 1; overflow: hidden; border-radius: 14px; }
+    .slider-inner { display: flex; transition: transform 0.45s cubic-bezier(0.4,0,0.2,1); }
+    .slider-slide { flex: 0 0 100%; position: relative; }
+    .slider-slide img { width: 100%; height: 480px; object-fit: cover; display: block; }
+    .slider-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 32px 28px 22px;
+      background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, transparent 100%); }
+    .slider-caption-site { font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #F0C8B0; margin-bottom: 6px; }
+    .slider-caption-type { font-size: 18px; font-weight: 700; color: white; margin-bottom: 4px; line-height: 1.2; }
+    .slider-caption-date { font-size: 12px; color: rgba(255,255,255,0.6); }
+    .slider-btn { flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.08);
+      color: white; font-size: 24px; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; transition: background 0.2s, border-color 0.2s; line-height: 1; }
+    .slider-btn:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.5); }
+    .slider-dots { display: flex; justify-content: center; gap: 7px; margin-top: 20px; }
+    .slider-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.25);
+      cursor: pointer; transition: background 0.2s, transform 0.2s; border: none; padding: 0; }
+    .slider-dot.active { background: white; transform: scale(1.3); }
+    .slider-loading { color: #A0A09A; font-size: 14px; padding: 48px 0; text-align: center; width: 100%; }
+    @media(max-width:680px) {
+      .slider-section { padding: 40px 20px; }
+      .slider-slide img { height: 280px; }
+      .slider-btn { width: 36px; height: 36px; font-size: 20px; }
+    }
+
     /* ── PODCAST SECTION ─────────────────────────────────────────────── */
     .podcast-section { padding: 56px 64px; background: #F5F2EC; }
     .podcast-section .section-title { font-size: 24px; font-weight: 700; color: #1A1A1A; margin-bottom: 6px; }
@@ -192,7 +224,7 @@
 
   <!-- NAVBAR -->
   <nav>
-    <a href="/" class="nav-logo">Delhi Heritage Watch</a>
+    <a href="/" class="nav-logo">Heritage Atlas Delhi</a>
     <div class="nav-links">
       <a href="/explore.html">Explore</a>
       <a href="/dashboard.html">Dashboard</a>
@@ -215,6 +247,7 @@
 
   <!-- HERO -->
   <div class="hero">
+    <div class="hero-eyebrow">HERITAGE ATLAS DELHI</div>
     <h1>Delhi's heritage needs your eyes and your voice</h1>
     <p class="hero-sub">Explore 35 heritage sites across five centuries. Spot harmful behaviour. Report it. Help protect what's left.</p>
     <div class="hero-stats">
@@ -253,7 +286,7 @@
   <!-- AWARENESS BANNER -->
   <div class="awareness-banner">
     <div class="awareness-text">
-      <strong>Public apathy is Delhi's biggest heritage threat.</strong> Vandalism, littering, and trespass damage these sites every day. You can help document it, no account needed, in less than 2 minutes.
+      <strong>Public apathy is Delhi's biggest heritage threat.</strong> Vandalism, littering, and trespass damage these sites every day. You can help document it — no account needed, takes under 2 minutes.
     </div>
     <a href="/report.html" class="awareness-btn">Report behaviour</a>
   </div>
@@ -277,6 +310,24 @@
     </div>
   </div>
 
+  <!-- PHOTO SLIDER SECTION -->
+  <div class="slider-section">
+    <div class="slider-header">
+      <div>
+        <div class="section-title">From the field</div>
+        <div class="section-sub">Community reports from across Delhi's heritage sites</div>
+      </div>
+    </div>
+    <div class="slider-wrap">
+      <button class="slider-btn slider-prev" onclick="sliderMove(-1)" aria-label="Previous">&#8249;</button>
+      <div class="slider-track" id="sliderTrack">
+        <div class="slider-loading">Loading reports…</div>
+      </div>
+      <button class="slider-btn slider-next" onclick="sliderMove(1)" aria-label="Next">&#8250;</button>
+    </div>
+    <div class="slider-dots" id="sliderDots"></div>
+  </div>
+
   <!-- PODCAST SECTION -->
   <div class="podcast-section">
     <div class="section-title">Conversations on heritage</div>
@@ -294,7 +345,7 @@
         <div class="podcast-info">
           <div class="podcast-guest">VIKRAMJIT SINGH ROOPRAI · Youth for Heritage Foundation</div>
           <div class="podcast-title">Delhi's Heritage Is Disappearing. Why Does No One Notice?</div>
-          <div class="podcast-desc">Delhi has over 170 ASI-protected monuments. Most residents cannot name five of them. Vikramjit Singh Rooprai on public apathy, heritage photography as a tool for getting people to care, and why he frames protection as an individual responsibility, not just an institutional one.</div>
+          <div class="podcast-desc">Delhi has over 170 ASI-protected monuments. Most residents cannot name five of them. Vikramjit Singh Rooprai on public apathy, heritage photography as a tool for getting people to care, and why he frames protection as an individual responsibility — not just an institutional one.</div>
         </div>
       </div>
 
@@ -321,11 +372,11 @@
     <div class="section-title">Taking heritage into classrooms</div>
     <div class="section-sub">If conservation is to outlast the current generation, the next one needs to understand what is at stake</div>
     <div class="education-text">
-        <p>One common thread ran through our conversations with heritage professionals and historians: the people best positioned to protect these monuments in the long run are not archaeologists or policy-makers. They are the students sitting in classrooms across Delhi and across the country who have never been told that this history belongs to them.</p>
-        <p>Education is what conservation actually depends on. While institutions can protect a monument from demolition, only an informed public can protect it from indifference.</p>
-        <p>We conducted a session for Grade 8 students at Salwan Public School, Sector 15 Part II, Gurugram. The session covered what heritage means, why conservation matters, and the different kinds of value a monument can hold. Students journeyed through a brief history of Delhi through its monuments, from the ancient to the colonial era. They understood history as a sequence of decisions about what to build, where to build it, and for whom.</p>
-        <p>Student engagement throughout was strong. Questions came in from across the room. Several students had visited some of the sites we discussed, but had never thought about them this way before.</p>
-        <p>A historian can decide a monument is worth saving. Only the next generation decides whether that decision survives them.</p>
+        <p>One common thread ran through our conversations with heritage professionals and historians: the people best positioned to protect these monuments in the long run are not archaeologists or policy-makers. They are the students sitting in classrooms across Delhi — and across the country — who have never been told that this history belongs to them.</p>
+        <p>Education is what conservation actually depends on. Institutions can protect a monument from demolition. Only an informed public can protect it from indifference.</p>
+        <p>We conducted a session for Grade 8 students at Salwan Public School, Sector 15 Part II, Gurugram. The session covered what heritage means, why conservation matters, the different kinds of value a monument can hold. A brief history of Delhi was told through its monuments — from the ancient to the colonial — not as a timeline of rulers, but as a sequence of decisions about what to build, where to build it, and for whom.</p>
+        <p>Student engagement throughout was strong. Questions came in from across the room. Several students had visited some of the sites we discussed — and had never thought about them this way before.</p>
+        <p><em>A historian can decide a monument is worth saving. Only the next generation decides whether that decision survives them.</em></p>
     <div class="education-photos">
         <div class="education-photo">
           <img src="/images/education-session-1.jpg" alt="Arnav presenting at Salwan Public School" onerror="this.parentElement.style.display='none'">
@@ -350,7 +401,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <div>Delhi Heritage Watch</div>
+    <div>Heritage Atlas Delhi · Built on <a href="/about.html">Pillars of Delhi</a> by Arnav Agarwal · Expert endorsed</div>
     <div class="footer-links">
       <a href="/explore.html">Explore</a>
       <a href="/dashboard.html">Dashboard</a>
@@ -527,10 +578,87 @@
       legend.addTo(map);
     }
 
+    // ── PHOTO SLIDER ──────────────────────────────────────────────────
+    let sliderSlides = [], sliderIdx = 0, sliderTimer = null;
+
+    async function loadSlider() {
+      try {
+        const formula = encodeURIComponent(`AND({Status}!="Not relevant",{Photo}!=BLANK())`);
+        const res = await fetch(
+          `https://api.airtable.com/v0/${BASE_ID}/Reports?filterByFormula=${formula}&fields%5B%5D=Photo&fields%5B%5D=Site+name&fields%5B%5D=Category&fields%5B%5D=Date&sort[0][field]=Date&sort[0][direction]=desc&maxRecords=30`,
+          { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } }
+        );
+        if (!res.ok) throw new Error(res.status);
+        const data = await res.json();
+
+        // flatten: each photo from each record becomes one slide
+        sliderSlides = [];
+        data.records.forEach(r => {
+          const f = r.fields;
+          const photos = Array.isArray(f['Photo']) ? f['Photo'] : [];
+          const site = Array.isArray(f['Site name']) ? f['Site name'][0] : (f['Site name'] || '');
+          const cat  = f['Category'] || '';
+          const date = f['Date'] ? new Date(f['Date']).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '';
+          photos.forEach(p => {
+            if (p.thumbnails && p.thumbnails.large) {
+              sliderSlides.push({ img: p.thumbnails.large.url, site, cat, date });
+            } else if (p.url) {
+              sliderSlides.push({ img: p.url, site, cat, date });
+            }
+          });
+        });
+
+        if (sliderSlides.length === 0) {
+          document.getElementById('sliderTrack').innerHTML = '<div class="slider-loading">No photos yet — be the first to report!</div>';
+          return;
+        }
+
+        renderSlider();
+        sliderTimer = setInterval(() => sliderMove(1), 4500);
+      } catch(e) {
+        document.getElementById('sliderTrack').innerHTML = '<div class="slider-loading">Could not load photos.</div>';
+      }
+    }
+
+    function renderSlider() {
+      const track = document.getElementById('sliderTrack');
+      const dots  = document.getElementById('sliderDots');
+
+      track.innerHTML = `<div class="slider-inner" id="sliderInner">${
+        sliderSlides.map(s => `
+          <div class="slider-slide">
+            <img src="${s.img}" alt="${s.site} — ${s.cat}" loading="lazy">
+            <div class="slider-caption">
+              <div class="slider-caption-site">${s.site}</div>
+              <div class="slider-caption-type">${s.cat}</div>
+              ${s.date ? `<div class="slider-caption-date">Reported ${s.date}</div>` : ''}
+            </div>
+          </div>`).join('')
+      }</div>`;
+
+      dots.innerHTML = sliderSlides.map((_,i) =>
+        `<button class="slider-dot${i===0?' active':''}" onclick="sliderGo(${i})" aria-label="Slide ${i+1}"></button>`
+      ).join('');
+    }
+
+    function sliderMove(dir) {
+      sliderGo((sliderIdx + dir + sliderSlides.length) % sliderSlides.length);
+    }
+
+    function sliderGo(idx) {
+      sliderIdx = idx;
+      const inner = document.getElementById('sliderInner');
+      if (inner) inner.style.transform = `translateX(-${idx * 100}%)`;
+      document.querySelectorAll('.slider-dot').forEach((d,i) => d.classList.toggle('active', i===idx));
+      // reset auto-advance timer on manual nav
+      if (sliderTimer) { clearInterval(sliderTimer); sliderTimer = setInterval(() => sliderMove(1), 4500); }
+    }
+
     // ── INIT ───────────────────────────────────────────────────────────
     document.addEventListener('DOMContentLoaded', function() {
       loadSites();   // fetches sites → renders cards → initialises map
       loadStats();
+      loadSlider();
     });
   </script>
 </body>
