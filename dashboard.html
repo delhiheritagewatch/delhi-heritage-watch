@@ -354,7 +354,7 @@
       try {
         const formula = encodeURIComponent(`{Status}!="Not relevant"`);
         const data = await airtableFetch(
-          `https://api.airtable.com/v0/${BASE_ID}/${REPORTS_TABLE}?filterByFormula=${formula}&sort[0][field]=Date submitted&sort[0][direction]=desc`
+          `https://api.airtable.com/v0/${BASE_ID}/${REPORTS_TABLE}?filterByFormula=${formula}&sort[0][field]=Date&sort[0][direction]=desc`
         );
         allReports = data.records.map(r => r.fields);
         renderStats(allReports);
@@ -408,7 +408,7 @@
         const slug    = site.toLowerCase().replace(/[^a-z0-9]+/g,'-');
         const cat     = r['Category'] || '—';
         const reporter= r['Reporter name'] || 'Anonymous';
-        const date    = r['Date submitted'] ? new Date(r['Date submitted']).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
+        const date    = r['Date'] ? new Date(r['Date']).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
         const photos  = Array.isArray(r['Photo']) ? r['Photo'] : [];
         const photoCell = photos.length > 0
           ? `<button class="photo-link" onclick='openLightbox(${JSON.stringify(photos.map(p=>p.url))})'>📷 ${photos.length} photo${photos.length>1?'s':''}</button>`
