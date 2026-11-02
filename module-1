@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 01: Nine in ten reports are about two things | Heritage Atlas Delhi</title>
+  <meta name="description" content="An analysis of 123 citizen reports between May and October 2026, comparing public visibility with official ASI records and structural blind spots.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body { font-family: 'Inter', sans-serif; background: #F5F2EC; color: #1A1A1A; }
+    a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid #1A1A1A; outline-offset: 3px; border-radius: 4px; }
+
+    /* ── NAVBAR ─────────────────────────────────────────────────────── */
+    nav { background: #C44030; padding: 0 64px; height: 64px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 200; }
+    .nav-logo { font-size: 15px; font-weight: 700; color: white; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { font-size: 13px; color: white; text-decoration: none; opacity: 0.9; white-space: nowrap; }
+    .nav-links a:hover { opacity: 1; }
+    .nav-links a.current { opacity: 1; font-weight: 500; border-bottom: 2px solid white; padding-bottom: 2px; }
+    .nav-cta { border: 1px solid white; border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 500; color: white !important; text-decoration: none; white-space: nowrap; opacity: 1 !important; }
+    .nav-cta:hover { background: rgba(255,255,255,0.15); }
+    .nav-mobile-right { display: none; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-mobile-cta { border: 1px solid white; border-radius: 20px; padding: 5px 12px; font-size: 12px; font-weight: 500; color: white; text-decoration: none; white-space: nowrap; }
+    .hamburger { background: none; border: none; cursor: pointer; padding: 4px; display: flex; flex-direction: column; gap: 5px; }
+    .hamburger span { display: block; width: 20px; height: 2px; background: white; border-radius: 2px; transition: transform 0.2s, opacity 0.2s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-drawer { display: none; position: fixed; top: 56px; left: 0; right: 0; background: #B33828; z-index: 199; flex-direction: column; padding: 8px 0 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a { color: white; text-decoration: none; font-size: 15px; font-weight: 500; padding: 13px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); opacity: 0.95; }
+    .nav-drawer a:last-child { border-bottom: none; }
+    .nav-drawer a:hover { background: rgba(255,255,255,0.08); }
+
+    /* ── HERO + WALL ────────────────────────────────────────────────── */
+    .hero { background: #C44030; padding: 48px 64px 40px; }
+    .hero h1 { font-size: 44px; font-weight: 700; color: white; line-height: 1.1; letter-spacing: -0.02em; max-width: 800px; margin-bottom: 14px; }
+    .hero-sub { font-size: 16px; color: #FFF1E8; line-height: 1.6; max-width: 680px; margin-bottom: 32px; }
+
+    .wall { --gap: 4px; --bw: 60px; --bh: 24px; display: flex; flex-direction: column-reverse; gap: var(--gap); width: 100%; }
+    .course { display: flex; gap: var(--gap); }
+    .course.offset { margin-left: calc((var(--bw) + var(--gap)) / 2); }
+    .brick { width: var(--bw); height: var(--bh); border-radius: 2px; flex-shrink: 0; transition: opacity 0.2s; animation: lay 0.35s ease-out backwards; animation-delay: calc(var(--i) * 9ms); }
+    .wall.static .brick { animation: none; }
+    .t-v { background: #1A1A1A; }
+    .t-l { background: #E8A830; }
+    .t-o { background: #F5F2EC; }
+    .wall[data-filter="v"] .brick:not(.t-v),
+    .wall[data-filter="l"] .brick:not(.t-l),
+    .wall[data-filter="o"] .brick:not(.t-o) { opacity: 0.16; }
+    @keyframes lay { from { opacity: 0; transform: translateY(8px); } }
+
+    .wall-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 20px; }
+    .wall-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+    .wall-pill { display: inline-flex; align-items: center; gap: 8px; padding: 7px 16px; border-radius: 20px; font-size: 12px; font-weight: 500; font-family: 'Inter', sans-serif; cursor: pointer; background: transparent; color: white; border: 1px solid rgba(255,255,255,0.6); transition: background 0.15s; }
+    .wall-pill:hover { background: rgba(255,255,255,0.14); }
+    .wall-pill[aria-pressed="true"] { background: #F5F2EC; color: #1A1A1A; border-color: #F5F2EC; }
+    .swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+    .sw-v { background: #1A1A1A; }
+    .sw-l { background: #E8A830; }
+    .sw-o { background: #F5F2EC; box-shadow: inset 0 0 0 1px #1A1A1A; }
+    .sw-all { background: linear-gradient(90deg, #1A1A1A 50%, #E8A830 50%); }
+    .wall-readout { font-size: 13px; color: #FFF1E8; min-height: 20px; }
+
+    /* ── LAYOUT ─────────────────────────────────────────────────────── */
+    .layout { display: grid; grid-template-columns: 220px minmax(0, 800px); gap: 48px; padding: 48px 64px 64px 64px; }
+    .rail { position: sticky; top: 88px; align-self: start; font-size: 13px; }
+    .rail-title { font-weight: 700; margin-bottom: 12px; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; color: #8A8880; }
+    .rail-list { list-style: none; margin-bottom: 28px; }
+    .rail-list li { margin-bottom: 2px; }
+    .rail-list a { display: block; padding: 6px 0 6px 12px; color: #5F5E5A; text-decoration: none; border-left: 2px solid #E8E5DC; line-height: 1.4; transition: all 0.15s; }
+    .rail-list a:hover { color: #1A1A1A; border-left-color: #1A1A1A; }
+    .rail-list a.on { color: #C44030; border-left-color: #C44030; font-weight: 600; }
+
+    /* ── ARTICLE ────────────────────────────────────────────────────── */
+    article { min-width: 0; }
+    .lede { font-size: 20px; line-height: 1.55; color: #1A1A1A; margin-bottom: 40px; font-weight: 400; border-bottom: 1px solid #E0DCD0; padding-bottom: 24px; }
+    article section { margin-bottom: 44px; }
+    article h2 { font-size: 26px; font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; margin-bottom: 16px; color: #1A1A1A; }
+    article p { font-size: 16px; line-height: 1.7; color: #2A2A28; margin-bottom: 16px; }
+    article p:last-child { margin-bottom: 0; }
+    article a { color: #C44030; text-decoration: underline; text-underline-offset: 3px; }
+    article a:hover { color: #A33526; }
+
+    /* Data Table */
+    .data { margin: 24px 0 16px; border-top: 2px solid #1A1A1A; }
+    .data-row { display: grid; grid-template-columns: 220px 1fr 92px; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid #E0DCD0; font-size: 14px; }
+    .data-row .name { display: flex; align-items: center; gap: 8px; font-weight: 500; }
+    .bar-track { height: 10px; background: #E8E5DC; border-radius: 2px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 2px; }
+    .data-row .num { text-align: right; font-weight: 600; white-space: nowrap; }
+    .data-row .num span { color: #5F5E5A; font-weight: 400; }
+    article .data-note { font-size: 13px; line-height: 1.5; color: #5F5E5A; margin-bottom: 20px; }
+
+    /* Callout */
+    .callout { background: #1A1A1A; border-radius: 12px; padding: 28px 32px; margin: 24px 0; }
+    .callout p { font-size: 19px; line-height: 1.5; color: #F5F2EC; font-weight: 500; margin: 0; }
+    .callout p + p { margin-top: 10px; font-size: 14px; font-weight: 400; color: #B8B6AE; }
+
+    /* Versus */
+    .versus { margin: 24px 0; display: grid; gap: 20px; background: #EAE6DD; padding: 20px 24px; border-radius: 8px; }
+    .versus-label { font-size: 14px; line-height: 1.5; margin-bottom: 8px; }
+    .versus-label strong { font-weight: 700; color: #1A1A1A; }
+    .minis { display: flex; flex-wrap: wrap; gap: 3px; }
+    .mini { width: 12px; height: 8px; background: #1A1A1A; border-radius: 1px; }
+
+    /* Blindspot Stream */
+    .blindspot-stream { margin-top: 28px; display: flex; flex-direction: column; gap: 0; }
+    .blindspot-row { display: grid; grid-template-columns: 110px 1fr; gap: 32px; padding: 28px 0; border-bottom: 1px dashed #C8C2B4; align-items: stretch; transition: background 0.2s ease; }
+    .blindspot-row:hover { background: rgba(196, 64, 48, 0.03); padding-left: 12px; padding-right: 12px; }
+    .blindspot-tag { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; color: #C44030; background: #EBE6DC; border-radius: 4px; display: flex; align-items: center; justify-content: center; height: 100%; min-height: 48px; }
+    .blindspot-body { display: flex; flex-direction: column; justify-content: center; }
+    .blindspot-body h3 { font-size: 18px; font-weight: 700; color: #1A1A1A; margin-bottom: 6px; letter-spacing: -0.01em; }
+    .blindspot-body p { font-size: 15px; color: #3A3A36; line-height: 1.6; margin: 0; }
+
+    /* Steps */
+    .steps { list-style: none; counter-reset: s; margin: 16px 0 28px; }
+    .steps li { counter-increment: s; position: relative; padding-left: 44px; margin-bottom: 18px; font-size: 16px; line-height: 1.6; color: #2A2A28; }
+    .steps li::before { content: counter(s); position: absolute; left: 0; top: 1px; width: 28px; height: 28px; border-radius: 50%; background: #C44030; color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .steps strong { color: #1A1A1A; }
+    .btn-primary { display: inline-block; background: #C44030; color: white !important; border: none; border-radius: 20px; padding: 12px 28px; font-size: 14px; font-weight: 600; text-decoration: none; }
+    .btn-primary:hover { background: #A33526; }
+
+    /* Quiz */
+    .quiz { border-top: 2px solid #1A1A1A; margin-top: 16px; }
+    .quiz details { border-bottom: 1px solid #E0DCD0; }
+    .quiz summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 16px 0; font-size: 16px; line-height: 1.5; font-weight: 600; }
+    .quiz summary::-webkit-details-marker { display: none; }
+    .reveal { font-size: 12px; font-weight: 600; color: #C44030; white-space: nowrap; }
+    .quiz details[open] .reveal { display: none; }
+    .quiz details p { font-size: 15px; padding: 0 0 16px; color: #3A3A38; line-height: 1.6; }
+
+    .sources { list-style: none; }
+    .sources li { font-size: 14px; line-height: 1.6; padding: 10px 0; border-bottom: 1px solid #E0DCD0; }
+    .sources li:last-child { border-bottom: none; }
+
+    /* ── FOOTER ─────────────────────────────────────────────────────── */
+    footer { background: #1A1A1A; color: #9F9E9A; padding: 28px 64px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; flex-wrap: wrap; gap: 12px; }
+    footer a { color: #C44030; text-decoration: none; }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { color: #9F9E9A; text-decoration: none; }
+    .footer-links a:hover { color: white; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .brick { animation: none; }
+    }
+
+    /* ── TABLET & MOBILE ────────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 36px 24px 32px; max-width: 760px; margin: 0 auto; }
+      .rail { display: none; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 16px; height: 52px; }
+      .nav-links { display: none; }
+      .nav-mobile-right { display: flex; }
+      .nav-drawer { top: 52px; }
+      html { scroll-padding-top: 68px; }
+      .hero { padding: 32px 16px 28px; }
+      .hero h1 { font-size: 32px; }
+      .hero-sub { font-size: 14px; margin-bottom: 24px; }
+      .wall { --bh: 18px; }
+      .layout { padding: 28px 16px 24px; }
+      .lede { font-size: 17px; margin-bottom: 32px; }
+      article section { margin-bottom: 36px; }
+      article h2 { font-size: 22px; }
+      article p { font-size: 15px; }
+      .data-row { grid-template-columns: 1fr 76px; gap: 6px 12px; }
+      .data-row .bar-track { grid-column: 1 / -1; order: 3; }
+      .callout { padding: 20px; }
+      .callout p { font-size: 16px; }
+      .blindspot-row { grid-template-columns: 1fr; gap: 6px; align-items: start; }
+      .blindspot-tag { width: fit-content; min-height: auto; padding: 6px 12px; }
+      .steps li { font-size: 15px; }
+      .quiz summary { flex-direction: column; gap: 4px; }
+      footer { padding: 20px 16px; flex-direction: column; align-items: flex-start; gap: 16px; }
+      .footer-links { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="/index.html" class="nav-logo">Heritage Atlas Delhi</a>
+    <div class="nav-links">
+      <a href="/explore.html">Explore</a>
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/modules.html" class="current" aria-current="page">Modules</a>
+      <a href="/about.html">About</a>
+      <a href="/report.html" class="nav-cta">Report behaviour</a>
+    </div>
+    <div class="nav-mobile-right">
+      <a href="/report.html" class="nav-mobile-cta">Report behaviour</a>
+      <button class="hamburger" id="hamburger" onclick="toggleDrawer()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-drawer" id="navDrawer">
+    <a href="/explore.html" onclick="closeDrawer()">Explore</a>
+    <a href="/dashboard.html" onclick="closeDrawer()">Dashboard</a>
+    <a href="/modules.html" onclick="closeDrawer()">Modules</a>
+    <a href="/about.html" onclick="closeDrawer()">About</a>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <h1>Nine in ten reports are about two things</h1>
+    <p class="hero-sub">Visitors sent us 123 reports from Delhi monuments between 30 May and 31 October 2026. Each brick below is one report, laid in the order it arrived. The oldest sit at the bottom.</p>
+
+    <div class="wall" id="wall" role="img" aria-label="A wall of 123 bricks, one per report. 91 are dark for vandalism and graffiti, 20 are amber for littering and waste, and 12 are pale for everything else."></div>
+
+    <div class="wall-foot">
+      <div class="wall-pills" role="group" aria-label="Highlight a type of report">
+        <button class="wall-pill" data-f="all" aria-pressed="true"><span class="swatch sw-all"></span>All 123</button>
+        <button class="wall-pill" data-f="v" aria-pressed="false"><span class="swatch sw-v"></span>Vandalism and graffiti</button>
+        <button class="wall-pill" data-f="l" aria-pressed="false"><span class="swatch sw-l"></span>Littering and waste</button>
+        <button class="wall-pill" data-f="o" aria-pressed="false"><span class="swatch sw-o"></span>Everything else</button>
+      </div>
+      <div class="wall-readout" id="readout" aria-live="polite"></div>
+    </div>
+  </header>
+
+  <!-- MODULE CONTENT -->
+  <div class="layout">
+
+    <aside class="rail" aria-label="Module navigation">
+      <div class="rail-title">In this module</div>
+      <ul class="rail-list" id="railList">
+        <li><a href="#data">What the data says</a></li>
+        <li><a href="#vandalism">What vandalism is</a></li>
+        <li><a href="#noticed">Why graffiti gets reported</a></li>
+        <li><a href="#missing">What nobody reports</a></li>
+        <li><a href="#official">The official record</a></li>
+        <li><a href="#limits">What data cannot tell you</a></li>
+        <li><a href="#act">What you can do</a></li>
+        <li><a href="#quiz">Check yourself</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ul>
+    </aside>
+
+    <article id="module-1">
+
+      <p class="lede">After this module you will know what visitors report most at Delhi monuments, what almost nobody reports, and how to spot and report damage yourself. It takes about ten minutes to read.</p>
+
+      <section id="data">
+        <h2>What does the data say?</h2>
+        <p>Vandalism and graffiti make up 74% of all reports. Littering adds another 16%. That leaves 12 reports for everything else, about one in ten.</p>
+
+        <div class="data" id="dataTable"></div>
+        <p class="data-note">Snapshot of all 123 reports as of 31 October 2026. Percentages are rounded. Live figures are on the <a href="/dashboard.html">dashboard</a>.</p>
+
+        <p>Humayun's Tomb drew the most reports with 23. Red Fort looks different. Four of its six reports are about littering, not graffiti.</p>
+      </section>
+
+      <section id="vandalism">
+        <h2>What counts as vandalism, and why does it happen?</h2>
+        <p>Vandalism means deliberately damaging something that is not yours. At a monument that usually means scratching, carving or writing on old stone, brick or plaster.</p>
+        <p>The reasons vary, but a few come up often. Some people want to mark that they were present. Some think the wall is already old, so one more scratch will not matter. Some simply do not know the rules.</p>
+        <p>The damage is hard to undo. Carved stone cannot be repaired the way a painted wall can, and cleaning can wear down an old surface too, so conservators have to be careful.</p>
+      </section>
+
+      <section id="noticed">
+        <h2>Why does graffiti get reported so often?</h2>
+        <p>Think about what makes a report easy to send. You have to see the damage, photograph it in seconds and feel that it is wrong. Graffiti does all three. A plastic bottle against a tomb wall does too, which is why littering is second.</p>
+        <p>Now think about damage you cannot read in one second. A slow crack, water seeping into a wall or roots pushing stones apart can look like ordinary old age to a visitor. That kind of damage can be more serious, and it is much harder to photograph and explain.</p>
+      </section>
+
+      <section id="missing">
+        <h2>What is nobody reporting?</h2>
+        <div class="callout">
+          <p>Out of 123 reports, 1 was about encroachment and 3 were about plants growing into walls.</p>
+          <p>Our form has no category for cracks, seepage or structural decay. Those would have to land in Other, which has 5 reports.</p>
+        </div>
+        <p>Encroachment is a good example of a gap. Parliament was told that about 11% of ASI protected sites, 414 in all, have encroachment. In Delhi, 14 of the 174 centrally protected sites are affected, according to <a href="https://theprint.in/feature/asi-monuments-up-the-encroachments-india/2896130/" target="_blank" rel="noopener">ThePrint's report on the figures</a>. It is a big problem and our visitors barely noticed it.</p>
+      </section>
+
+      <section id="official">
+        <h2>What does the official record say?</h2>
+        <p>We filed an RTI with ASI for its own data. For all 174 centrally protected monuments in Delhi, across two financial years, ASI recorded one incident of damage. It was a jali at Zafar Mahal in December 2023. One FIR was filed.</p>
+
+        <div class="versus" aria-label="One brick for ASI's record against 91 bricks for our graffiti reports">
+          <div>
+            <div class="versus-label"><strong>ASI formal record for Delhi:</strong> 1 incident of damage in two financial years.</div>
+            <div class="minis"><span class="mini"></span></div>
+          </div>
+          <div>
+            <div class="versus-label"><strong>Our public reports:</strong> 91 reports of vandalism and graffiti in five months.</div>
+            <div class="minis" id="minis"></div>
+          </div>
+        </div>
+
+        <p>Be careful with this comparison. ASI counts incidents it formally records, and we count photos sent by the public. They are not the same measure. What the gap does suggest is that everyday damage mostly never reaches an official count.</p>
+        <p>The national picture is similar. Parliament was told of <a href="https://www.deccanherald.com/amp/story/india%2Ffrom-uttarakhand-temple-to-zafar-mahal-string-of-vandalism-incidents-took-place-at-asi-sites-in-2020-24-3466113" target="_blank" rel="noopener">16 vandalism incidents, including theft, at ASI sites between 2020 and 2024</a>. A 2021 parliamentary committee also noted that ASI had no central system for the public to report vandalism.</p>
+      </section>
+
+      <section id="limits">
+        <h2>What can this data not tell you?</h2>
+        <div class="blindspot-stream">
+          <div class="blindspot-row">
+            <div class="blindspot-tag">BIAS</div>
+            <div class="blindspot-body">
+              <h3>Visibility over Severity</h3>
+              <p>These reports reflect only what casual observers notice and document. Slow structural decays like micro-fractures, rising dampness, and seepage go unflagged by untrained eyes, mapping human attention spans rather than true structural risk.</p>
+            </div>
+          </div>
+          <div class="blindspot-row">
+            <div class="blindspot-tag">SKEW</div>
+            <div class="blindspot-body">
+              <h3>Footfall Bias</h3>
+              <p>Report volume correlates heavily with site accessibility and tourist density. Major ticketed nodes like Humayun's Tomb accumulate high counts due to massive visitor inflows, leaving remote monuments unrepresented.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="act">
+        <h2>What can you do this week?</h2>
+        <ol class="steps">
+          <li><strong>Look past the obvious.</strong> At your next monument visit, find one thing that is not graffiti or litter. Check for cracks, plants growing out of walls and stained patches.</li>
+          <li><strong>Photograph it safely.</strong> Stay on the visitor path and never touch or climb the structure. Take one wide shot and one close shot.</li>
+          <li><strong>Report it.</strong> Send it with the monument name and the date. It takes under two minutes and needs no account.</li>
+        </ol>
+        <a href="/report.html" class="btn-primary">Report behaviour</a>
+      </section>
+
+      <section id="quiz">
+        <h2>Check yourself</h2>
+        <div class="quiz">
+          <details>
+            <summary><span>What share of our reports were about vandalism and graffiti?</span><span class="reveal">Show answer</span></summary>
+            <p>74%. Adding littering takes it to 90%.</p>
+          </details>
+          <details>
+            <summary><span>Which two types of damage made up 90% of reports?</span><span class="reveal">Show answer</span></summary>
+            <p>Vandalism and graffiti, and littering and waste.</p>
+          </details>
+          <details>
+            <summary><span>Why is slow structural damage rarely reported?</span><span class="reveal">Show answer</span></summary>
+            <p>It is hard to see in a moment and it can look like normal ageing, so it is hard to photograph and explain.</p>
+          </details>
+          <details>
+            <summary><span>Why can't this data tell us which damage is worst?</span><span class="reveal">Show answer</span></summary>
+            <p>People only report what they notice, and busy sites get more reports. The data shows visibility, not severity.</p>
+          </details>
+          <details>
+            <summary><span>You see a crack running up a wall at a monument. What do you do?</span><span class="reveal">Show answer</span></summary>
+            <p>Photograph it safely from the visitor path, note the monument and the exact spot, and report it.</p>
+          </details>
+        </div>
+      </section>
+
+      <section id="sources">
+        <h2>Sources and credits</h2>
+        <ul class="sources">
+          <li>Our own citizen reports and the ASI RTI reply, both on the <a href="/dashboard.html">dashboard</a></li>
+          <li><a href="https://www.deccanherald.com/amp/story/india%2Ffrom-uttarakhand-temple-to-zafar-mahal-string-of-vandalism-incidents-took-place-at-asi-sites-in-2020-24-3466113" target="_blank" rel="noopener">Deccan Herald on vandalism incidents at ASI sites, 2020 to 2024</a></li>
+          <li><a href="https://eparlib.sansad.in/bitstream/123456789/2983807/1/AU1014_gvypnC.pdf" target="_blank" rel="noopener">Lok Sabha reply on vandalism at protected monuments, 2 December 2024</a></li>
+          <li><a href="https://theprint.in/feature/asi-monuments-up-the-encroachments-india/2896130/" target="_blank" rel="noopener">ThePrint on encroachment at ASI monuments</a></li>
+        </ul>
+      </section>
+
+    </article>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>Heritage Atlas Delhi &nbsp;·&nbsp; Built on <a href="https://amzn.in/d/09U6ro4Y" target="_blank" rel="noopener">Pillars of Delhi</a> by Arnav Agarwal &nbsp;·&nbsp; Expert endorsed</div>
+    <div class="footer-links">
+      <a href="/explore.html">Explore</a>
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/modules.html">Modules</a>
+      <a href="/report.html">Report</a>
+      <a href="/about.html">About</a>
+    </div>
+  </footer>
+
+  <script>
+    // ── NAV DRAWER ─────────────────────────────────────────────────────
+    function toggleDrawer() {
+      document.getElementById('navDrawer').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
+    }
+    function closeDrawer() {
+      document.getElementById('navDrawer').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
+    }
+
+    // ── DATA SNAPSHOT (123 reports, 30 May to 31 Oct 2026) ─────────────
+    const SEQ = 'vvvvlvvvvv' + 'vvlvvvvvvv' + 'vlvvvlvllv' + 'vvvvgvvoov' + 'vvvlvvvvvv' + 'vvvvvlevlv' +
+                'fvlvlvvvvv' + 'vvvvvvvlvv' + 'lvlvvvgvva' + 'lvvlvvlvvl' + 'vvlvvoovvv' + 'lvgvvvvvav' + 'ovv';
+    const TOTAL = SEQ.length; // 123
+    const GROUP = { v: 'v', l: 'l' };
+    const LABEL = { v: 'vandalism and graffiti', l: 'littering and waste', g: 'vegetation damage',
+                    o: 'other', e: 'encroachment', f: 'fire and smoke damage', a: 'animal harm' };
+    const count = c => SEQ.split(c).length - 1;
+    const nV = count('v'), nL = count('l'), nO = TOTAL - nV - nL;
+    const pct = n => Math.round(n / TOTAL * 100);
+
+    // ── THE WALL ───────────────────────────────────────────────────────
+    const wall = document.getElementById('wall');
+    let firstBuild = true;
+
+    function buildWall() {
+      const W = wall.clientWidth;
+      const gap = 4;
+      const target = W < 560 ? 40 : 64;
+      const n = Math.max(6, Math.round(W / (target + gap)));
+      const bw = (W - (n - 0.5) * gap) / (n + 0.5);
+      wall.style.setProperty('--bw', bw + 'px');
+      wall.classList.toggle('static', !firstBuild);
+
+      const frag = document.createDocumentFragment();
+      for (let start = 0, row = 0; start < TOTAL; start += n, row++) {
+        const course = document.createElement('div');
+        course.className = 'course' + (row % 2 ? ' offset' : '');
+        for (let i = start; i < Math.min(start + n, TOTAL); i++) {
+          const c = SEQ[i];
+          const b = document.createElement('div');
+          b.className = 'brick t-' + (GROUP[c] || 'o');
+          b.style.setProperty('--i', i);
+          b.title = 'Report ' + (i + 1) + ', ' + LABEL[c];
+          course.appendChild(b);
+        }
+        frag.appendChild(course);
+      }
+      wall.replaceChildren(frag);
+      firstBuild = false;
+    }
+
+    let resizeTimer;
+    let lastW = 0;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (wall.clientWidth !== lastW) { lastW = wall.clientWidth; buildWall(); }
+      }, 150);
+    });
+    lastW = wall.clientWidth;
+    buildWall();
+
+    // ── WALL FILTERS ───────────────────────────────────────────────────
+    const readout = document.getElementById('readout');
+    const counts = { v: nV, l: nL, o: nO };
+    const names = { v: 'vandalism and graffiti', l: 'littering and waste', o: 'everything else' };
+    document.querySelectorAll('.wall-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const f = btn.dataset.f;
+        document.querySelectorAll('.wall-pill').forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+        if (f === 'all') {
+          wall.removeAttribute('data-filter');
+          readout.textContent = '';
+        } else {
+          wall.setAttribute('data-filter', f);
+          readout.textContent = counts[f] + ' of ' + TOTAL + ' reports (' + pct(counts[f]) + '%) are ' + names[f];
+        }
+      });
+    });
+
+    // ── DATA TABLE ─────────────────────────────────────────────────────
+    const rows = [
+      ['Vandalism and graffiti', nV, '#1A1A1A', 'sw-v'],
+      ['Littering and waste', nL, '#E8A830', 'sw-l'],
+      ['Other', count('o'), '#8A8880', ''],
+      ['Vegetation damage', count('g'), '#8A8880', ''],
+      ['Animal harm', count('a'), '#8A8880', ''],
+      ['Encroachment', count('e'), '#8A8880', ''],
+      ['Fire and smoke damage', count('f'), '#8A8880', '']
+    ];
+    document.getElementById('dataTable').innerHTML = rows.map(r =>
+      '<div class="data-row">' +
+        '<div class="name">' + (r[3] ? '<span class="swatch ' + r[3] + '"></span>' : '<span class="swatch" style="background:#8A8880"></span>') + r[0] + '</div>' +
+        '<div class="bar-track"><div class="bar-fill" style="width:' + (r[1] / nV * 100) + '%;background:' + r[2] + '"></div></div>' +
+        '<div class="num">' + r[1] + ' <span>' + pct(r[1]) + '%</span></div>' +
+      '</div>'
+    ).join('');
+
+    // ── 91 MINI BRICKS ─────────────────────────────────────────────────
+    document.getElementById('minis').innerHTML = '<span class="mini"></span>'.repeat(nV);
+
+    // ── RAIL HIGHLIGHT ─────────────────────────────────────────────────
+    const links = [...document.querySelectorAll('#railList a')];
+    const targets = links.map(a => document.querySelector(a.getAttribute('href')));
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
+          }
+        });
+      }, { rootMargin: '-20% 0px -70% 0px' });
+      targets.forEach(t => t && io.observe(t));
+    }
+  </script>
+</body>
+</html>
